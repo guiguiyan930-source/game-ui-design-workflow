@@ -40,6 +40,8 @@ python3 -m pip install -r requirements.txt
 - PNG：读取实际宽高和 Alpha / `tRNS` 透明信息
 - SVG：读取 `width`、`height` 或 `viewBox`
 - ZIP：雪碧图组件包检查文件格式和可解压性
+- Atlas：RGBA PNG 与 JSON regions，不旋转素材
+- 引擎交付：Godot、Unity、Cocos JSON handoff
 
 其他格式：
 
@@ -50,6 +52,8 @@ python3 -m pip install -r requirements.txt
 需要严格交付时，页面优先使用 PNG，透明控件使用 PNG 或 SVG。
 
 雪碧图自动拆分支持透明背景和近似纯色背景。复杂渐变背景、元素遮挡或粘连无法可靠自动恢复，应重新生成规范雪碧图。
+
+内置 exporter 不生成原生 Godot、Unity 或 Cocos 工程文件；具体边界见 [Factory v2 架构](GAME_UI_FACTORY_V2.zh-CN.md)。
 
 ## 图片比例
 

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import re
 import shutil
 import statistics
 import zipfile
@@ -13,6 +14,9 @@ from typing import Any
 
 import yaml
 from PIL import Image, ImageChops, ImageFilter
+
+
+ID_PATTERN = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 
 
 @dataclass(frozen=True)
@@ -184,6 +188,7 @@ def split_sprite_sheet(
     zip_path: Path,
     settings: SplitSettings,
     force: bool = False,
+    semantic_items: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     if not source.is_file():
         raise FileNotFoundError(f"sprite sheet not found: {source}")
@@ -201,6 +206,11 @@ def split_sprite_sheet(
         size = settings.connect_gap * 2 + 1
         detection_mask = original_mask.filter(ImageFilter.MaxFilter(size))
     boxes = connected_boxes(detection_mask, settings.min_area)
+    if semantic_items is not None and len(semantic_items) != len(boxes):
+        raise ValueError(
+            f"mapping contains {len(semantic_items)} item(s), "
+            f"but detection found {len(boxes)}"
+        )
 
     items: list[dict[str, Any]] = []
     for box in boxes:
@@ -211,24 +221,37 @@ def split_sprite_sheet(
         if detected_mode == "background":
             crop.putalpha(original_mask.crop(crop_box))
         index = len(items) + 1
-        item_id = f"{settings.prefix}-{index:03d}"
+        semantic = semantic_items[index - 1] if semantic_items is not None else {}
+        semantic_name = semantic.get("semantic_name")
+        if semantic_name is not None and (
+            not isinstance(semantic_name, str)
+            or not ID_PATTERN.fullmatch(semantic_name)
+        ):
+            raise ValueError(
+                f"mapping item {index}: semantic_name must use kebab-case"
+            )
+        item_id = semantic_name or f"{settings.prefix}-{index:03d}"
+        if any(item["id"] == item_id for item in items):
+            raise ValueError(f"mapping item {index}: duplicate ID {item_id!r}")
         filename = f"{item_id}.png"
         path = output_dir / filename
         crop.save(path, "PNG", optimize=True)
-        items.append(
-            {
-                "id": item_id,
-                "path": filename,
-                "bbox": [
-                    crop_box[0],
-                    crop_box[1],
-                    crop_box[2] - crop_box[0],
-                    crop_box[3] - crop_box[1],
-                ],
-                "dimensions": [crop.width, crop.height],
-                "transparent_background": True,
-            }
-        )
+        item = {
+            "id": item_id,
+            "path": filename,
+            "bbox": [
+                crop_box[0],
+                crop_box[1],
+                crop_box[2] - crop_box[0],
+                crop_box[3] - crop_box[1],
+            ],
+            "dimensions": [crop.width, crop.height],
+            "transparent_background": True,
+        }
+        for key in ("semantic_name", "component_id", "category", "state", "slice"):
+            if key in semantic:
+                item[key] = semantic[key]
+        items.append(item)
 
     if not items:
         raise ValueError("no sprite elements detected; adjust mode or thresholds")
@@ -288,6 +311,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--min-area", type=int, default=64)
     parser.add_argument("--padding", type=int, default=4)
     parser.add_argument("--prefix", default="element")
+    parser.add_argument(
+        "--mapping",
+        type=Path,
+        help="YAML file with an ordered 'items' list for semantic filenames.",
+    )
     parser.add_argument("--force", action="store_true")
     return parser.parse_args()
 
@@ -315,10 +343,23 @@ def main() -> int:
         prefix=args.prefix,
     )
     try:
+        semantic_items = None
+        if args.mapping:
+            mapping = yaml.safe_load(args.mapping.read_text(encoding="utf-8"))
+            if not isinstance(mapping, dict) or not isinstance(mapping.get("items"), list):
+                raise ValueError("mapping YAML requires an 'items' list")
+            semantic_items = mapping["items"]
+            if not all(isinstance(item, dict) for item in semantic_items):
+                raise ValueError("every mapping item must be a mapping")
         manifest = split_sprite_sheet(
-            source, output_dir, zip_path, settings, args.force
+            source,
+            output_dir,
+            zip_path,
+            settings,
+            args.force,
+            semantic_items,
         )
-    except (FileNotFoundError, FileExistsError, ValueError, OSError) as error:
+    except (FileNotFoundError, FileExistsError, ValueError, OSError, yaml.YAMLError) as error:
         print(f"ERROR: {error}")
         return 2
     print(f"Split {manifest['item_count']} element(s) into: {output_dir}")

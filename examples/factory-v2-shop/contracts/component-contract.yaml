@@ -1,0 +1,95 @@
+schema_version: 1
+project_id: "factory-v2-shop"
+source_screen_id: shop
+source_screen_status: approved
+components:
+  - id: shop-buy-button
+    name: Purchase button base
+    category: button
+    reusable: true
+    transparent_background: true
+    text_policy: no-text
+    target_size: [311, 111]
+    states: [normal, hover, pressed]
+    material: painted-wood
+    atlas_group: button
+    slice: {type: 9-slice, margins: [36, 36, 28, 28]}
+    export_targets: [godot, unity]
+    style_dependencies: [colors.primary, geometry.radius, effects.highlight]
+    prompt: prompts/components/shop-components-sheet.md
+    output: assets/sprites/shop-components/items/shop-buy-button-normal.png
+  - id: shop-category-tab
+    name: Category tab base
+    category: button
+    reusable: true
+    transparent_background: true
+    text_policy: no-text
+    target_size: [271, 95]
+    states: [active, inactive]
+    material: painted-wood
+    atlas_group: button
+    slice: {type: 9-slice, margins: [28, 28, 22, 22]}
+    export_targets: [godot, unity]
+    style_dependencies: [colors.primary, colors.secondary, geometry.radius]
+    prompt: prompts/components/shop-components-sheet.md
+    output: assets/sprites/shop-components/items/shop-category-tab-active.png
+  - id: shop-product-card
+    name: Product card
+    category: card
+    reusable: true
+    transparent_background: true
+    text_policy: no-text
+    target_size: [371, 311]
+    states: [default]
+    material: parchment
+    atlas_group: card
+    slice: {type: full, margins: [0, 0, 0, 0]}
+    export_targets: [godot, unity]
+    style_dependencies: [colors.secondary, visual.materials, effects.shadow]
+    prompt: prompts/components/shop-components-sheet.md
+    output: assets/sprites/shop-components/items/shop-product-card-default.png
+  - id: shop-currency-coin
+    name: Gold currency icon
+    category: currency
+    reusable: true
+    transparent_background: true
+    text_policy: no-text
+    target_size: [107, 107]
+    states: [default]
+    material: enamel
+    atlas_group: icon
+    slice: {type: "1:1", margins: [0, 0, 0, 0]}
+    export_targets: [godot, unity]
+    style_dependencies: [colors.accent, geometry.stroke]
+    prompt: prompts/components/shop-components-sheet.md
+    output: assets/sprites/shop-components/items/shop-currency-coin-default.png
+  - id: shop-sale-badge
+    name: Sale badge base
+    category: badge
+    reusable: true
+    transparent_background: true
+    text_policy: no-text
+    target_size: [151, 83]
+    states: [default]
+    material: painted-cloth
+    atlas_group: badge
+    slice: {type: full, margins: [0, 0, 0, 0]}
+    export_targets: [godot, unity]
+    style_dependencies: [colors.warning, geometry.stroke]
+    prompt: prompts/components/shop-components-sheet.md
+    output: assets/sprites/shop-components/items/shop-sale-badge-default.png
+  - id: shop-upgrade-progress
+    name: Shop upgrade progress base
+    category: progress
+    reusable: true
+    transparent_background: true
+    text_policy: no-text
+    target_size: [361, 81]
+    states: [default]
+    material: painted-wood
+    atlas_group: progress
+    slice: {type: 9-slice, margins: [28, 28, 20, 20]}
+    export_targets: [godot, unity]
+    style_dependencies: [colors.primary, colors.background, geometry.radius]
+    prompt: prompts/components/shop-components-sheet.md
+    output: assets/sprites/shop-components/items/shop-upgrade-progress-default.png

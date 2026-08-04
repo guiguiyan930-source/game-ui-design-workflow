@@ -1,0 +1,39 @@
+schema_version: 1
+project_id: "factory-v2-shop"
+assets:
+  - id: page-shop-v1
+    kind: page
+    screen_id: shop
+    component_id: null
+    status: approved
+    path: assets/pages/shop-v1.png
+    prompt_path: prompts/pages/shop.md
+    dimensions: [1920, 1080]
+    transparent_background: false
+    approved: true
+    source_asset: null
+    notes: Reconstructed from the public case description because the shared upload is unavailable.
+  - id: sprite-sheet-shop-components-v1
+    kind: sprite-sheet
+    screen_id: shop
+    component_id: null
+    status: approved
+    path: assets/sprites/shop-components-sheet.png
+    prompt_path: prompts/components/shop-components-sheet.md
+    dimensions: [1600, 900]
+    transparent_background: true
+    approved: true
+    source_asset: page-shop-v1
+    notes: Text-free intermediate sheet for semantic splitting.
+  - id: package-shop-components-v1
+    kind: package
+    screen_id: shop
+    component_id: null
+    status: approved
+    path: packages/shop-components-png.zip
+    prompt_path: null
+    dimensions: null
+    transparent_background: null
+    approved: true
+    source_asset: sprite-sheet-shop-components-v1
+    notes: Nine transparent semantic PNG files plus sprite-manifest.yaml.

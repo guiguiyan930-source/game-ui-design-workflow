@@ -2,6 +2,23 @@
 
 本项目遵循 [Semantic Versioning](https://semver.org/)。
 
+## [0.3.0] - 2026-08-05
+
+### Added
+
+- Game UI Factory v2 欧美卡通生存商店完整案例。
+- 语义 mapping，将自动切片序号转换为稳定组件名称。
+- 组件切图方式与人工审核 9-slice 元数据。
+- 确定性 Atlas PNG + JSON 打包脚本。
+- Godot、Unity、Cocos JSON handoff 导出脚本。
+- `game-ui-asset-pipeline` 技能、设计 Token 和语义命名规范。
+- Atlas / export 可选契约、JSON Schema、配置与路线图说明。
+
+### Changed
+
+- 总控流程从六类视觉产物扩展到开发资产交付。
+- 严格校验覆盖语义切片、9-slice、Atlas 与引擎 JSON。
+
 ## [0.2.1] - 2026-08-04
 
 - 强制雪碧图元素去掉标题、按钮文案、数字标签、水印和文字残影；批准包必须通过 `review.text_free` 人工验收。
@@ -37,6 +54,7 @@
 - “月宫列传”完整项目，以及风格切换、页面延展和组件包拆解操作示例。
 - 中文技能调用指南、贡献指南、Issue 模板和 PR 模板。
 
+[0.3.0]: https://github.com/guiguiyan930-source/game-ui-design-workflow/releases/tag/v0.3.0
 [0.2.1]: https://github.com/guiguiyan930-source/game-ui-design-workflow/releases/tag/v0.2.1
 [0.2.0]: https://github.com/guiguiyan930-source/game-ui-design-workflow/releases/tag/v0.2.0
 [0.1.0]: https://github.com/guiguiyan930-source/game-ui-design-workflow/releases/tag/v0.1.0

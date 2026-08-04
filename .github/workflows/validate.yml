@@ -33,3 +33,6 @@ jobs:
 
       - name: Validate complete example
         run: python scripts/validate_project.py examples/moon-palace-rpg --strict
+
+      - name: Validate Factory v2 example
+        run: python scripts/validate_project.py examples/factory-v2-shop --strict

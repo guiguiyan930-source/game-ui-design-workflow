@@ -1,0 +1,17 @@
+schema_version: 1
+project_id: "{{PROJECT_ID}}"
+status: draft
+atlas_id: ui-main
+source_sprite_pack: ui-components
+settings:
+  max_size: [2048, 2048]
+  padding: 2
+  power_of_two: true
+  allow_rotation: false
+output:
+  image_path: assets/atlases/ui-main.png
+  data_path: assets/atlases/ui-main.json
+items: []
+review:
+  complete: false
+  notes: []

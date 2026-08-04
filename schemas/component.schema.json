@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Game UI Component",
+  "type": "object",
+  "required": ["id", "category", "target_size", "states", "slice"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "category": {
+      "enum": [
+        "background",
+        "button",
+        "frame",
+        "panel",
+        "card",
+        "icon",
+        "badge",
+        "progress",
+        "popup",
+        "decoration",
+        "currency",
+        "character",
+        "npc",
+        "texture",
+        "control",
+        "container"
+      ]
+    },
+    "target_size": {
+      "type": "array",
+      "prefixItems": [
+        {"type": "integer", "minimum": 1},
+        {"type": "integer", "minimum": 1}
+      ],
+      "items": false
+    },
+    "states": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "slice": {
+      "type": "object",
+      "required": ["type", "margins"],
+      "properties": {
+        "type": {"enum": ["9-slice", "full", "1:1", "tile"]},
+        "margins": {
+          "type": "array",
+          "prefixItems": [
+            {"type": "integer", "minimum": 0},
+            {"type": "integer", "minimum": 0},
+            {"type": "integer", "minimum": 0},
+            {"type": "integer", "minimum": 0}
+          ],
+          "items": false
+        }
+      }
+    }
+  }
+}

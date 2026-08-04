@@ -1,0 +1,65 @@
+schema_version: 1
+project_id: "factory-v2-shop"
+status: approved
+platform:
+  target: desktop
+  orientation: landscape
+  aspect_ratio: "16:9"
+  reference_size: [1920, 1080]
+  safe_area:
+    top: 24
+    right: 30
+    bottom: 25
+    left: 30
+visual:
+  theme: post-apocalyptic cartoon survival shop
+  keywords: [western-cartoon, roguelike, warm-wood, parchment, survival]
+  mood: warm, playful, resilient
+  complexity: high
+  materials: [painted-wood, parchment, enamel, worn-metal]
+  lighting:
+    direction: top-left
+    softness: medium
+colors:
+  primary: "#58C36A"
+  secondary: "#F4D7A1"
+  accent: "#F4C64E"
+  background: "#2B2B32"
+  warning: "#E85D5D"
+  reward: "#67D6C7"
+  disabled: "#74746F"
+typography:
+  language: en-US
+  title: {size: 44, weight: 700}
+  section: {size: 32, weight: 700}
+  body: {size: 26, weight: 500}
+  number: {size: 34, weight: 700}
+  button: {size: 30, weight: 700}
+geometry:
+  radius: {small: 12, card: 18, modal: 28}
+  stroke: {thin: 2, regular: 4, strong: 8}
+  button_height: {small: 84, primary: 100}
+  icon_size: {utility: 64, navigation: 72, currency: 96}
+effects:
+  shadow: "soft 0 8 20 rgba(20,15,12,0.40)"
+  highlight: "warm top-left enamel highlight"
+  selected: "green fill with parchment outline"
+  disabled: "desaturated 55 percent with reduced contrast"
+tokens:
+  color:
+    action-primary: "#58C36A"
+    action-danger: "#E85D5D"
+    surface-panel: "#4A3328"
+    text-primary: "#FFF7DF"
+  spacing:
+    xs: 4
+    sm: 8
+    md: 16
+    lg: 24
+  motion:
+    fast-ms: 120
+    normal-ms: 220
+consistency_rules:
+  - All pages use the same light direction and material vocabulary.
+  - Category tabs and purchase controls share outline, radius, and state contrast.
+  - Component sheets contain no text; labels are composited in the engine.

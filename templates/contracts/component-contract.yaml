@@ -11,6 +11,10 @@ components:
     text_policy: none
     target_size: [1080, 1920]
     states: [default]
+    material: scene
+    atlas_group: background
+    slice: {type: full, margins: [0, 0, 0, 0]}
+    export_targets: [godot, unity]
     style_dependencies:
       - visual.materials
       - visual.lighting
@@ -25,6 +29,10 @@ components:
     text_policy: no-text
     target_size: [640, 192]
     states: [default, pressed, disabled]
+    material: ""
+    atlas_group: button
+    slice: {type: 9-slice, margins: [24, 24, 24, 24]}
+    export_targets: [godot, unity]
     style_dependencies:
       - colors.primary
       - geometry.radius

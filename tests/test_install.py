@@ -32,7 +32,7 @@ class InstallScriptTests(unittest.TestCase):
 
             self.assertEqual(result.returncode, 0, result.stderr)
             installed = sorted((project / ".cursor" / "skills").glob("*/SKILL.md"))
-            self.assertEqual(len(installed), 6)
+            self.assertEqual(len(installed), 7)
 
     def test_existing_skills_are_skipped_without_force(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
@@ -45,7 +45,7 @@ class InstallScriptTests(unittest.TestCase):
             result = self.run_installer("--project", str(project))
 
             self.assertEqual(result.returncode, 0, result.stderr)
-            self.assertIn("0 installed, 6 skipped", result.stdout)
+            self.assertIn("0 installed, 7 skipped", result.stdout)
 
     def test_force_replaces_existing_skill_directory(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
@@ -86,7 +86,7 @@ class InstallScriptTests(unittest.TestCase):
 
             self.assertEqual(result.returncode, 0, result.stderr)
             installed = sorted((Path(temp) / ".cursor" / "skills").glob("*/SKILL.md"))
-            self.assertEqual(len(installed), 6)
+            self.assertEqual(len(installed), 7)
 
 
 if __name__ == "__main__":

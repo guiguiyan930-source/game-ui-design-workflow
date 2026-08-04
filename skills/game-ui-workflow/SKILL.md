@@ -1,6 +1,6 @@
 ---
 name: game-ui-workflow
-description: Orchestrates an end-to-end game UI workflow from requirements and reference-image analysis through design specification, screen-system extension, page image generation, component breakdown, sprite-sheet splitting, PNG ZIP packaging, asset registration, and validation. Use when users ask to build, extend, visualize, split, or deliver a coherent multi-screen game UI project rather than one isolated artifact.
+description: Orchestrates an end-to-end game UI workflow from requirements and reference-image analysis through design specification, screen-system extension, page image generation, component breakdown, sprite-sheet splitting, PNG ZIP packaging, atlas packing, engine JSON handoff, asset registration, and validation. Use when users ask to build, extend, visualize, split, or deliver a coherent multi-screen game UI project rather than one isolated artifact.
 ---
 
 # 游戏 UI 总控工作流
@@ -16,19 +16,21 @@ description: Orchestrates an end-to-end game UI workflow from requirements and r
 - 完整单页、原型视觉、页面生图 → `game-ui-page-generator`
 - 透明组件、切图、素材拆解 → `game-ui-component-breakdown`
 - 雪碧图、单元素 PNG、切片打包 → `game-ui-sprite-sheet-splitter`
+- Atlas、9-slice、Godot / Unity / Cocos JSON → `game-ui-asset-pipeline`
 - 完整项目或多阶段交付 → 按本工作流依次编排
 
 用户明确要求单阶段时，不强迫执行完整流程；但要读取已有契约。
 
 ## 分步操作指引
 
-当用户按“原型生成视觉 → UI 风格切换 → UI 延展 → UI 组件拆解 → 雪碧图拆分打包”工作时，使用以下五个检查点：
+当用户按“原型生成视觉 → UI 风格切换 → UI 延展 → UI 组件拆解 → 雪碧图拆分打包 → Atlas 与引擎交付”工作时，使用以下六个检查点：
 
 1. 原型生成视觉：用一个基准页面验证构图和信息层级，保存为未批准版本。
 2. UI 风格切换：保持页面结构不变生成风格候选；用户选定后再批准样式契约和基准页。
 3. UI 延展：先输出屏幕地图并等待范围确认，再按批次逐页生成。
 4. UI 组件拆解：只拆已批准页面，每个组件和状态单独交付。
 5. 雪碧图拆分打包：把组件合图切成单元素透明 PNG，生成 manifest 和 ZIP。
+6. Atlas 与引擎交付：语义命名、确认 9-slice、打包 Atlas 并生成引擎 JSON。
 
 每一步开始时简要说明：
 
@@ -56,6 +58,7 @@ description: Orchestrates an end-to-end game UI workflow from requirements and r
 - 页面范围未确认时，只完成屏幕地图。
 - 源页面未批准时，不拆组件。
 - 组件雪碧图不存在时，不伪造单元素 PNG 或 ZIP。
+- 语义 mapping 和 9-slice 未审核时，不批准 Atlas 或引擎清单。
 
 ## 初始化
 
@@ -138,7 +141,17 @@ description: Orchestrates an end-to-end game UI workflow from requirements and r
 
 自动检测不可靠时调整阈值或重新生成留有间距的雪碧图，不得把错误切片标记为批准。
 
-### 8. Validate
+### 8. Atlas and engine handoff
+
+需要开发交付时调用 `game-ui-asset-pipeline`：
+
+1. 将检测序号映射为稳定语义名称。
+2. 为组件登记 `full`、`1:1`、`tile` 或人工审核的 `9-slice`。
+3. 生成不旋转的 Atlas PNG 与 JSON。
+4. 生成 Godot、Unity、Cocos 或通用 JSON 清单。
+5. 明确区分 JSON handoff 与原生引擎工程文件。
+
+### 9. Validate
 
 执行：
 
@@ -172,5 +185,6 @@ python3 scripts/validate_project.py specs/<project-id>
 - 页面及组件图片存在，或明确标记待生成
 - 视觉稿与组件均有提示词可复现
 - 使用雪碧图时，单元素 PNG、拆分 manifest 和 ZIP 包可追踪
+- 使用开发交付时，Atlas regions、9-slice 与引擎 JSON 一致
 - `tasks.md` 反映真实状态
 - 校验脚本无错误

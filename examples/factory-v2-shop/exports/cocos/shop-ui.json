@@ -1,0 +1,210 @@
+{
+  "schema_version": 1,
+  "engine": "cocos",
+  "atlas_id": "shop-ui",
+  "atlas_size": [
+    2048,
+    512
+  ],
+  "texture": "assets/atlases/shop-ui.png",
+  "frames": {
+    "shop-product-card-default": {
+      "rect": {
+        "x": 2,
+        "y": 2,
+        "width": 371,
+        "height": 311
+      },
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "originalSize": {
+        "width": 371,
+        "height": 311
+      },
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "shop-buy-button-hover": {
+      "rect": {
+        "x": 375,
+        "y": 2,
+        "width": 311,
+        "height": 111
+      },
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "originalSize": {
+        "width": 311,
+        "height": 111
+      },
+      "capInsets": [
+        36,
+        36,
+        28,
+        28
+      ]
+    },
+    "shop-buy-button-normal": {
+      "rect": {
+        "x": 688,
+        "y": 2,
+        "width": 311,
+        "height": 111
+      },
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "originalSize": {
+        "width": 311,
+        "height": 111
+      },
+      "capInsets": [
+        36,
+        36,
+        28,
+        28
+      ]
+    },
+    "shop-buy-button-pressed": {
+      "rect": {
+        "x": 1001,
+        "y": 2,
+        "width": 311,
+        "height": 111
+      },
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "originalSize": {
+        "width": 311,
+        "height": 111
+      },
+      "capInsets": [
+        36,
+        36,
+        28,
+        28
+      ]
+    },
+    "shop-currency-coin-default": {
+      "rect": {
+        "x": 1314,
+        "y": 2,
+        "width": 107,
+        "height": 107
+      },
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "originalSize": {
+        "width": 107,
+        "height": 107
+      },
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "shop-category-tab-active": {
+      "rect": {
+        "x": 1423,
+        "y": 2,
+        "width": 271,
+        "height": 95
+      },
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "originalSize": {
+        "width": 271,
+        "height": 95
+      },
+      "capInsets": [
+        28,
+        28,
+        22,
+        22
+      ]
+    },
+    "shop-category-tab-inactive": {
+      "rect": {
+        "x": 1696,
+        "y": 2,
+        "width": 271,
+        "height": 95
+      },
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "originalSize": {
+        "width": 271,
+        "height": 95
+      },
+      "capInsets": [
+        28,
+        28,
+        22,
+        22
+      ]
+    },
+    "shop-sale-badge-default": {
+      "rect": {
+        "x": 2,
+        "y": 315,
+        "width": 151,
+        "height": 83
+      },
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "originalSize": {
+        "width": 151,
+        "height": 83
+      },
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "shop-upgrade-progress-default": {
+      "rect": {
+        "x": 155,
+        "y": 315,
+        "width": 361,
+        "height": 81
+      },
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "originalSize": {
+        "width": 361,
+        "height": 81
+      },
+      "capInsets": [
+        28,
+        28,
+        20,
+        20
+      ]
+    }
+  }
+}

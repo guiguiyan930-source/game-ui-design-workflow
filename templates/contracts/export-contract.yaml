@@ -1,0 +1,17 @@
+schema_version: 1
+project_id: "{{PROJECT_ID}}"
+status: draft
+source_atlas_id: ui-main
+targets:
+  - engine: godot
+    format: json-manifest
+    manifest_path: exports/godot/ui-main.json
+    native_project_files: false
+  - engine: unity
+    format: json-manifest
+    manifest_path: exports/unity/ui-main.json
+    native_project_files: false
+review:
+  complete: false
+  notes:
+    - JSON manifests are deterministic handoff files, not native engine imports.

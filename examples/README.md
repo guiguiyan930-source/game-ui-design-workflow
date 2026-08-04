@@ -10,5 +10,6 @@
 - [UI 页面延展](screen-extension/README.md)：从一个首页建立首发屏幕地图，再逐页生成。
 - [UI 组件包拆解](component-pack/README.md)：从已批准页面拆出背景、按钮、导航和资源图标。
 - [雪碧图拆分与 PNG 打包](sprite-sheet-splitting/README.md)：自动切出单元素透明 PNG、生成 manifest 和 ZIP。
+- [Game UI Factory v2 商店](factory-v2-shop/README.md)：设计 Token、语义切图、9-slice、Atlas 与三种引擎 JSON。
 
 分阶段示例使用 `moon-palace-rpg` 作为输入，展示可复制调用文本、文件变化、人工门禁和验收方法。

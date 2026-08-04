@@ -30,6 +30,12 @@
 - [ ] [sprite] 导出单元素透明 PNG
 - [ ] [sprite] 检查误切并生成 ZIP 包
 
+## Atlas 与引擎交付
+
+- [ ] [atlas] 将自动序号映射为语义名称
+- [ ] [atlas] 审核 9-slice 并生成 Atlas
+- [ ] [export] 生成目标引擎 JSON handoff
+
 ## 验收
 
 - [ ] [qa] 更新资源清单

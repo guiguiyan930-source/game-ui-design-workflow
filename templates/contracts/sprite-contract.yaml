@@ -18,6 +18,9 @@ output:
   items_dir: assets/sprites/ui-components/items
   manifest_path: assets/sprites/ui-components/items/sprite-manifest.yaml
   package_path: packages/ui-components-png.zip
+semantic_mapping:
+  required: true
+  naming_pattern: "{category}-{variant}-{state}"
 items: []
 review:
   complete: false

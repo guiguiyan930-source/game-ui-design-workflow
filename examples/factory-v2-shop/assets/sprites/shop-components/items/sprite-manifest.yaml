@@ -1,0 +1,210 @@
+schema_version: 1
+source_sheet: shop-components-sheet.png
+detected_mode: alpha
+sampled_background: null
+settings:
+  alpha_threshold: 8
+  background_tolerance: 24
+  connect_gap: 2
+  min_area: 100
+  padding: 5
+item_count: 9
+items:
+- id: shop-buy-button-normal
+  path: shop-buy-button-normal.png
+  bbox:
+  - 45
+  - 55
+  - 311
+  - 111
+  dimensions:
+  - 311
+  - 111
+  transparent_background: true
+  semantic_name: shop-buy-button-normal
+  component_id: shop-buy-button
+  category: button
+  state: normal
+  slice:
+    type: 9-slice
+    margins:
+    - 36
+    - 36
+    - 28
+    - 28
+- id: shop-buy-button-hover
+  path: shop-buy-button-hover.png
+  bbox:
+  - 425
+  - 55
+  - 311
+  - 111
+  dimensions:
+  - 311
+  - 111
+  transparent_background: true
+  semantic_name: shop-buy-button-hover
+  component_id: shop-buy-button
+  category: button
+  state: hover
+  slice:
+    type: 9-slice
+    margins:
+    - 36
+    - 36
+    - 28
+    - 28
+- id: shop-buy-button-pressed
+  path: shop-buy-button-pressed.png
+  bbox:
+  - 805
+  - 55
+  - 311
+  - 111
+  dimensions:
+  - 311
+  - 111
+  transparent_background: true
+  semantic_name: shop-buy-button-pressed
+  component_id: shop-buy-button
+  category: button
+  state: pressed
+  slice:
+    type: 9-slice
+    margins:
+    - 36
+    - 36
+    - 28
+    - 28
+- id: shop-upgrade-progress-default
+  path: shop-upgrade-progress-default.png
+  bbox:
+  - 1175
+  - 70
+  - 361
+  - 81
+  dimensions:
+  - 361
+  - 81
+  transparent_background: true
+  semantic_name: shop-upgrade-progress-default
+  component_id: shop-upgrade-progress
+  category: progress
+  state: default
+  slice:
+    type: 9-slice
+    margins:
+    - 28
+    - 28
+    - 20
+    - 20
+- id: shop-product-card-default
+  path: shop-product-card-default.png
+  bbox:
+  - 755
+  - 215
+  - 371
+  - 311
+  dimensions:
+  - 371
+  - 311
+  transparent_background: true
+  semantic_name: shop-product-card-default
+  component_id: shop-product-card
+  category: card
+  state: default
+  slice:
+    type: full
+    margins:
+    - 0
+    - 0
+    - 0
+    - 0
+- id: shop-category-tab-active
+  path: shop-category-tab-active.png
+  bbox:
+  - 75
+  - 245
+  - 271
+  - 95
+  dimensions:
+  - 271
+  - 95
+  transparent_background: true
+  semantic_name: shop-category-tab-active
+  component_id: shop-category-tab
+  category: button
+  state: active
+  slice:
+    type: 9-slice
+    margins:
+    - 28
+    - 28
+    - 22
+    - 22
+- id: shop-category-tab-inactive
+  path: shop-category-tab-inactive.png
+  bbox:
+  - 405
+  - 245
+  - 271
+  - 95
+  dimensions:
+  - 271
+  - 95
+  transparent_background: true
+  semantic_name: shop-category-tab-inactive
+  component_id: shop-category-tab
+  category: button
+  state: inactive
+  slice:
+    type: 9-slice
+    margins:
+    - 28
+    - 28
+    - 22
+    - 22
+- id: shop-currency-coin-default
+  path: shop-currency-coin-default.png
+  bbox:
+  - 1215
+  - 255
+  - 107
+  - 107
+  dimensions:
+  - 107
+  - 107
+  transparent_background: true
+  semantic_name: shop-currency-coin-default
+  component_id: shop-currency-coin
+  category: currency
+  state: default
+  slice:
+    type: '1:1'
+    margins:
+    - 0
+    - 0
+    - 0
+    - 0
+- id: shop-sale-badge-default
+  path: shop-sale-badge-default.png
+  bbox:
+  - 1385
+  - 265
+  - 151
+  - 83
+  dimensions:
+  - 151
+  - 83
+  transparent_background: true
+  semantic_name: shop-sale-badge-default
+  component_id: shop-sale-badge
+  category: badge
+  state: default
+  slice:
+    type: full
+    margins:
+    - 0
+    - 0
+    - 0
+    - 0

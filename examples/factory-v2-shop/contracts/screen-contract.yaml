@@ -1,0 +1,36 @@
+schema_version: 1
+project_id: "factory-v2-shop"
+screens:
+  - id: shop
+    name: 生存者商店
+    category: economy
+    priority: must-have
+    status: approved
+    purpose: Browse resources and purchase survival items without leaving the progression loop.
+    entry_points: [home-resource-bar, post-run-reward]
+    primary_actions: [switch-category, inspect-product, purchase, upgrade-shop]
+    dependencies: [inventory, wallet, shop-level]
+    layout:
+      top: [shop-title, currency-bar]
+      center: [category-tabs, product-grid, adventurer-preview]
+      bottom: [upgrade-progress, upgrade-button]
+      floating: [sale-badge]
+    components:
+      - shop-buy-button
+      - shop-category-tab
+      - shop-product-card
+      - shop-currency-coin
+      - shop-sale-badge
+      - shop-upgrade-progress
+    states:
+      - default
+      - loading
+      - insufficient-currency
+      - sold-out
+      - error
+    edge_cases: [empty-category, price-change, inventory-full]
+    data_needs: [wallet, categories, products, stock, shop-xp, preview-character]
+    output:
+      brief: prompts/pages/shop-brief.md
+      prompt: prompts/pages/shop.md
+      image: assets/pages/shop-v1.png

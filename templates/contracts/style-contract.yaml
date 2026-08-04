@@ -45,6 +45,20 @@ effects:
   highlight: ""
   selected: ""
   disabled: ""
+tokens:
+  color:
+    action-primary: ""
+    action-danger: ""
+    surface-panel: ""
+    text-primary: ""
+  spacing:
+    xs: 4
+    sm: 8
+    md: 16
+    lg: 24
+  motion:
+    fast-ms: 120
+    normal-ms: 220
 consistency_rules:
   - All pages use the same light direction and material vocabulary.
   - Navigation icons share perspective, stroke weight, and selected state.

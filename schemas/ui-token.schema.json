@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Game UI Design Tokens",
+  "type": "object",
+  "required": ["color", "spacing"],
+  "properties": {
+    "color": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^(#[0-9A-Fa-f]{6}|[a-z][a-z0-9.-]*)$"
+      }
+    },
+    "spacing": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "motion": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0
+      }
+    }
+  }
+}

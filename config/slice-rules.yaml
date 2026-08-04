@@ -1,0 +1,27 @@
+schema_version: 1
+rules:
+  button: 9-slice
+  frame: 9-slice
+  popup: 9-slice
+  panel: 9-slice
+  control: 9-slice
+  container: 9-slice
+  card: full
+  icon: "1:1"
+  badge: full
+  progress: 9-slice
+  currency: "1:1"
+  character: full
+  npc: full
+  background: full
+  decoration: full
+  texture: tile
+padding:
+  default: 5
+  icon: 0
+  currency: 0
+  character: 10
+  npc: 10
+notes:
+  - Rules provide deterministic defaults; 9-slice margins still require review.
+  - Automatic visual inference of stretch regions is a roadmap capability.

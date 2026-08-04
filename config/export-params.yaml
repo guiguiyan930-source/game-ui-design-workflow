@@ -1,0 +1,18 @@
+schema_version: 1
+atlas:
+  max_size: [2048, 2048]
+  padding: 2
+  power_of_two: true
+  allow_rotation: false
+godot:
+  manifest_format: json
+  native_theme_export: false
+unity:
+  manifest_format: json
+  sprite_mode: multiple
+  pixels_per_unit: 100
+cocos:
+  manifest_format: json
+notes:
+  - Export scripts create deterministic JSON handoff manifests.
+  - Native Godot, Unity, and Cocos project importers are roadmap integrations.

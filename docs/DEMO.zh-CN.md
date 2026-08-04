@@ -106,7 +106,18 @@ flowchart LR
 
 雪碧图必须保证元素互不接触。检测阈值无法解决遮挡或粘连时，应重新生成组件合图。
 
-## 6. 可复制调用
+## 6. Atlas 与引擎交付
+
+[Factory v2 商店案例](../examples/factory-v2-shop/README.md)继续展示：
+
+- 自动序号到语义名称的 mapping
+- 人工审核的 9-slice margins
+- Atlas PNG + JSON
+- Godot、Unity、Cocos JSON handoff
+
+![Factory v2 Shop Atlas](../examples/factory-v2-shop/assets/atlases/shop-ui.png)
+
+## 7. 可复制调用
 
 ```text
 使用 game-ui-workflow，读取 @specs/your-game-id 和参考图片。
@@ -117,7 +128,8 @@ flowchart LR
 3. 风格批准后先建立屏幕地图，再逐页延展；
 4. 只从已批准页面生成组件雪碧图；
 5. 把雪碧图切成单元素透明 PNG 并打包 ZIP；
-6. 最后运行严格校验。
+6. 语义命名并生成 Atlas 与引擎 JSON；
+7. 最后运行严格校验。
 
 每一步结束时停止，列出产物、检查项、进入下一步的条件，
 并提供可直接复制的下一步调用文本。

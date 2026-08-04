@@ -26,6 +26,8 @@ description: Creates and maintains production-oriented game UI specifications an
 5. 更新 `style-contract.yaml`；未知值不得用“待定”掩盖，应给出可调整的默认值。
 6. 检查每条规则能否被页面和组件提示词引用。
 
+全局值与语义别名按[设计 Token 规范](references/design-tokens.md)维护；`style-contract.yaml` 是单一事实来源，不另建冲突的平行 Token 文件。
+
 ## 必需规范
 
 ### 平台与布局

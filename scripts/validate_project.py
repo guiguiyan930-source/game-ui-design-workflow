@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import struct
 import xml.etree.ElementTree as ET
@@ -26,7 +27,11 @@ CONTRACT_FILES = (
     "component-contract.yaml",
     "asset-manifest.yaml",
 )
-OPTIONAL_CONTRACT_FILES = ("sprite-contract.yaml",)
+OPTIONAL_CONTRACT_FILES = (
+    "sprite-contract.yaml",
+    "atlas-contract.yaml",
+    "export-contract.yaml",
+)
 
 
 class Report:
@@ -196,6 +201,14 @@ def validate_style(style: dict[str, Any], report: Report) -> None:
         )
     if isinstance(colors, dict):
         incomplete.extend(f"colors.{key}" for key, value in colors.items() if not value)
+    tokens = style.get("tokens")
+    if tokens is not None:
+        if not isinstance(tokens, dict):
+            report.error(f"{source}: tokens must be a mapping")
+        else:
+            for group, values in tokens.items():
+                if not isinstance(values, dict):
+                    report.error(f"{source}: tokens.{group} must be a mapping")
     if incomplete:
         report.warn(f"{source}: incomplete draft values: {', '.join(incomplete)}")
 
@@ -229,6 +242,57 @@ def validate_screens(
     return ids, statuses
 
 
+COMPONENT_CATEGORIES = {
+    "background",
+    "button",
+    "frame",
+    "panel",
+    "card",
+    "icon",
+    "badge",
+    "progress",
+    "popup",
+    "decoration",
+    "currency",
+    "character",
+    "npc",
+    "texture",
+    "control",
+    "container",
+}
+SLICE_TYPES = {"9-slice", "full", "1:1", "tile"}
+
+
+def validate_slice(
+    value: Any,
+    dimensions: Any,
+    label: str,
+    report: Report,
+) -> None:
+    if not isinstance(value, dict):
+        report.error(f"{label}: slice must be a mapping")
+        return
+    if value.get("type") not in SLICE_TYPES:
+        report.error(f"{label}: invalid slice type {value.get('type')!r}")
+    margins = value.get("margins")
+    if (
+        not isinstance(margins, list)
+        or len(margins) != 4
+        or not all(isinstance(item, int) and item >= 0 for item in margins)
+    ):
+        report.error(f"{label}: slice margins must be four non-negative integers")
+        return
+    if (
+        value.get("type") == "9-slice"
+        and isinstance(dimensions, list)
+        and len(dimensions) == 2
+        and all(isinstance(item, int) and item > 0 for item in dimensions)
+    ):
+        left, right, top, bottom = margins
+        if left + right >= dimensions[0] or top + bottom >= dimensions[1]:
+            report.error(f"{label}: 9-slice margins leave no stretchable center")
+
+
 def validate_components(
     component_contract: dict[str, Any],
     screen_ids: set[str],
@@ -254,19 +318,26 @@ def validate_components(
         if component_id in ids:
             report.error(f"{label}: duplicate component ID {component_id!r}")
         ids.add(component_id)
-        if component.get("category") not in {
-            "background",
-            "control",
-            "container",
-            "icon",
-            "character",
-            "decoration",
-        }:
+        if component.get("category") not in COMPONENT_CATEGORIES:
             report.error(f"{label}: invalid category {component.get('category')!r}")
         if not isinstance(component.get("transparent_background"), bool):
             report.error(f"{label}: transparent_background must be boolean")
         validate_dimensions(component.get("target_size"), f"{label}.target_size", report)
         require_list(component, "states", label, report)
+        if "slice" in component:
+            validate_slice(
+                component.get("slice"),
+                component.get("target_size"),
+                f"{label}.slice",
+                report,
+            )
+        if "atlas_group" in component:
+            validate_id(component.get("atlas_group"), f"{label}.atlas_group", report)
+        if "export_targets" in component:
+            targets = require_list(component, "export_targets", label, report)
+            for target in targets:
+                if target not in {"godot", "unity", "cocos", "generic"}:
+                    report.error(f"{label}: invalid export target {target!r}")
     return ids
 
 
@@ -353,6 +424,7 @@ def validate_sprite_contract(
     project: Path,
     sprite: dict[str, Any],
     screen_ids: set[str],
+    component_ids: set[str],
     report: Report,
 ) -> None:
     source_name = "sprite-contract.yaml"
@@ -366,6 +438,11 @@ def validate_sprite_contract(
     output = require_mapping(sprite, "output", source_name, report)
     items = require_list(sprite, "items", source_name, report)
     review = require_mapping(sprite, "review", source_name, report)
+    semantic_mapping = sprite.get("semantic_mapping", {})
+    semantic_required = (
+        isinstance(semantic_mapping, dict)
+        and semantic_mapping.get("required") is True
+    )
 
     screen_id = source.get("screen_id")
     if screen_id not in screen_ids:
@@ -404,6 +481,20 @@ def validate_sprite_contract(
         ):
             report.error(f"{label}: bbox must be [x, y, width, height]")
         validate_dimensions(item.get("dimensions"), f"{label}.dimensions", report)
+        if semantic_required:
+            if item.get("component_id") not in component_ids:
+                report.error(f"{label}: component_id must reference a known component")
+            validate_id(item.get("semantic_name"), f"{label}.semantic_name", report)
+            if item.get("category") not in COMPONENT_CATEGORIES:
+                report.error(f"{label}: invalid category {item.get('category')!r}")
+            if not isinstance(item.get("state"), str) or not item.get("state"):
+                report.error(f"{label}: state is required")
+            validate_slice(
+                item.get("slice"),
+                item.get("dimensions"),
+                f"{label}.slice",
+                report,
+            )
         path_value = item.get("path")
         path = project / str(path_value) if path_value else None
         if sprite.get("status") in {"generated", "approved"}:
@@ -466,6 +557,125 @@ def validate_sprite_contract(
         report.error(f"{source_name}: approved packs require review.text_free=true")
 
 
+def validate_atlas_contract(
+    project: Path,
+    atlas: dict[str, Any],
+    component_ids: set[str],
+    report: Report,
+) -> str | None:
+    source_name = "atlas-contract.yaml"
+    status = atlas.get("status")
+    if status not in {"draft", "packed", "approved", "stale"}:
+        report.error(f"{source_name}: invalid status {status!r}")
+    atlas_id = atlas.get("atlas_id")
+    if not validate_id(atlas_id, f"{source_name}: atlas_id", report):
+        atlas_id = None
+    settings = require_mapping(atlas, "settings", source_name, report)
+    output = require_mapping(atlas, "output", source_name, report)
+    items = require_list(atlas, "items", source_name, report)
+    review = require_mapping(atlas, "review", source_name, report)
+    validate_dimensions(settings.get("max_size"), f"{source_name}: max_size", report)
+    if not isinstance(settings.get("padding"), int) or settings["padding"] < 0:
+        report.error(f"{source_name}: settings.padding must be non-negative")
+    if settings.get("allow_rotation") is not False:
+        report.error(f"{source_name}: allow_rotation must be false")
+
+    semantic_names: set[str] = set()
+    for index, item in enumerate(items):
+        label = f"{source_name}: items[{index}]"
+        if not isinstance(item, dict):
+            report.error(f"{label}: must be a mapping")
+            continue
+        semantic_name = item.get("semantic_name")
+        if validate_id(semantic_name, f"{label}.semantic_name", report):
+            if semantic_name in semantic_names:
+                report.error(f"{label}: duplicate semantic_name {semantic_name!r}")
+            semantic_names.add(semantic_name)
+        if item.get("component_id") not in component_ids:
+            report.error(f"{label}: component_id must reference a known component")
+        region = item.get("region")
+        if (
+            not isinstance(region, list)
+            or len(region) != 4
+            or not all(isinstance(value, int) and value >= 0 for value in region)
+            or region[2] <= 0
+            or region[3] <= 0
+        ):
+            report.error(f"{label}: region must be [x, y, width, height]")
+        if "slice" in item:
+            dimensions = region[2:] if isinstance(region, list) and len(region) == 4 else None
+            validate_slice(item.get("slice"), dimensions, f"{label}.slice", report)
+
+    if status in {"packed", "approved"}:
+        image_value = output.get("image_path")
+        data_value = output.get("data_path")
+        image = project / str(image_value) if image_value else None
+        data = project / str(data_value) if data_value else None
+        if not image or not image.is_file():
+            report.error(f"{source_name}: atlas image does not exist: {image_value!r}")
+        if not data or not data.is_file():
+            report.error(f"{source_name}: atlas data does not exist: {data_value!r}")
+        else:
+            try:
+                parsed = json.loads(data.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError) as error:
+                report.error(f"{source_name}: invalid atlas JSON: {error}")
+            else:
+                if not isinstance(parsed, dict) or not isinstance(parsed.get("sprites"), dict):
+                    report.error(f"{source_name}: atlas JSON requires a sprites mapping")
+        if not items:
+            report.error(f"{source_name}: packed atlases require items")
+    if status == "approved" and review.get("complete") is not True:
+        report.error(f"{source_name}: approved atlases require review.complete=true")
+    return atlas_id if isinstance(atlas_id, str) else None
+
+
+def validate_export_contract(
+    project: Path,
+    export: dict[str, Any],
+    atlas_id: str | None,
+    report: Report,
+) -> None:
+    source_name = "export-contract.yaml"
+    status = export.get("status")
+    if status not in {"draft", "generated", "approved", "stale"}:
+        report.error(f"{source_name}: invalid status {status!r}")
+    if atlas_id and export.get("source_atlas_id") != atlas_id:
+        report.error(f"{source_name}: source_atlas_id must match atlas-contract")
+    targets = require_list(export, "targets", source_name, report)
+    review = require_mapping(export, "review", source_name, report)
+    for index, target in enumerate(targets):
+        label = f"{source_name}: targets[{index}]"
+        if not isinstance(target, dict):
+            report.error(f"{label}: must be a mapping")
+            continue
+        if target.get("engine") not in {"godot", "unity", "cocos", "generic"}:
+            report.error(f"{label}: invalid engine {target.get('engine')!r}")
+        if target.get("format") != "json-manifest":
+            report.error(f"{label}: format must be json-manifest")
+        if not isinstance(target.get("native_project_files"), bool):
+            report.error(f"{label}: native_project_files must be boolean")
+        if target.get("native_project_files") is True:
+            report.warn(
+                f"{label}: native engine files are not generated by the built-in exporter"
+            )
+        if status in {"generated", "approved"}:
+            path_value = target.get("manifest_path")
+            path = project / str(path_value) if path_value else None
+            if not path or not path.is_file():
+                report.error(f"{label}: manifest does not exist: {path_value!r}")
+            else:
+                try:
+                    parsed = json.loads(path.read_text(encoding="utf-8"))
+                except (OSError, json.JSONDecodeError) as error:
+                    report.error(f"{label}: invalid JSON manifest: {error}")
+                else:
+                    if parsed.get("engine") != target.get("engine"):
+                        report.error(f"{label}: JSON engine does not match contract")
+    if status == "approved" and review.get("complete") is not True:
+        report.error(f"{source_name}: approved exports require review.complete=true")
+
+
 def validate(project: Path, strict: bool) -> Report:
     report = Report()
     if not project.is_dir():
@@ -506,6 +716,22 @@ def validate(project: Path, strict: bool) -> Report:
             project,
             contracts["sprite-contract.yaml"],
             screen_ids,
+            component_ids,
+            report,
+        )
+    atlas_id = None
+    if "atlas-contract.yaml" in contracts:
+        atlas_id = validate_atlas_contract(
+            project,
+            contracts["atlas-contract.yaml"],
+            component_ids,
+            report,
+        )
+    if "export-contract.yaml" in contracts:
+        validate_export_contract(
+            project,
+            contracts["export-contract.yaml"],
+            atlas_id,
             report,
         )
     if strict and report.warnings:

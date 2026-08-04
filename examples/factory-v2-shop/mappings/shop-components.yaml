@@ -1,0 +1,47 @@
+schema_version: 1
+items:
+  - semantic_name: shop-buy-button-normal
+    component_id: shop-buy-button
+    category: button
+    state: normal
+    slice: {type: 9-slice, margins: [36, 36, 28, 28]}
+  - semantic_name: shop-buy-button-hover
+    component_id: shop-buy-button
+    category: button
+    state: hover
+    slice: {type: 9-slice, margins: [36, 36, 28, 28]}
+  - semantic_name: shop-buy-button-pressed
+    component_id: shop-buy-button
+    category: button
+    state: pressed
+    slice: {type: 9-slice, margins: [36, 36, 28, 28]}
+  - semantic_name: shop-upgrade-progress-default
+    component_id: shop-upgrade-progress
+    category: progress
+    state: default
+    slice: {type: 9-slice, margins: [28, 28, 20, 20]}
+  - semantic_name: shop-product-card-default
+    component_id: shop-product-card
+    category: card
+    state: default
+    slice: {type: full, margins: [0, 0, 0, 0]}
+  - semantic_name: shop-category-tab-active
+    component_id: shop-category-tab
+    category: button
+    state: active
+    slice: {type: 9-slice, margins: [28, 28, 22, 22]}
+  - semantic_name: shop-category-tab-inactive
+    component_id: shop-category-tab
+    category: button
+    state: inactive
+    slice: {type: 9-slice, margins: [28, 28, 22, 22]}
+  - semantic_name: shop-currency-coin-default
+    component_id: shop-currency-coin
+    category: currency
+    state: default
+    slice: {type: "1:1", margins: [0, 0, 0, 0]}
+  - semantic_name: shop-sale-badge-default
+    component_id: shop-sale-badge
+    category: badge
+    state: default
+    slice: {type: full, margins: [0, 0, 0, 0]}

@@ -1,6 +1,6 @@
 # 游戏 UI 技能调用指南
 
-本文说明如何在 Cursor 中安装、调用和串联本仓库的五个技能。
+本文说明如何在 Cursor 中安装、调用和串联本仓库的七个技能。
 
 ## 1. 技能清单
 
@@ -10,6 +10,7 @@
 - `game-ui-page-generator`：一次生成一个完整页面的方案、提示词和视觉稿。
 - `game-ui-component-breakdown`：从已批准页面拆解独立组件素材。
 - `game-ui-sprite-sheet-splitter`：将组件雪碧图切成单元素透明 PNG 并打包 ZIP。
+- `game-ui-asset-pipeline`：语义命名、9-slice、Atlas 和引擎 JSON 交付。
 
 一般项目优先调用 `game-ui-workflow`；只修改某一阶段时调用对应子技能。
 
@@ -94,9 +95,9 @@ specs/moon-palace-rpg/
 
 信息不足时，技能会使用可调整的默认值；题材、平台、比例或交付范围不明确时会先询问。
 
-## 5. 五步操作指引
+## 5. 六步操作指引
 
-推荐按“原型生成视觉 → UI 风格切换 → UI 延展 → UI 组件拆解 → 雪碧图拆分打包”推进。每一步都包含开始条件、调用文本、检查点和下一步。
+推荐按“原型生成视觉 → UI 风格切换 → UI 延展 → UI 组件拆解 → 雪碧图拆分打包 → Atlas 与引擎交付”推进。每一步都包含开始条件、调用文本、检查点和下一步。
 
 ### 第一步：原型生成视觉
 
@@ -340,12 +341,42 @@ python3 scripts/split_sprite_sheet.py \
 - ZIP 可解压并包含所有 PNG 和 manifest
 - 原始雪碧图、拆分目录和压缩包均可追踪
 
+### 第六步：9-slice、Atlas 与引擎交付
+
+目标：把语义 PNG 转成开发可读取的 Atlas 和引擎 JSON。
+
+```text
+使用 game-ui-asset-pipeline。
+先确认 sprite-contract.yaml 中每个 item 已关联 component_id、state、
+semantic_name 和 slice，9-slice margins 已人工预览。
+
+生成不旋转的 Atlas PNG 与 JSON，
+再为 Godot、Unity 和 Cocos 生成 JSON handoff。
+不要声称已经生成原生引擎工程文件。
+```
+
+对应命令：
+
+```bash
+python3 scripts/build_sprite_atlas.py specs/<project-id> --force
+python3 scripts/export_engine_manifest.py specs/<project-id> --force
+```
+
+本步检查：
+
+- 最终文件不是 `element-001.png`，而是稳定语义名称
+- 9-slice 左右与上下 margins 保留可拉伸中心
+- Atlas 无旋转、重叠、裁断或透明污染
+- regions、pivot、state 与源 PNG 一致
+- 各引擎 JSON 引用同一 Atlas
+- JSON handoff 与原生引擎导入能力明确区分
+
 最终验收：
 
 ```text
 使用 game-ui-workflow 验收整个项目。
 运行 validate_project.py --strict，
-检查页面 ID、组件 ID、雪碧图切片、ZIP、资源路径、真实尺寸、透明背景和版本来源。
+检查页面 ID、组件 ID、雪碧图切片、ZIP、9-slice、Atlas、引擎 JSON、资源路径、真实尺寸、透明背景和版本来源。
 修复全部错误；不能修复的限制写入 quickstart.md。
 ```
 
@@ -367,7 +398,7 @@ python3 scripts/split_sprite_sheet.py \
 
 ## 6. 端到端调用
 
-以下提示会依次执行规范、页面延展、单页视觉、组件拆解、雪碧图拆分和校验：
+以下提示会依次执行规范、页面延展、单页视觉、组件拆解、雪碧图拆分、Atlas 交付和校验：
 
 ```text
 使用 game-ui-workflow，为 moon-palace-rpg 完成一轮端到端 UI 设计。
@@ -379,8 +410,9 @@ python3 scripts/split_sprite_sheet.py \
 4. 先生成首页，实际调用图片生成工具并保存视觉稿。
 5. 首页通过验收后，生成包含背景、主按钮、底部导航和货币栏的组件雪碧图。
 6. 把雪碧图切成单元素透明 PNG，并打包为 ZIP。
-7. 所有提示词、图片、切片和压缩包必须登记到对应契约。
-8. 最后运行 validate_project.py，修复全部错误。
+7. 语义命名并确认 9-slice，生成 Atlas 和引擎 JSON。
+8. 所有提示词、图片、切片、Atlas 和压缩包必须登记到对应契约。
+9. 最后运行 validate_project.py，修复全部错误。
 ```
 
 如果希望在关键阶段人工确认：
@@ -508,6 +540,23 @@ python3 scripts/split_sprite_sheet.py \
 - `packages/<pack-id>-png.zip`
 - `contracts/sprite-contract.yaml`
 
+### 7.7 打包 Atlas 与引擎 JSON
+
+```text
+使用 game-ui-asset-pipeline，
+读取已批准的 sprite-contract、atlas-contract 和 export-contract。
+确认语义命名与 9-slice margins 后生成 Atlas，
+并导出 Godot、Unity、Cocos JSON handoff。
+```
+
+主要输出：
+
+- `assets/atlases/<atlas-id>.png`
+- `assets/atlases/<atlas-id>.json`
+- `exports/<engine>/<atlas-id>.json`
+- `contracts/atlas-contract.yaml`
+- `contracts/export-contract.yaml`
+
 ## 8. 修改已有项目
 
 ### 修改整体风格
@@ -586,6 +635,7 @@ game-ui-workflow
 → 页面批准
 → game-ui-component-breakdown
 → game-ui-sprite-sheet-splitter
+→ game-ui-asset-pipeline（需要开发交付时）
 → validate_project.py
 ```
 
@@ -596,6 +646,7 @@ game-ui-page-generator
 → 页面批准
 → game-ui-component-breakdown（可选）
 → game-ui-sprite-sheet-splitter（组件合图时可选）
+→ game-ui-asset-pipeline（需要 Atlas 时可选）
 ```
 
 只有参考图、需要扩展整套页面：

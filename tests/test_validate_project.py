@@ -29,6 +29,12 @@ class ValidateProjectTests(unittest.TestCase):
         self.assertEqual(report.errors, [])
         self.assertEqual(report.warnings, [])
 
+    def test_factory_v2_example_passes_strict_validation(self) -> None:
+        report = validate(ROOT / "examples" / "factory-v2-shop", strict=True)
+
+        self.assertEqual(report.errors, [])
+        self.assertEqual(report.warnings, [])
+
     def test_detects_manifest_dimension_mismatch(self) -> None:
         temp_dir, project = self.copy_example()
         self.addCleanup(temp_dir.cleanup)
@@ -103,6 +109,23 @@ class ValidateProjectTests(unittest.TestCase):
 
         self.assertTrue(
             any("review.text_free=true" in error for error in report.errors),
+            report.errors,
+        )
+
+    def test_detects_invalid_nine_slice_margins(self) -> None:
+        temp_dir = tempfile.TemporaryDirectory()
+        self.addCleanup(temp_dir.cleanup)
+        project = Path(temp_dir.name) / "factory-v2-shop"
+        shutil.copytree(ROOT / "examples" / "factory-v2-shop", project)
+        contract_path = project / "contracts" / "component-contract.yaml"
+        contract = yaml.safe_load(contract_path.read_text())
+        contract["components"][0]["slice"]["margins"] = [200, 200, 10, 10]
+        contract_path.write_text(yaml.safe_dump(contract, sort_keys=False))
+
+        report = validate(project, strict=False)
+
+        self.assertTrue(
+            any("leave no stretchable center" in error for error in report.errors),
             report.errors,
         )
 

@@ -69,6 +69,27 @@ python3 scripts/split_sprite_sheet.py <source.png> \
 7. 生成 `sprite-manifest.yaml`。
 8. 生成包含 manifest 和全部 PNG 的 ZIP。
 
+## 语义 mapping
+
+自动序号不能作为最终资产名。准备按检测顺序排列的 YAML：
+
+```yaml
+items:
+  - semantic_name: shop-buy-button-normal
+    component_id: shop-buy-button
+    category: button
+    state: normal
+    slice: {type: 9-slice, margins: [36, 36, 28, 28]}
+```
+
+执行时增加：
+
+```bash
+--mapping mappings/shop-components.yaml
+```
+
+工具会用 `semantic_name` 作为 PNG 文件名，并把组件 ID、分类、状态与 slice 写入 manifest。命名和切图方式分别遵循组件技能的语义命名规范与[切图规则](references/slice-rules.md)。
+
 自动切割不会自动识别或修复文字。源雪碧图仍有文字时，先执行以下任一操作，再开始切割：
 
 1. 优先重新生成无文字雪碧图。
@@ -178,5 +199,8 @@ effect-crescent-glow.png
 - 人工验收通过
 - `review.text_free: true`
 - ZIP 包存在且可解压
+- 最终 PNG 使用语义名称并关联 component ID
 - 项目严格校验通过
 - `quickstart.md` 记录解压和使用方式
+
+需要继续生成 Atlas 和引擎 JSON 时，调用 `game-ui-asset-pipeline`。

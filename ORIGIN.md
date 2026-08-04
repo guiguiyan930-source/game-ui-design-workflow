@@ -19,6 +19,7 @@ Game UI Design Workflow 由作者此前创建并维护的四个游戏 UI 技能�
   → UI 页面延展与逐页生成
   → UI 组件拆解与雪碧图生成
   → 单元素 PNG 拆分、ZIP 打包与严格校验
+  → 语义命名、9-slice、Atlas 与引擎 JSON
 ```
 
 ## 本项目新增能力
@@ -28,6 +29,7 @@ Game UI Design Workflow 由作者此前创建并维护的四个游戏 UI 技能�
 - 样式、页面、组件和资源四类核心契约，以及可选雪碧图拆分契约
 - 页面批准、版本保留和资源失效门禁
 - 雪碧图自动检测、单元素透明 PNG 导出和 ZIP 打包
+- 设计 Token、语义 mapping、Atlas 与多引擎 JSON handoff
 - 实际图片尺寸、PNG Alpha 通道和 SVG 尺寸校验
 - 项目初始化、一键安装、自动化测试和 GitHub Actions
 - 完整项目、风格切换、页面延展与组件包示例

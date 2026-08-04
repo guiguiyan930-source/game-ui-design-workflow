@@ -105,6 +105,52 @@ class SpriteSheetSplitterTests(unittest.TestCase):
             with self.assertRaises(FileExistsError):
                 split_sprite_sheet(source, output, package, SplitSettings())
 
+    def test_applies_semantic_mapping_to_filenames_and_manifest(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = root / "sheet.png"
+            image = Image.new("RGBA", (100, 50), (0, 0, 0, 0))
+            draw = ImageDraw.Draw(image)
+            draw.rectangle((5, 8, 35, 38), fill=(255, 255, 255, 255))
+            draw.rectangle((60, 8, 90, 38), fill=(255, 255, 255, 255))
+            image.save(source)
+            mapping = [
+                {
+                    "semantic_name": "shop-button-normal",
+                    "component_id": "shop-button",
+                    "category": "button",
+                    "state": "normal",
+                    "slice": {
+                        "type": "9-slice",
+                        "margins": [5, 5, 5, 5],
+                    },
+                },
+                {
+                    "semantic_name": "shop-button-pressed",
+                    "component_id": "shop-button",
+                    "category": "button",
+                    "state": "pressed",
+                    "slice": {
+                        "type": "9-slice",
+                        "margins": [5, 5, 5, 5],
+                    },
+                },
+            ]
+
+            manifest = split_sprite_sheet(
+                source,
+                root / "items",
+                root / "pack.zip",
+                SplitSettings(min_area=20),
+                semantic_items=mapping,
+            )
+
+            self.assertTrue((root / "items/shop-button-normal.png").is_file())
+            self.assertEqual(
+                manifest["items"][1]["semantic_name"],
+                "shop-button-pressed",
+            )
+
 
 if __name__ == "__main__":
     unittest.main()

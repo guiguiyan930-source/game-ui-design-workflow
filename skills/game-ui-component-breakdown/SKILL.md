@@ -50,6 +50,8 @@ description: Breaks an approved game UI page or visual style into reusable, indi
 
 雪碧图不是最终切图。生成后必须调用 `game-ui-sprite-sheet-splitter` 导出独立 PNG，并完成人工验收。
 
+最终文件名遵循[组件语义命名规范](references/naming-conventions.md)。`element-001.png` 只允许作为检测中间结果，不能作为批准交付。
+
 ## 默认规则
 
 - 除背景外使用透明背景。
@@ -58,6 +60,7 @@ description: Breaks an approved game UI page or visual style into reusable, indi
 - 角色完整无遮挡，姿态适合叠放到原布局。
 - 装饰可叠加，不带不透明矩形底。
 - 保持源页面的视觉权重；不要把次按钮生成得比主按钮更强。
+- 按钮、面板、弹窗和进度条填写 `slice` 元数据；9-slice margins 需要人工预览确认。
 
 ## 单组件提示文件
 

@@ -1,0 +1,210 @@
+schema_version: 1
+project_id: factory-v2-shop
+status: approved
+atlas_id: shop-ui
+source_sprite_pack: shop-components
+settings:
+  max_size:
+  - 2048
+  - 2048
+  padding: 2
+  power_of_two: true
+  allow_rotation: false
+output:
+  image_path: assets/atlases/shop-ui.png
+  data_path: assets/atlases/shop-ui.json
+items:
+- id: shop-product-card-default
+  semantic_name: shop-product-card-default
+  component_id: shop-product-card
+  state: default
+  source_path: assets/sprites/shop-components/items/shop-product-card-default.png
+  region:
+  - 2
+  - 2
+  - 371
+  - 311
+  pivot:
+  - 0.5
+  - 0.5
+  rotated: false
+  slice:
+    type: full
+    margins:
+    - 0
+    - 0
+    - 0
+    - 0
+- id: shop-buy-button-hover
+  semantic_name: shop-buy-button-hover
+  component_id: shop-buy-button
+  state: hover
+  source_path: assets/sprites/shop-components/items/shop-buy-button-hover.png
+  region:
+  - 375
+  - 2
+  - 311
+  - 111
+  pivot:
+  - 0.5
+  - 0.5
+  rotated: false
+  slice:
+    type: 9-slice
+    margins:
+    - 36
+    - 36
+    - 28
+    - 28
+- id: shop-buy-button-normal
+  semantic_name: shop-buy-button-normal
+  component_id: shop-buy-button
+  state: normal
+  source_path: assets/sprites/shop-components/items/shop-buy-button-normal.png
+  region:
+  - 688
+  - 2
+  - 311
+  - 111
+  pivot:
+  - 0.5
+  - 0.5
+  rotated: false
+  slice:
+    type: 9-slice
+    margins:
+    - 36
+    - 36
+    - 28
+    - 28
+- id: shop-buy-button-pressed
+  semantic_name: shop-buy-button-pressed
+  component_id: shop-buy-button
+  state: pressed
+  source_path: assets/sprites/shop-components/items/shop-buy-button-pressed.png
+  region:
+  - 1001
+  - 2
+  - 311
+  - 111
+  pivot:
+  - 0.5
+  - 0.5
+  rotated: false
+  slice:
+    type: 9-slice
+    margins:
+    - 36
+    - 36
+    - 28
+    - 28
+- id: shop-currency-coin-default
+  semantic_name: shop-currency-coin-default
+  component_id: shop-currency-coin
+  state: default
+  source_path: assets/sprites/shop-components/items/shop-currency-coin-default.png
+  region:
+  - 1314
+  - 2
+  - 107
+  - 107
+  pivot:
+  - 0.5
+  - 0.5
+  rotated: false
+  slice:
+    type: '1:1'
+    margins:
+    - 0
+    - 0
+    - 0
+    - 0
+- id: shop-category-tab-active
+  semantic_name: shop-category-tab-active
+  component_id: shop-category-tab
+  state: active
+  source_path: assets/sprites/shop-components/items/shop-category-tab-active.png
+  region:
+  - 1423
+  - 2
+  - 271
+  - 95
+  pivot:
+  - 0.5
+  - 0.5
+  rotated: false
+  slice:
+    type: 9-slice
+    margins:
+    - 28
+    - 28
+    - 22
+    - 22
+- id: shop-category-tab-inactive
+  semantic_name: shop-category-tab-inactive
+  component_id: shop-category-tab
+  state: inactive
+  source_path: assets/sprites/shop-components/items/shop-category-tab-inactive.png
+  region:
+  - 1696
+  - 2
+  - 271
+  - 95
+  pivot:
+  - 0.5
+  - 0.5
+  rotated: false
+  slice:
+    type: 9-slice
+    margins:
+    - 28
+    - 28
+    - 22
+    - 22
+- id: shop-sale-badge-default
+  semantic_name: shop-sale-badge-default
+  component_id: shop-sale-badge
+  state: default
+  source_path: assets/sprites/shop-components/items/shop-sale-badge-default.png
+  region:
+  - 2
+  - 315
+  - 151
+  - 83
+  pivot:
+  - 0.5
+  - 0.5
+  rotated: false
+  slice:
+    type: full
+    margins:
+    - 0
+    - 0
+    - 0
+    - 0
+- id: shop-upgrade-progress-default
+  semantic_name: shop-upgrade-progress-default
+  component_id: shop-upgrade-progress
+  state: default
+  source_path: assets/sprites/shop-components/items/shop-upgrade-progress-default.png
+  region:
+  - 155
+  - 315
+  - 361
+  - 81
+  pivot:
+  - 0.5
+  - 0.5
+  rotated: false
+  slice:
+    type: 9-slice
+    margins:
+    - 28
+    - 28
+    - 20
+    - 20
+review:
+  complete: true
+  notes:
+    - Nine semantic sprites fit in one 2048x512 atlas without rotation.
+    - Regions, source paths, states, pivots, and 9-slice margins were reviewed.
