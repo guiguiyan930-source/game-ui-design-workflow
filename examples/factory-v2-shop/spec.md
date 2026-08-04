@@ -13,8 +13,8 @@
 
 ## 输入资料
 
-- 参考图片：ChatGPT 分享案例中的用户上传图无法从公开链接下载
-- 现有页面：根据公开对话描述重构的商店示意图
+- 参考图片：`references/component-breakdown-board.png`、`references/shop-screen.png`、`references/ui-system-board.png`
+- 现有页面：用户提供的案例参考图，以及根据公开对话描述独立重构的商店示意图
 - 品牌或版权限制：只抽象欧美卡通、木质和绿色风格，不复刻受保护角色
 
 ## 用户故事

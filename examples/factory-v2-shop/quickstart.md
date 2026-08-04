@@ -45,5 +45,5 @@ python3 scripts/validate_project.py examples/factory-v2-shop --strict
 
 ## 已知限制
 
-- 原始上传图片不在公开分享中，页面视觉按文字描述重构。
+- 公开分享不嵌入上传图片；用户后续提供的三张案例图片保存在 `references/`，页面视觉仍为独立重构。
 - 自动组件检测、自动去字修复、自动九宫格推断和原生引擎工程文件未实现。

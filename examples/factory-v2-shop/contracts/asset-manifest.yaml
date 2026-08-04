@@ -12,7 +12,7 @@ assets:
     transparent_background: false
     approved: true
     source_asset: null
-    notes: Reconstructed from the public case description because the shared upload is unavailable.
+    notes: Independent reconstruction informed by the user-provided references; it is not a copy of those images.
   - id: sprite-sheet-shop-components-v1
     kind: sprite-sheet
     screen_id: shop

@@ -13,4 +13,4 @@ Western cartoon game UI, high-quality Steam indie survival roguelike shop, 16:9 
 
 ## Case provenance
 
-The original uploaded image is not included in the public ChatGPT share. This example reconstructs the layout and style from the public text description; `assets/pages/shop-v1.png` is an illustrative repository-owned mockup, not the original upload.
+The public ChatGPT share does not embed the original upload, but the user later supplied three case images under `references/`. This example abstracts their layout, hierarchy, and material language; `assets/pages/shop-v1.png` is an illustrative repository-owned reconstruction, not a copy of the reference images.

@@ -2,6 +2,10 @@
 
 本项目遵循 [Semantic Versioning](https://semver.org/)。
 
+## [0.3.1] - 2026-08-05
+
+- 在 Factory v2 商店案例中加入用户提供的组件拆解板、商店页面和完整 UI 系统三张参考图片，并补充来源与版权边界。
+
 ## [0.3.0] - 2026-08-05
 
 ### Added
@@ -54,6 +58,7 @@
 - “月宫列传”完整项目，以及风格切换、页面延展和组件包拆解操作示例。
 - 中文技能调用指南、贡献指南、Issue 模板和 PR 模板。
 
+[0.3.1]: https://github.com/guiguiyan930-source/game-ui-design-workflow/releases/tag/v0.3.1
 [0.3.0]: https://github.com/guiguiyan930-source/game-ui-design-workflow/releases/tag/v0.3.0
 [0.2.1]: https://github.com/guiguiyan930-source/game-ui-design-workflow/releases/tag/v0.2.1
 [0.2.0]: https://github.com/guiguiyan930-source/game-ui-design-workflow/releases/tag/v0.2.0

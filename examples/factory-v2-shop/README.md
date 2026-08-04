@@ -1,8 +1,24 @@
 # Game UI Factory v2：欧美卡通生存商店
 
-本案例来自一个公开 ChatGPT 分享对话：用户要求使用本仓库设计游戏 UI，随后进入雪碧图拆分并优化工作流。
+本案例来自一个公开 ChatGPT 分享对话：用户要求使用本仓库设计游戏 UI，随后进入雪碧图拆分并优化工作流。用户之后补充了三张实际案例图片。
 
-> 公开分享不包含用户上传的原始图片。仓库中的视觉稿根据对话公开文字重构，不冒充原图。
+> 公开分享链接本身不包含上传图片；`references/` 中的文件由用户在后续会话中直接提供。仓库生成的 `shop-v1.png` 仍是独立重构稿，不冒充参考原图。
+
+## 用户提供的案例图片
+
+组件拆解板：
+
+![组件拆解板](references/component-breakdown-board.png)
+
+商店页面：
+
+![商店页面参考](references/shop-screen.png)
+
+完整 UI 系统：
+
+![完整 UI 系统参考](references/ui-system-board.png)
+
+图片来源、用途和版权边界见 [`references/README.md`](references/README.md)。
 
 ## 案例视觉
 
