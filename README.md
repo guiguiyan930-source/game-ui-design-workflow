@@ -185,13 +185,13 @@ GitHub Actions 会在 push 和 pull request 时自动运行这些检查。
 - 契约迁移：[docs/MIGRATION.md](docs/MIGRATION.md)
 - 问题与建议：[GitHub Issues](https://github.com/guiguiyan930-source/game-ui-design-workflow/issues)
 
-## 来源
+## 项目来源与演进
 
-本仓库对以下公开技能的职责进行重新组织与结构化重写：
+本仓库由作者此前创建并维护的四个游戏 UI 技能整合演进而来：
 
 - [Game-UI-Extension](https://github.com/guiguiyan930-source/Game-UI-Extension)
 - [game-ui-page-generator](https://github.com/guiguiyan930-source/game-ui-page-generator)
 - [game-ui-specification](https://github.com/guiguiyan930-source/game-ui-specification)
 - [game-ui-component-breakdown](https://github.com/guiguiyan930-source/game-ui-component-breakdown)
 
-详情见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
+这些仓库属于同一作者的早期实践，并非本项目引入的第三方技能。整合原因、能力映射和新增内容见 [ORIGIN.md](ORIGIN.md)。
