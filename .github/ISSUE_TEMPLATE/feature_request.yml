@@ -1,0 +1,24 @@
+name: Feature request
+description: 建议新的技能能力、契约字段或工作流
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 使用场景与问题
+      description: 说明当前工作流为什么无法满足需求。
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 建议方案
+      description: 说明触发方式、输入、输出和质量门禁。
+    validations:
+      required: true
+  - type: textarea
+    id: compatibility
+    attributes:
+      label: 契约或兼容性影响
+      description: 是否需要新增字段、迁移示例或改变现有技能行为？

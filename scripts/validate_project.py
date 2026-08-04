@@ -5,7 +5,8 @@ from __future__ import annotations
 
 import argparse
 import re
-import sys
+import struct
+import xml.etree.ElementTree as ET
 from pathlib import Path
 from typing import Any
 
@@ -95,6 +96,58 @@ def validate_dimensions(value: Any, label: str, report: Report) -> None:
         or not all(isinstance(item, int) and item > 0 for item in value)
     ):
         report.error(f"{label}: dimensions must be two positive integers")
+
+
+def inspect_png(path: Path) -> tuple[list[int], bool]:
+    with path.open("rb") as stream:
+        header = stream.read(33)
+        if len(header) < 33 or header[:8] != b"\x89PNG\r\n\x1a\n":
+            raise ValueError("invalid PNG signature or IHDR")
+        width, height = struct.unpack(">II", header[16:24])
+        color_type = header[25]
+        has_alpha = color_type in {4, 6}
+        while True:
+            length_bytes = stream.read(4)
+            if len(length_bytes) != 4:
+                break
+            length = struct.unpack(">I", length_bytes)[0]
+            chunk_type = stream.read(4)
+            if chunk_type == b"tRNS":
+                has_alpha = True
+            stream.seek(length + 4, 1)
+            if chunk_type == b"IEND":
+                break
+    return [width, height], has_alpha
+
+
+def parse_svg_length(value: str | None) -> int | None:
+    if not value:
+        return None
+    match = re.fullmatch(r"\s*(\d+(?:\.\d+)?)\s*(?:px)?\s*", value)
+    return round(float(match.group(1))) if match else None
+
+
+def inspect_svg(path: Path) -> tuple[list[int], bool]:
+    root = ET.parse(path).getroot()
+    width = parse_svg_length(root.get("width"))
+    height = parse_svg_length(root.get("height"))
+    if width is None or height is None:
+        view_box = root.get("viewBox", "").replace(",", " ").split()
+        if len(view_box) == 4:
+            width = round(float(view_box[2]))
+            height = round(float(view_box[3]))
+    if width is None or height is None or width <= 0 or height <= 0:
+        raise ValueError("SVG requires positive width/height or viewBox")
+    return [width, height], True
+
+
+def inspect_image(path: Path) -> tuple[list[int], bool] | None:
+    suffix = path.suffix.lower()
+    if suffix == ".png":
+        return inspect_png(path)
+    if suffix == ".svg":
+        return inspect_svg(path)
+    return None
 
 
 def validate_markdown(project: Path, report: Report) -> None:
@@ -259,6 +312,29 @@ def validate_assets(
         output = project / str(path_value) if path_value else None
         if status in {"generated", "approved"} and (not output or not output.is_file()):
             report.error(f"{label}: generated asset path does not exist: {path_value!r}")
+        if output and output.is_file() and status in {"generated", "approved"}:
+            try:
+                inspection = inspect_image(output)
+            except (OSError, ValueError, ET.ParseError) as error:
+                report.error(f"{label}: cannot inspect {path_value!r}: {error}")
+            else:
+                if inspection is None:
+                    report.warn(
+                        f"{label}: actual dimensions and alpha are not checked "
+                        f"for {output.suffix or 'extensionless files'}"
+                    )
+                else:
+                    actual_dimensions, has_alpha = inspection
+                    if actual_dimensions != asset.get("dimensions"):
+                        report.error(
+                            f"{label}: manifest dimensions {asset.get('dimensions')!r} "
+                            f"do not match actual {actual_dimensions!r}"
+                        )
+                    if asset.get("transparent_background") is True and not has_alpha:
+                        report.error(
+                            f"{label}: transparent_background=true but the file "
+                            "has no alpha channel"
+                        )
         if asset.get("approved") is True and status != "approved":
             report.error(f"{label}: approved=true requires status=approved")
 

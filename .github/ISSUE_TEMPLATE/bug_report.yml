@@ -1,0 +1,45 @@
+name: Bug report
+description: 报告技能、脚本或契约问题
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: 问题范围
+      options:
+        - 总控工作流
+        - UI 规范
+        - UI 延展
+        - 页面生成
+        - 组件拆解
+        - 初始化或校验脚本
+        - 文档或示例
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 复现步骤
+      description: 请提供调用文本、操作顺序和最小项目结构。
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 预期结果
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: 实际结果与校验输出
+    validations:
+      required: true
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: 提交检查
+      options:
+        - label: 已删除 Token、账号和商业项目敏感素材
+          required: true
