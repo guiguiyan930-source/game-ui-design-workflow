@@ -1,0 +1,51 @@
+schema_version: 1
+project_id: "{{PROJECT_ID}}"
+status: draft
+platform:
+  target: mobile
+  orientation: portrait
+  aspect_ratio: "9:16"
+  reference_size: [1080, 1920]
+  safe_area:
+    top: 48
+    right: 32
+    bottom: 120
+    left: 32
+visual:
+  theme: ""
+  keywords: []
+  mood: ""
+  complexity: medium
+  materials: []
+  lighting:
+    direction: top-left
+    softness: medium
+colors:
+  primary: ""
+  secondary: ""
+  accent: ""
+  background: ""
+  warning: ""
+  reward: ""
+  disabled: ""
+typography:
+  language: zh-CN
+  title: {size: 44, weight: 700}
+  section: {size: 32, weight: 700}
+  body: {size: 26, weight: 500}
+  number: {size: 34, weight: 700}
+  button: {size: 30, weight: 700}
+geometry:
+  radius: {small: 10, card: 20, modal: 28}
+  stroke: {thin: 2, regular: 4, strong: 6}
+  button_height: {small: 52, primary: 72}
+  icon_size: {utility: 56, navigation: 46, currency: 32}
+effects:
+  shadow: ""
+  highlight: ""
+  selected: ""
+  disabled: ""
+consistency_rules:
+  - All pages use the same light direction and material vocabulary.
+  - Navigation icons share perspective, stroke weight, and selected state.
+  - Generated text must be short, readable Chinese or composited later.

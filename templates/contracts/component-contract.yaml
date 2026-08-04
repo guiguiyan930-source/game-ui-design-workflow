@@ -1,0 +1,34 @@
+schema_version: 1
+project_id: "{{PROJECT_ID}}"
+source_screen_id: home
+source_screen_status: pending-approval
+components:
+  - id: home-background
+    name: 首页背景
+    category: background
+    reusable: false
+    transparent_background: false
+    text_policy: none
+    target_size: [1080, 1920]
+    states: [default]
+    style_dependencies:
+      - visual.materials
+      - visual.lighting
+      - colors.background
+    prompt: ""
+    output: ""
+  - id: primary-button
+    name: 主按钮
+    category: control
+    reusable: true
+    transparent_background: true
+    text_policy: no-text
+    target_size: [640, 192]
+    states: [default, pressed, disabled]
+    style_dependencies:
+      - colors.primary
+      - geometry.radius
+      - geometry.stroke
+      - effects.shadow
+    prompt: ""
+    output: ""

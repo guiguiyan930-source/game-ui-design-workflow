@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="192" viewBox="0 0 640 192">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F2D88A"/>
+      <stop offset="0.48" stop-color="#D9A441"/>
+      <stop offset="1" stop-color="#8A5A19"/>
+    </linearGradient>
+    <linearGradient id="jade" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFDF2"/>
+      <stop offset="0.52" stop-color="#DCE9E6"/>
+      <stop offset="1" stop-color="#A7C7C9"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-30%" width="140%" height="170%">
+      <feDropShadow dx="0" dy="10" stdDeviation="9" flood-color="#001024" flood-opacity=".55"/>
+    </filter>
+  </defs>
+  <g filter="url(#shadow)">
+    <path d="M88 30h464l58 66-58 66H88L30 96z" fill="url(#gold)"/>
+    <path d="M96 42h448l46 54-46 54H96L50 96z" fill="#173D5B"/>
+    <path d="M108 50h424l38 46-38 46H108L70 96z" fill="url(#jade)" stroke="#91E1E8" stroke-width="4"/>
+    <path d="M116 58h408l30 38-30 38H116L86 96z" fill="none" stroke="#FFFDF2" stroke-width="3" opacity=".65"/>
+    <circle cx="68" cy="96" r="14" fill="#D9A441" stroke="#FFF1B8" stroke-width="4"/>
+    <circle cx="572" cy="96" r="14" fill="#D9A441" stroke="#FFF1B8" stroke-width="4"/>
+  </g>
+</svg>

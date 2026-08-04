@@ -1,0 +1,39 @@
+schema_version: 1
+project_id: "moon-palace-rpg"
+assets:
+  - id: page-home-v1
+    kind: page
+    screen_id: home
+    component_id: null
+    status: approved
+    path: assets/pages/home-v1.png
+    prompt_path: prompts/pages/home.md
+    dimensions: [1024, 1536]
+    transparent_background: false
+    approved: true
+    source_asset: null
+    notes: "Generator returned 2:3; production pass should regenerate or crop to 9:16."
+  - id: component-home-background-v1
+    kind: component
+    screen_id: home
+    component_id: home-background
+    status: approved
+    path: assets/components/home-background-default-v1.png
+    prompt_path: prompts/components/home-background.md
+    dimensions: [1024, 1536]
+    transparent_background: false
+    approved: true
+    source_asset: page-home-v1
+    notes: "Independent generated background; production target remains 1080x1920."
+  - id: component-primary-button-v1
+    kind: component
+    screen_id: home
+    component_id: primary-button
+    status: approved
+    path: assets/components/primary-button-default-v1.svg
+    prompt_path: prompts/components/primary-button.md
+    dimensions: [640, 192]
+    transparent_background: true
+    approved: true
+    source_asset: page-home-v1
+    notes: "Deterministic vector fallback demonstrates transparent asset delivery."

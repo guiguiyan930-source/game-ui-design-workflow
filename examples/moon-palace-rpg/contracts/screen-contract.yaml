@@ -1,0 +1,68 @@
+schema_version: 1
+project_id: "moon-palace-rpg"
+screens:
+  - id: home
+    name: 首页
+    category: core
+    priority: must-have
+    status: approved
+    purpose: 承接每日回流并让玩家快速继续主线
+    entry_points: [login, settlement]
+    primary_actions: [continue-story, open-formation, claim-daily]
+    dependencies: []
+    layout:
+      top: [player-profile, currencies, settings]
+      center: [moon-halo, hero-party, continue-story]
+      bottom: [primary-navigation]
+      floating: [daily-reward, mail, event-hub]
+    components: [home-background, primary-button, currency-bar, primary-navigation]
+    states:
+      - default
+      - loading
+      - event-expired
+      - stamina-empty
+      - error
+    edge_cases: [expired-event, disconnected-session, long-player-name]
+    data_needs: [player, currencies, stamina, current-stage, daily-claim-state]
+    output:
+      brief: prompts/pages/home.md
+      prompt: prompts/pages/home.md
+      image: assets/pages/home-v1.png
+  - id: formation
+    name: 编队
+    category: strategy
+    priority: genre-specific
+    status: planned
+    purpose: 调整六人阵容并查看月相羁绊
+    entry_points: [home, stage-select]
+    primary_actions: [assign-hero, save-formation]
+    dependencies: [home]
+    layout:
+      top: [title, team-power]
+      center: [formation-grid, hero-list]
+      bottom: [filter, save-button]
+      floating: [synergy-help]
+    components: [hero-card, formation-slot, primary-button]
+    states: [default, empty-slot, conflict, insufficient-heroes, loading, error]
+    edge_cases: [duplicate-hero, locked-slot]
+    data_needs: [heroes, team-power, synergies]
+    output: {brief: "", prompt: "", image: ""}
+  - id: stage-select
+    name: 关卡选择
+    category: core
+    priority: must-have
+    status: planned
+    purpose: 选择主线关卡并确认掉落与体力消耗
+    entry_points: [home, settlement]
+    primary_actions: [select-stage, start-stage]
+    dependencies: [formation]
+    layout:
+      top: [chapter-title, stamina]
+      center: [moon-path-map, stage-nodes]
+      bottom: [drop-preview, start-button]
+      floating: [difficulty, chapter-list]
+    components: [stage-node, reward-icon, primary-button]
+    states: [default, locked, completed, stamina-empty, loading, error]
+    edge_cases: [insufficient-stamina, previous-stage-incomplete]
+    data_needs: [chapter, stages, stamina, drops]
+    output: {brief: "", prompt: "", image: ""}

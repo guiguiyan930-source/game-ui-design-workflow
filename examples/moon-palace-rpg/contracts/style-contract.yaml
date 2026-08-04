@@ -1,0 +1,51 @@
+schema_version: 1
+project_id: "moon-palace-rpg"
+status: approved
+platform:
+  target: mobile
+  orientation: portrait
+  aspect_ratio: "9:16"
+  reference_size: [1080, 1920]
+  safe_area:
+    top: 48
+    right: 32
+    bottom: 120
+    left: 32
+visual:
+  theme: moon-palace-myth
+  keywords: [midnight-blue, gilded-gold, white-jade, cloud-pattern, moon-halo]
+  mood: serene-mysterious-noble
+  complexity: medium
+  materials: [frosted-jade, brushed-gold, translucent-blue-glass]
+  lighting:
+    direction: top-left
+    softness: medium
+colors:
+  primary: "#D9A441"
+  secondary: "#275A78"
+  accent: "#91E1E8"
+  background: "#081A33"
+  warning: "#D95B55"
+  reward: "#F2C75C"
+  disabled: "#596273"
+typography:
+  language: zh-CN
+  title: {size: 44, weight: 700}
+  section: {size: 32, weight: 700}
+  body: {size: 26, weight: 500}
+  number: {size: 34, weight: 700}
+  button: {size: 30, weight: 700}
+geometry:
+  radius: {small: 10, card: 20, modal: 28}
+  stroke: {thin: 2, regular: 4, strong: 6}
+  button_height: {small: 52, primary: 72}
+  icon_size: {utility: 56, navigation: 46, currency: 32}
+effects:
+  shadow: "0 10px 24px rgba(0, 8, 24, 0.45)"
+  highlight: "top-left white-jade rim light at 35% opacity"
+  selected: "gold moon-crescent glow with cyan inner rim"
+  disabled: "45% saturation and no outer glow"
+consistency_rules:
+  - All pages use the same light direction and material vocabulary.
+  - Navigation icons share perspective, stroke weight, and selected state.
+  - Generated text must be short, readable Chinese or composited later.

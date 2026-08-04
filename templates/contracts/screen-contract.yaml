@@ -1,0 +1,28 @@
+schema_version: 1
+project_id: "{{PROJECT_ID}}"
+screens:
+  - id: home
+    name: 首页
+    category: core
+    priority: must-have
+    status: planned
+    purpose: ""
+    entry_points: []
+    primary_actions: []
+    dependencies: []
+    layout:
+      top: []
+      center: []
+      bottom: []
+      floating: []
+    components: []
+    states:
+      - default
+      - loading
+      - error
+    edge_cases: []
+    data_needs: []
+    output:
+      brief: ""
+      prompt: ""
+      image: ""
