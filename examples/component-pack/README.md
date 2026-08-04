@@ -72,6 +72,9 @@ python3 scripts/validate_project.py examples/moon-palace-rpg --strict
 
 校验脚本会读取 PNG 与 SVG 的真实尺寸，并检查要求透明的 PNG 是否具有 Alpha 通道。
 
+如果组件以雪碧图形式生成，继续执行
+[雪碧图拆分与 PNG 打包](../sprite-sheet-splitting/README.md)，不能把组件合图直接当作最终切图。
+
 ## 完成标准
 
 - 每个组件有独立契约、提示词和资源条目

@@ -44,7 +44,7 @@ python scripts/validate_project.py examples/moon-palace-rpg --strict
 示例至少包含：
 
 - 需求、研究、计划、任务和复现文档
-- 四类契约
+- 四类核心契约，以及示例使用雪碧图时的拆分契约
 - 页面或组件提示词
 - manifest 中可追踪的资源条目
 - `README.md` 说明调用步骤与限制

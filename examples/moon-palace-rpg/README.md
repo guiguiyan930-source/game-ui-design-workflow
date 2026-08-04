@@ -1,6 +1,6 @@
 # 示例：月宫列传
 
-`moon-palace-rpg` 展示如何用本仓库完成“原型生成视觉 → UI 风格确认 → UI 延展 → UI 组件拆解”的完整闭环。
+`moon-palace-rpg` 展示如何用本仓库完成“原型生成视觉 → UI 风格确认 → UI 延展 → UI 组件拆解 → 雪碧图拆分与 PNG 打包”的完整闭环。
 
 ## 项目设定
 
@@ -54,6 +54,31 @@
 
 每个组件拥有独立提示词、尺寸、透明背景要求、状态和 manifest 条目，便于后期合成和开发交付。
 
+## 雪碧图拆分与 PNG 包
+
+示例还提供一张包含六个图标和三个按钮状态的透明组件雪碧图：
+
+![首页组件雪碧图](assets/sprites/home-ui-sheet.png)
+
+运行：
+
+```bash
+python3 scripts/split_sprite_sheet.py \
+  examples/moon-palace-rpg/assets/sprites/home-ui-sheet.png \
+  --output-dir examples/moon-palace-rpg/assets/sprites/home-ui/items \
+  --zip examples/moon-palace-rpg/packages/home-ui-png.zip \
+  --prefix home-ui --min-area 100 --padding 8
+```
+
+输出：
+
+- 9 个独立透明 PNG
+- 每个元素的原图坐标与尺寸
+- `sprite-manifest.yaml`
+- [可下载 PNG 压缩包](packages/home-ui-png.zip)
+
+项目级数据记录在 [`contracts/sprite-contract.yaml`](contracts/sprite-contract.yaml)，全局 manifest 只登记原始雪碧图和最终 ZIP。
+
 ## 目录导览
 
 ```text
@@ -67,13 +92,23 @@ moon-palace-rpg/
 │   ├── style-contract.yaml         # UI 风格契约
 │   ├── screen-contract.yaml        # 页面契约
 │   ├── component-contract.yaml     # 组件契约
-│   └── asset-manifest.yaml         # 资源清单
+│   ├── sprite-contract.yaml        # 雪碧图拆分契约
+│   └── asset-manifest.yaml         # 全局资源清单
 ├── prompts/
 │   ├── pages/
 │   └── components/
 └── assets/
     ├── pages/
-    └── components/
+    ├── components/
+    └── sprites/
+        ├── home-ui-sheet.png
+        └── home-ui/items/
+```
+
+最终 PNG 包位于：
+
+```text
+packages/home-ui-png.zip
 ```
 
 ## 运行示例校验
@@ -97,7 +132,8 @@ python3 scripts/init_project.py your-game-id
 ```text
 使用 game-ui-workflow，参考 examples/moon-palace-rpg 的交付结构，
 为 specs/your-game-id 依次执行原型生成视觉、UI 风格切换、
-UI 延展和 UI 组件拆解。每一步完成后停止，给出检查项和下一步调用文本。
+UI 延展、UI 组件拆解和雪碧图拆分打包。
+每一步完成后停止，给出检查项和下一步调用文本。
 ```
 
 当前示例图片工具返回 1024×1536，而目标契约为 9:16。该差异已如实记录在 manifest 和 `quickstart.md`，正式项目应重新生成或裁切，不能伪造目标尺寸。

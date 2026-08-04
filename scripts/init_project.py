@@ -64,6 +64,8 @@ def initialize(
     for relative in (
         "assets/pages",
         "assets/components",
+        "assets/sprites",
+        "packages",
         "prompts/pages",
         "prompts/components",
         "contracts",
@@ -84,6 +86,8 @@ def initialize(
     for keep in (
         project_dir / "assets" / "pages" / ".gitkeep",
         project_dir / "assets" / "components" / ".gitkeep",
+        project_dir / "assets" / "sprites" / ".gitkeep",
+        project_dir / "packages" / ".gitkeep",
         project_dir / "prompts" / "pages" / ".gitkeep",
         project_dir / "prompts" / "components" / ".gitkeep",
     ):

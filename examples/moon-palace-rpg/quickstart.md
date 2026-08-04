@@ -20,7 +20,8 @@
 3. 按 `plan.md` 选择一个页面 ID。
 4. 使用页面技能生成视觉稿，保存到 `assets/pages/`。
 5. 页面批准后使用组件技能，保存到 `assets/components/`。
-6. 更新 `contracts/asset-manifest.yaml`。
+6. 使用雪碧图拆分技能导出单元素 PNG 和 ZIP。
+7. 更新 `sprite-contract.yaml` 与 `asset-manifest.yaml`。
 
 ## 校验
 
@@ -36,6 +37,8 @@ python3 scripts/validate_project.py examples/moon-palace-rpg --strict
 - [x] 中文清晰，无乱码和错误商标
 - [x] 组件无粘连、无脏边、无意外裁切
 - [x] 非背景组件满足透明背景要求
+- [x] 雪碧图切片无裁断、粘连或背景残留
+- [x] PNG 压缩包可以解压且包含 manifest
 
 ## 已知限制
 

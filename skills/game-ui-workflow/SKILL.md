@@ -1,6 +1,6 @@
 ---
 name: game-ui-workflow
-description: Orchestrates an end-to-end game UI workflow from requirements and reference-image analysis through design specification, screen-system extension, page image generation, component breakdown, asset registration, and validation. Use when users ask to build, extend, visualize, or deliver a coherent multi-screen game UI project rather than one isolated artifact.
+description: Orchestrates an end-to-end game UI workflow from requirements and reference-image analysis through design specification, screen-system extension, page image generation, component breakdown, sprite-sheet splitting, PNG ZIP packaging, asset registration, and validation. Use when users ask to build, extend, visualize, split, or deliver a coherent multi-screen game UI project rather than one isolated artifact.
 ---
 
 # 游戏 UI 总控工作流
@@ -15,18 +15,20 @@ description: Orchestrates an end-to-end game UI workflow from requirements and r
 - 页面清单、功能扩展、玩家旅程 → `game-ui-extension`
 - 完整单页、原型视觉、页面生图 → `game-ui-page-generator`
 - 透明组件、切图、素材拆解 → `game-ui-component-breakdown`
+- 雪碧图、单元素 PNG、切片打包 → `game-ui-sprite-sheet-splitter`
 - 完整项目或多阶段交付 → 按本工作流依次编排
 
 用户明确要求单阶段时，不强迫执行完整流程；但要读取已有契约。
 
 ## 分步操作指引
 
-当用户按“原型生成视觉 → UI 风格切换 → UI 延展 → UI 组件拆解”工作时，使用以下四个检查点：
+当用户按“原型生成视觉 → UI 风格切换 → UI 延展 → UI 组件拆解 → 雪碧图拆分打包”工作时，使用以下五个检查点：
 
 1. 原型生成视觉：用一个基准页面验证构图和信息层级，保存为未批准版本。
 2. UI 风格切换：保持页面结构不变生成风格候选；用户选定后再批准样式契约和基准页。
 3. UI 延展：先输出屏幕地图并等待范围确认，再按批次逐页生成。
 4. UI 组件拆解：只拆已批准页面，每个组件和状态单独交付。
+5. 雪碧图拆分打包：把组件合图切成单元素透明 PNG，生成 manifest 和 ZIP。
 
 每一步开始时简要说明：
 
@@ -53,6 +55,7 @@ description: Orchestrates an end-to-end game UI workflow from requirements and r
 - 风格契约和基准页未批准时，不批量延展页面视觉。
 - 页面范围未确认时，只完成屏幕地图。
 - 源页面未批准时，不拆组件。
+- 组件雪碧图不存在时，不伪造单元素 PNG 或 ZIP。
 
 ## 初始化
 
@@ -121,7 +124,20 @@ description: Orchestrates an end-to-end game UI workflow from requirements and r
 - 除背景外默认透明；默认不生成文字
 - 组件状态、尺寸、命名和源页面可追踪
 
-### 7. Validate
+### 7. Sprite-sheet splitting
+
+组件拆解输出为整张雪碧图时，调用 `game-ui-sprite-sheet-splitter`：
+
+1. 读取实际雪碧图和组件契约。
+2. 使用 Alpha 或纯色背景检测独立元素。
+3. 导出单元素透明 PNG。
+4. 生成坐标、尺寸和路径 manifest。
+5. 将 PNG 与 manifest 打包成 ZIP。
+6. 人工检查裁断、粘连、阴影和透明边缘。
+
+自动检测不可靠时调整阈值或重新生成留有间距的雪碧图，不得把错误切片标记为批准。
+
+### 8. Validate
 
 执行：
 
@@ -151,8 +167,9 @@ python3 scripts/validate_project.py specs/<project-id>
 ## 完成定义
 
 - 六类 Spec-Kit 产物完整
-- 四类契约之间的 ID 和路径一致
+- 四类核心契约之间的 ID 和路径一致；使用雪碧图时附加拆分契约
 - 页面及组件图片存在，或明确标记待生成
 - 视觉稿与组件均有提示词可复现
+- 使用雪碧图时，单元素 PNG、拆分 manifest 和 ZIP 包可追踪
 - `tasks.md` 反映真实状态
 - 校验脚本无错误

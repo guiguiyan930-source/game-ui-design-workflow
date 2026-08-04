@@ -4,6 +4,7 @@ import shutil
 import sys
 import tempfile
 import unittest
+import zipfile
 from pathlib import Path
 
 import yaml
@@ -69,6 +70,26 @@ class ValidateProjectTests(unittest.TestCase):
         )
 
         self.assertEqual(inspect_image(path), ([640, 192], True))
+
+    def test_detects_sprite_package_missing_item(self) -> None:
+        temp_dir, project = self.copy_example()
+        self.addCleanup(temp_dir.cleanup)
+        package = project / "packages" / "home-ui-png.zip"
+        replacement = project / "packages" / "replacement.zip"
+        with zipfile.ZipFile(package) as source, zipfile.ZipFile(
+            replacement, "w", zipfile.ZIP_DEFLATED
+        ) as target:
+            for name in source.namelist():
+                if name != "items/home-ui-009.png":
+                    target.writestr(name, source.read(name))
+        replacement.replace(package)
+
+        report = validate(project, strict=False)
+
+        self.assertTrue(
+            any("ZIP is missing item" in error for error in report.errors),
+            report.errors,
+        )
 
 
 if __name__ == "__main__":

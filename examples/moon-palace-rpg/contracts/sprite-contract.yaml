@@ -1,0 +1,61 @@
+schema_version: 1
+project_id: moon-palace-rpg
+status: approved
+pack_id: home-ui
+source:
+  screen_id: home
+  sheet_asset_id: sprite-sheet-home-ui-v1
+  sheet_path: assets/sprites/home-ui-sheet.png
+detection:
+  mode: alpha
+  alpha_threshold: 8
+  background_tolerance: 24
+  connect_gap: 2
+  min_area: 100
+  padding: 8
+output:
+  items_dir: assets/sprites/home-ui/items
+  manifest_path: assets/sprites/home-ui/items/sprite-manifest.yaml
+  package_path: packages/home-ui-png.zip
+items:
+  - id: home-ui-001
+    path: assets/sprites/home-ui/items/home-ui-001.png
+    bbox: [14, 44, 113, 113]
+    dimensions: [113, 113]
+  - id: home-ui-002
+    path: assets/sprites/home-ui/items/home-ui-002.png
+    bbox: [154, 44, 113, 113]
+    dimensions: [113, 113]
+  - id: home-ui-003
+    path: assets/sprites/home-ui/items/home-ui-003.png
+    bbox: [294, 44, 113, 113]
+    dimensions: [113, 113]
+  - id: home-ui-004
+    path: assets/sprites/home-ui/items/home-ui-004.png
+    bbox: [434, 44, 113, 113]
+    dimensions: [113, 113]
+  - id: home-ui-005
+    path: assets/sprites/home-ui/items/home-ui-005.png
+    bbox: [574, 44, 113, 113]
+    dimensions: [113, 113]
+  - id: home-ui-006
+    path: assets/sprites/home-ui/items/home-ui-006.png
+    bbox: [714, 44, 113, 113]
+    dimensions: [113, 113]
+  - id: home-ui-007
+    path: assets/sprites/home-ui/items/home-ui-007.png
+    bbox: [142, 220, 617, 101]
+    dimensions: [617, 101]
+  - id: home-ui-008
+    path: assets/sprites/home-ui/items/home-ui-008.png
+    bbox: [142, 340, 617, 101]
+    dimensions: [617, 101]
+  - id: home-ui-009
+    path: assets/sprites/home-ui/items/home-ui-009.png
+    bbox: [142, 460, 617, 101]
+    dimensions: [617, 101]
+review:
+  complete: true
+  notes:
+    - Six circular icons and three button states detected without overlap.
+    - All exported PNG files retain a transparent border.

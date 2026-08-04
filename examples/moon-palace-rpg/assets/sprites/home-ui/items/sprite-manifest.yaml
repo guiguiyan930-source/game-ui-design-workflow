@@ -1,0 +1,111 @@
+schema_version: 1
+source_sheet: home-ui-sheet.png
+detected_mode: alpha
+sampled_background: null
+settings:
+  alpha_threshold: 8
+  background_tolerance: 24
+  connect_gap: 2
+  min_area: 100
+  padding: 8
+item_count: 9
+items:
+- id: home-ui-001
+  path: home-ui-001.png
+  bbox:
+  - 14
+  - 44
+  - 113
+  - 113
+  dimensions:
+  - 113
+  - 113
+  transparent_background: true
+- id: home-ui-002
+  path: home-ui-002.png
+  bbox:
+  - 154
+  - 44
+  - 113
+  - 113
+  dimensions:
+  - 113
+  - 113
+  transparent_background: true
+- id: home-ui-003
+  path: home-ui-003.png
+  bbox:
+  - 294
+  - 44
+  - 113
+  - 113
+  dimensions:
+  - 113
+  - 113
+  transparent_background: true
+- id: home-ui-004
+  path: home-ui-004.png
+  bbox:
+  - 434
+  - 44
+  - 113
+  - 113
+  dimensions:
+  - 113
+  - 113
+  transparent_background: true
+- id: home-ui-005
+  path: home-ui-005.png
+  bbox:
+  - 574
+  - 44
+  - 113
+  - 113
+  dimensions:
+  - 113
+  - 113
+  transparent_background: true
+- id: home-ui-006
+  path: home-ui-006.png
+  bbox:
+  - 714
+  - 44
+  - 113
+  - 113
+  dimensions:
+  - 113
+  - 113
+  transparent_background: true
+- id: home-ui-007
+  path: home-ui-007.png
+  bbox:
+  - 142
+  - 220
+  - 617
+  - 101
+  dimensions:
+  - 617
+  - 101
+  transparent_background: true
+- id: home-ui-008
+  path: home-ui-008.png
+  bbox:
+  - 142
+  - 340
+  - 617
+  - 101
+  dimensions:
+  - 617
+  - 101
+  transparent_background: true
+- id: home-ui-009
+  path: home-ui-009.png
+  bbox:
+  - 142
+  - 460
+  - 617
+  - 101
+  dimensions:
+  - 617
+  - 101
+  transparent_background: true

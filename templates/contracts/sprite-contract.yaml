@@ -1,0 +1,23 @@
+schema_version: 1
+project_id: "{{PROJECT_ID}}"
+status: draft
+pack_id: ui-components
+source:
+  screen_id: home
+  sheet_asset_id: null
+  sheet_path: ""
+detection:
+  mode: auto
+  alpha_threshold: 8
+  background_tolerance: 24
+  connect_gap: 2
+  min_area: 64
+  padding: 4
+output:
+  items_dir: assets/sprites/ui-components/items
+  manifest_path: assets/sprites/ui-components/items/sprite-manifest.yaml
+  package_path: packages/ui-components-png.zip
+items: []
+review:
+  complete: false
+  notes: []

@@ -9,6 +9,7 @@
 - `game-ui-extension`：扩展玩家旅程、页面地图与 `screen-contract.yaml`。
 - `game-ui-page-generator`：一次生成一个完整页面的方案、提示词和视觉稿。
 - `game-ui-component-breakdown`：从已批准页面拆解独立组件素材。
+- `game-ui-sprite-sheet-splitter`：将组件雪碧图切成单元素透明 PNG 并打包 ZIP。
 
 一般项目优先调用 `game-ui-workflow`；只修改某一阶段时调用对应子技能。
 
@@ -93,9 +94,9 @@ specs/moon-palace-rpg/
 
 信息不足时，技能会使用可调整的默认值；题材、平台、比例或交付范围不明确时会先询问。
 
-## 5. 四步操作指引
+## 5. 五步操作指引
 
-推荐按“原型生成视觉 → UI 风格切换 → UI 延展 → UI 组件拆解”推进。每一步都包含开始条件、调用文本、检查点和下一步。
+推荐按“原型生成视觉 → UI 风格切换 → UI 延展 → UI 组件拆解 → 雪碧图拆分打包”推进。每一步都包含开始条件、调用文本、检查点和下一步。
 
 ### 第一步：原型生成视觉
 
@@ -266,13 +267,14 @@ specs/moon-palace-rpg/
 
 要求：
 - 除背景外全部透明背景；
-- 每个组件单独生成，不要组件拼板；
-- 每个组件单独保存提示词和图片；
+- 使用“雪碧图模式”生成组件合图，所有元素完整、互不接触并留有间距；
+- 雪碧图只作为待切割中间产物，不作为最终组件交付；
+- 每个组件仍需单独保存提示词和契约；
 - 文件名包含 component-id、state 和版本；
 - 更新 component-contract.yaml 和 asset-manifest.yaml。
 
-完成后按“已生成、待生成、透明通道检查、尺寸检查、复用建议”给出指引，
-最后运行严格校验。
+完成后按“雪碧图路径、组件数量、元素间距、背景类型、下一步拆分参数”给出指引，
+不要提前声称已经得到独立 PNG。
 ```
 
 本步检查：
@@ -282,14 +284,66 @@ specs/moon-palace-rpg/
 - 无文字、乱码、脏边、裁切和背景残留
 - 同组图标的透视、描边和光源一致
 - 主按钮与次按钮视觉权重正确
-- 每个状态是独立文件
+- 每个元素完整且互不粘连
+
+进入下一步的条件：组件雪碧图已经生成并登记，背景透明或颜色基本统一。
+
+### 第五步：雪碧图拆分与 PNG 打包
+
+目标：把组件合图自动切成单元素透明 PNG，生成坐标清单并打包 ZIP。
+
+调用：
+
+```text
+使用 game-ui-workflow，当前执行第 5 步“雪碧图拆分与 PNG 打包”。
+输入雪碧图是 @specs/moon-palace-rpg/assets/sprites/home-components.png。
+
+调用 game-ui-sprite-sheet-splitter：
+1. 自动判断透明背景或纯色背景；
+2. 检测互不接触的独立元素；
+3. 导出单元素透明 PNG 到 assets/sprites/home-components/items；
+4. 生成 sprite-manifest.yaml，记录坐标、尺寸和文件名；
+5. 打包为 packages/home-components-png.zip；
+6. 更新 sprite-contract.yaml 和 asset-manifest.yaml；
+7. 检查裁断、粘连、阴影、透明边缘和 ZIP 完整性。
+
+完成后列出成功切片、疑似误切、需人工检查和下载包路径。
+```
+
+对应命令：
+
+```bash
+python3 scripts/split_sprite_sheet.py \
+  specs/moon-palace-rpg/assets/sprites/home-components.png \
+  --output-dir specs/moon-palace-rpg/assets/sprites/home-components/items \
+  --zip specs/moon-palace-rpg/packages/home-components-png.zip \
+  --mode auto \
+  --prefix home-component
+```
+
+误切调整：
+
+- 元素被拆碎：提高 `--connect-gap`
+- 多个元素粘连：降低 `--connect-gap`
+- 背景残留：调整 `--background-tolerance`
+- 小图标消失：降低 `--min-area`
+- 发光被裁断：提高 `--padding`
+
+本步检查：
+
+- 每张 PNG 只包含一个完整元素
+- PNG 具有真实透明通道
+- 原图坐标、实际尺寸和 manifest 一致
+- 阴影与发光没有被裁断
+- ZIP 可解压并包含所有 PNG 和 manifest
+- 原始雪碧图、拆分目录和压缩包均可追踪
 
 最终验收：
 
 ```text
 使用 game-ui-workflow 验收整个项目。
 运行 validate_project.py --strict，
-检查页面 ID、组件 ID、资源路径、真实尺寸、透明背景和版本来源。
+检查页面 ID、组件 ID、雪碧图切片、ZIP、资源路径、真实尺寸、透明背景和版本来源。
 修复全部错误；不能修复的限制写入 quickstart.md。
 ```
 
@@ -307,11 +361,11 @@ specs/moon-palace-rpg/
 可直接复制的下一步调用文本：
 ```
 
-这样用户无需记忆流程，也不会在页面未批准时误入组件拆解。
+这样用户无需记忆流程，也不会在页面未批准时误入组件拆解，或在雪碧图不存在时伪造切片包。
 
 ## 6. 端到端调用
 
-以下提示会依次执行规范、页面延展、单页视觉、组件拆解和校验：
+以下提示会依次执行规范、页面延展、单页视觉、组件拆解、雪碧图拆分和校验：
 
 ```text
 使用 game-ui-workflow，为 moon-palace-rpg 完成一轮端到端 UI 设计。
@@ -321,9 +375,10 @@ specs/moon-palace-rpg/
 2. 完成 UI 规范并冻结 style-contract.yaml。
 3. 根据玩家旅程延展首页、编队、关卡、战斗 HUD、结算、角色和背包。
 4. 先生成首页，实际调用图片生成工具并保存视觉稿。
-5. 首页通过验收后，拆解背景、主按钮、底部导航和货币栏。
-6. 所有提示词、图片和组件必须登记到 asset-manifest.yaml。
-7. 最后运行 validate_project.py，修复全部错误。
+5. 首页通过验收后，生成包含背景、主按钮、底部导航和货币栏的组件雪碧图。
+6. 把雪碧图切成单元素透明 PNG，并打包为 ZIP。
+7. 所有提示词、图片、切片和压缩包必须登记到对应契约。
+8. 最后运行 validate_project.py，修复全部错误。
 ```
 
 如果希望在关键阶段人工确认：
@@ -332,7 +387,8 @@ specs/moon-palace-rpg/
 使用 game-ui-workflow 分阶段执行。每完成一个阶段先停止并汇报变更：
 第一阶段只完成 spec、research 和 style-contract；
 我确认后再执行页面延展；
-首页视觉必须经我明确批准后才能拆组件。
+首页视觉必须经我明确批准后才能拆组件；
+组件雪碧图生成后先让我检查，再执行自动切片和打包。
 ```
 
 ## 7. 单独调用子技能
@@ -420,8 +476,8 @@ specs/moon-palace-rpg/
 - 六个底部导航图标；
 - 金币、月玉和体力图标。
 
-除背景外全部要求透明背景。每个组件单独生成、单独保存、
-单独写提示词并登记 manifest，不要生成组件拼板。
+除背景外全部要求透明背景。默认每个组件单独生成；
+如果后续需要自动切图，则使用雪碧图模式，保证元素完整、互不接触并留有间距。
 ```
 
 主要输出：
@@ -430,6 +486,25 @@ specs/moon-palace-rpg/
 - `prompts/components/<component-id>.md`
 - `assets/components/`
 - `contracts/asset-manifest.yaml`
+
+### 7.6 拆分雪碧图并打包
+
+```text
+使用 game-ui-sprite-sheet-splitter，
+读取 @specs/moon-palace-rpg/assets/sprites/home-components.png。
+
+自动识别背景并把每个元素导出为透明 PNG，
+保存坐标和尺寸 manifest，打包为 home-components-png.zip。
+检查裁断、粘连、阴影、透明边缘和 ZIP 完整性，
+更新 sprite-contract.yaml 和 asset-manifest.yaml。
+```
+
+主要输出：
+
+- `assets/sprites/<pack-id>/items/*.png`
+- `assets/sprites/<pack-id>/items/sprite-manifest.yaml`
+- `packages/<pack-id>-png.zip`
+- `contracts/sprite-contract.yaml`
 
 ## 8. 修改已有项目
 
@@ -508,6 +583,7 @@ game-ui-workflow
 → game-ui-page-generator
 → 页面批准
 → game-ui-component-breakdown
+→ game-ui-sprite-sheet-splitter
 → validate_project.py
 ```
 
@@ -517,6 +593,7 @@ game-ui-workflow
 game-ui-page-generator
 → 页面批准
 → game-ui-component-breakdown（可选）
+→ game-ui-sprite-sheet-splitter（组件合图时可选）
 ```
 
 只有参考图、需要扩展整套页面：
@@ -555,3 +632,15 @@ game-ui-workflow
 ### 图片比例与契约不一致
 
 在 manifest 记录工具返回的真实尺寸，不要伪造目标尺寸；随后重新生成或裁切为契约比例。
+
+### 雪碧图被拆成太多碎片
+
+提高 `--connect-gap`，让同一元素中距离较近的阴影、发光和装饰合并；仍然碎裂时应重新生成结构更连贯的雪碧图。
+
+### 多个元素被切在同一个 PNG
+
+降低 `--connect-gap`。如果元素原本已经接触或遮挡，自动算法无法恢复边界，应重新生成元素互不接触的组件雪碧图。
+
+### 透明 PNG 有白边或背景残留
+
+使用 `--mode background` 并调整 `--background-tolerance`。背景本身复杂或渐变时，优先重新生成纯色或透明背景雪碧图。

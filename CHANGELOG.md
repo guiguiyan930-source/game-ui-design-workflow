@@ -2,7 +2,7 @@
 
 本项目遵循 [Semantic Versioning](https://semver.org/)。
 
-## [Unreleased]
+## [0.2.0] - 2026-08-04
 
 ### Added
 
@@ -14,6 +14,8 @@
 - 支持项目级、个人级、强制更新和预览模式的一键安装脚本。
 - 5 个安装脚本自动化测试。
 - 将第三方声明替换为同一作者早期技能仓库的项目来源与演进说明。
+- 新增 `game-ui-sprite-sheet-splitter`，支持透明或纯色背景雪碧图自动检测、单元素透明 PNG 导出、坐标 manifest 和 ZIP 打包。
+- 新增可选 `sprite-contract.yaml`、雪碧图项目校验、完整示例和 4 个拆分测试。
 
 ## [0.1.0] - 2026-08-04
 
@@ -31,4 +33,5 @@
 - “月宫列传”完整项目，以及风格切换、页面延展和组件包拆解操作示例。
 - 中文技能调用指南、贡献指南、Issue 模板和 PR 模板。
 
+[0.2.0]: https://github.com/guiguiyan930-source/game-ui-design-workflow/releases/tag/v0.2.0
 [0.1.0]: https://github.com/guiguiyan930-source/game-ui-design-workflow/releases/tag/v0.1.0

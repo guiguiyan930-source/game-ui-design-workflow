@@ -37,3 +37,27 @@ assets:
     approved: true
     source_asset: page-home-v1
     notes: "Deterministic vector fallback demonstrates transparent asset delivery."
+  - id: sprite-sheet-home-ui-v1
+    kind: sprite-sheet
+    screen_id: home
+    component_id: null
+    status: approved
+    path: assets/sprites/home-ui-sheet.png
+    prompt_path: prompts/components/home-ui-sheet.md
+    dimensions: [900, 600]
+    transparent_background: true
+    approved: true
+    source_asset: page-home-v1
+    notes: "Intermediate sheet for automated element extraction."
+  - id: package-home-ui-v1
+    kind: package
+    screen_id: home
+    component_id: null
+    status: approved
+    path: packages/home-ui-png.zip
+    prompt_path: null
+    dimensions: null
+    transparent_background: null
+    approved: true
+    source_asset: sprite-sheet-home-ui-v1
+    notes: "Contains nine transparent PNG elements and sprite-manifest.yaml."

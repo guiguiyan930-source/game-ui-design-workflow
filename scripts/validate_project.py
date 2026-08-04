@@ -7,6 +7,7 @@ import argparse
 import re
 import struct
 import xml.etree.ElementTree as ET
+import zipfile
 from pathlib import Path
 from typing import Any
 
@@ -25,6 +26,7 @@ CONTRACT_FILES = (
     "component-contract.yaml",
     "asset-manifest.yaml",
 )
+OPTIONAL_CONTRACT_FILES = ("sprite-contract.yaml",)
 
 
 class Report:
@@ -289,8 +291,10 @@ def validate_assets(
             report.error(f"{label}: duplicate asset ID {asset_id!r}")
         ids.add(asset_id)
         kind = asset.get("kind")
-        if kind not in {"page", "component"}:
-            report.error(f"{label}: kind must be page or component")
+        if kind not in {"page", "component", "sprite-sheet", "package"}:
+            report.error(
+                f"{label}: kind must be page, component, sprite-sheet, or package"
+            )
         if asset.get("screen_id") not in screen_ids:
             report.error(f"{label}: unknown screen_id {asset.get('screen_id')!r}")
         component_id = asset.get("component_id")
@@ -299,20 +303,26 @@ def validate_assets(
         status = asset.get("status")
         if status not in {"pending-generation", "generated", "approved", "stale"}:
             report.error(f"{label}: invalid status {status!r}")
-        validate_dimensions(asset.get("dimensions"), f"{label}.dimensions", report)
-        if not isinstance(asset.get("transparent_background"), bool):
-            report.error(f"{label}: transparent_background must be boolean")
+        if kind != "package":
+            validate_dimensions(asset.get("dimensions"), f"{label}.dimensions", report)
+            if not isinstance(asset.get("transparent_background"), bool):
+                report.error(f"{label}: transparent_background must be boolean")
 
         prompt_value = asset.get("prompt_path")
         prompt = project / str(prompt_value) if prompt_value else None
-        if not prompt or not prompt.is_file():
+        if kind != "package" and (not prompt or not prompt.is_file()):
             report.error(f"{label}: prompt_path does not exist: {prompt_value!r}")
 
         path_value = asset.get("path")
         output = project / str(path_value) if path_value else None
         if status in {"generated", "approved"} and (not output or not output.is_file()):
             report.error(f"{label}: generated asset path does not exist: {path_value!r}")
-        if output and output.is_file() and status in {"generated", "approved"}:
+        if (
+            kind != "package"
+            and output
+            and output.is_file()
+            and status in {"generated", "approved"}
+        ):
             try:
                 inspection = inspect_image(output)
             except (OSError, ValueError, ET.ParseError) as error:
@@ -339,6 +349,119 @@ def validate_assets(
             report.error(f"{label}: approved=true requires status=approved")
 
 
+def validate_sprite_contract(
+    project: Path,
+    sprite: dict[str, Any],
+    screen_ids: set[str],
+    report: Report,
+) -> None:
+    source_name = "sprite-contract.yaml"
+    if sprite.get("status") not in {"draft", "generated", "approved", "stale"}:
+        report.error(f"{source_name}: invalid status {sprite.get('status')!r}")
+    validate_id(sprite.get("pack_id"), f"{source_name}: pack_id", report)
+    source = require_mapping(sprite, "source", source_name, report)
+    detection = require_mapping(sprite, "detection", source_name, report)
+    output = require_mapping(sprite, "output", source_name, report)
+    items = require_list(sprite, "items", source_name, report)
+    review = require_mapping(sprite, "review", source_name, report)
+
+    screen_id = source.get("screen_id")
+    if screen_id not in screen_ids:
+        report.error(f"{source_name}: unknown source screen_id {screen_id!r}")
+    if detection.get("mode") not in {"auto", "alpha", "background"}:
+        report.error(f"{source_name}: invalid detection mode")
+    for key in (
+        "alpha_threshold",
+        "background_tolerance",
+        "connect_gap",
+        "min_area",
+        "padding",
+    ):
+        if not isinstance(detection.get(key), int) or detection[key] < 0:
+            report.error(f"{source_name}: detection.{key} must be non-negative")
+
+    item_ids: set[str] = set()
+    for index, item in enumerate(items):
+        label = f"{source_name}: items[{index}]"
+        if not isinstance(item, dict):
+            report.error(f"{label}: must be a mapping")
+            continue
+        item_id = item.get("id")
+        if not validate_id(item_id, f"{label}.id", report):
+            continue
+        if item_id in item_ids:
+            report.error(f"{label}: duplicate item ID {item_id!r}")
+        item_ids.add(item_id)
+        bbox = item.get("bbox")
+        if (
+            not isinstance(bbox, list)
+            or len(bbox) != 4
+            or not all(isinstance(value, int) and value >= 0 for value in bbox)
+            or bbox[2] <= 0
+            or bbox[3] <= 0
+        ):
+            report.error(f"{label}: bbox must be [x, y, width, height]")
+        validate_dimensions(item.get("dimensions"), f"{label}.dimensions", report)
+        path_value = item.get("path")
+        path = project / str(path_value) if path_value else None
+        if sprite.get("status") in {"generated", "approved"}:
+            if not path or not path.is_file():
+                report.error(f"{label}: PNG path does not exist: {path_value!r}")
+            else:
+                inspection = inspect_image(path)
+                if inspection is None or path.suffix.lower() != ".png":
+                    report.error(f"{label}: sprite item must be a PNG")
+                else:
+                    dimensions, has_alpha = inspection
+                    if dimensions != item.get("dimensions"):
+                        report.error(
+                            f"{label}: dimensions {item.get('dimensions')!r} "
+                            f"do not match actual {dimensions!r}"
+                        )
+                    if not has_alpha:
+                        report.error(f"{label}: sprite PNG has no alpha channel")
+
+    status = sprite.get("status")
+    if status in {"generated", "approved"}:
+        if not items:
+            report.error(f"{source_name}: generated packs require items")
+        sheet_value = source.get("sheet_path")
+        sheet = project / str(sheet_value) if sheet_value else None
+        if not sheet or not sheet.is_file():
+            report.error(
+                f"{source_name}: source sheet does not exist: {sheet_value!r}"
+            )
+        manifest_value = output.get("manifest_path")
+        sprite_manifest = (
+            project / str(manifest_value) if manifest_value else None
+        )
+        if not sprite_manifest or not sprite_manifest.is_file():
+            report.error(
+                f"{source_name}: split manifest does not exist: {manifest_value!r}"
+            )
+        package_value = output.get("package_path")
+        package = project / str(package_value) if package_value else None
+        if not package or not package.is_file():
+            report.error(
+                f"{source_name}: package_path does not exist: {package_value!r}"
+            )
+        elif not zipfile.is_zipfile(package):
+            report.error(f"{source_name}: package is not a valid ZIP")
+        else:
+            with zipfile.ZipFile(package) as archive:
+                names = set(archive.namelist())
+            if "sprite-manifest.yaml" not in names:
+                report.error(f"{source_name}: ZIP is missing sprite-manifest.yaml")
+            for item in items:
+                expected = f"items/{Path(str(item.get('path'))).name}"
+                if expected not in names:
+                    report.error(
+                        f"{source_name}: ZIP is missing item {expected!r}"
+                    )
+    if status == "approved" and review.get("complete") is not True:
+        report.error(f"{source_name}: approved packs require review.complete=true")
+
+
 def validate(project: Path, strict: bool) -> Report:
     report = Report()
     if not project.is_dir():
@@ -356,6 +479,10 @@ def validate(project: Path, strict: bool) -> Report:
             contracts[name] = {}
         else:
             contracts[name] = load_yaml(path, report)
+    for name in OPTIONAL_CONTRACT_FILES:
+        path = project / "contracts" / name
+        if path.is_file():
+            contracts[name] = load_yaml(path, report)
 
     validate_contract_headers(contracts, project_id, report)
     validate_style(contracts["style-contract.yaml"], report)
@@ -370,6 +497,13 @@ def validate(project: Path, strict: bool) -> Report:
         component_ids,
         report,
     )
+    if "sprite-contract.yaml" in contracts:
+        validate_sprite_contract(
+            project,
+            contracts["sprite-contract.yaml"],
+            screen_ids,
+            report,
+        )
     if strict and report.warnings:
         report.errors.extend(f"strict: {warning}" for warning in report.warnings)
     return report

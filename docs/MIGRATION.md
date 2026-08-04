@@ -1,12 +1,12 @@
 # 契约迁移指南
 
-本指南用于升级 `style-contract.yaml`、`screen-contract.yaml`、`component-contract.yaml` 和 `asset-manifest.yaml`。
+本指南用于升级 `style-contract.yaml`、`screen-contract.yaml`、`component-contract.yaml`、`asset-manifest.yaml`，以及使用雪碧图时的 `sprite-contract.yaml`。
 
 ## 迁移前
 
 1. 提交或备份当前项目。
 2. 运行旧版本校验并保存结果。
-3. 检查四个契约的 `schema_version`。
+3. 检查四个核心契约和可选雪碧图契约的 `schema_version`。
 4. 阅读 `CHANGELOG.md` 中对应版本说明。
 5. 不要直接覆盖已批准页面和组件。
 
@@ -100,7 +100,7 @@ python3 scripts/validate_project.py specs/your-game-id --strict
 
 确认：
 
-- 四类契约版本一致
+- 四类核心契约版本一致，可选雪碧图契约与项目版本兼容
 - 页面和组件 ID 仍可解析
 - manifest 路径和实际文件一致
 - 真实尺寸与透明通道通过

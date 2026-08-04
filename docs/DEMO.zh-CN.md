@@ -90,7 +90,23 @@ flowchart LR
 - 真实尺寸和透明通道与 manifest 一致
 - 页面专属组件和跨页面复用组件分开管理
 
-## 5. 可复制调用
+## 5. 雪碧图拆分与 PNG 打包
+
+组件雪碧图示例：
+
+![组件雪碧图](../examples/moon-palace-rpg/assets/sprites/home-ui-sheet.png)
+
+自动拆分后得到：
+
+- 6 个独立圆形图标 PNG
+- 3 个独立按钮状态 PNG
+- 每个元素的原图坐标和实际尺寸
+- `sprite-manifest.yaml`
+- [home-ui-png.zip](../examples/moon-palace-rpg/packages/home-ui-png.zip)
+
+雪碧图必须保证元素互不接触。检测阈值无法解决遮挡或粘连时，应重新生成组件合图。
+
+## 6. 可复制调用
 
 ```text
 使用 game-ui-workflow，读取 @specs/your-game-id 和参考图片。
@@ -99,8 +115,9 @@ flowchart LR
 1. 为首页生成一张未批准的原型视觉；
 2. 保持结构不变生成一个风格切换版本，等待我选择；
 3. 风格批准后先建立屏幕地图，再逐页延展；
-4. 只从已批准页面拆解独立透明组件；
-5. 最后运行严格校验。
+4. 只从已批准页面生成组件雪碧图；
+5. 把雪碧图切成单元素透明 PNG 并打包 ZIP；
+6. 最后运行严格校验。
 
 每一步结束时停止，列出产物、检查项、进入下一步的条件，
 并提供可直接复制的下一步调用文本。

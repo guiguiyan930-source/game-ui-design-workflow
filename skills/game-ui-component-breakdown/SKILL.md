@@ -5,7 +5,7 @@ description: Breaks an approved game UI page or visual style into reusable, indi
 
 # 游戏 UI 组件拆解
 
-只输出独立素材及其契约，不重新生成完整页面。
+输出独立素材或待自动切割的组件雪碧图及其契约，不重新生成完整页面。
 
 ## 前置门禁
 
@@ -37,6 +37,18 @@ description: Breaks an approved game UI page or visual style into reusable, indi
 5. 图片工具可用时逐个生成，不把多个组件排成素材板。
 6. 检查边缘、透明通道、裁切、光向和比例。
 7. 更新组件契约和资源清单。
+
+## 雪碧图模式
+
+当用户后续需要“雪碧图拆分、单元素 PNG、ZIP 打包”时，可以先生成一张组件雪碧图作为中间产物：
+
+- 所有元素完整、互不接触并留有明显间距。
+- 使用透明背景或单一纯色背景。
+- 不要文字、编号、网格线、水印和说明箭头。
+- 阴影与发光不能跨到相邻元素。
+- 同一组件的不同状态保持固定顺序和一致轮廓。
+
+雪碧图不是最终切图。生成后必须调用 `game-ui-sprite-sheet-splitter` 导出独立 PNG，并完成人工验收。
 
 ## 默认规则
 
