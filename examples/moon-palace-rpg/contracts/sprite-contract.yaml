@@ -2,6 +2,7 @@ schema_version: 1
 project_id: moon-palace-rpg
 status: approved
 pack_id: home-ui
+text_policy: remove-all
 source:
   screen_id: home
   sheet_asset_id: sprite-sheet-home-ui-v1
@@ -56,6 +57,7 @@ items:
     dimensions: [617, 101]
 review:
   complete: true
+  text_free: true
   notes:
     - Six circular icons and three button states detected without overlap.
     - All exported PNG files retain a transparent border.

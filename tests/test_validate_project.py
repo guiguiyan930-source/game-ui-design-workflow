@@ -91,6 +91,21 @@ class ValidateProjectTests(unittest.TestCase):
             report.errors,
         )
 
+    def test_approved_sprite_pack_must_be_text_free(self) -> None:
+        temp_dir, project = self.copy_example()
+        self.addCleanup(temp_dir.cleanup)
+        contract_path = project / "contracts" / "sprite-contract.yaml"
+        contract = yaml.safe_load(contract_path.read_text())
+        contract["review"]["text_free"] = False
+        contract_path.write_text(yaml.safe_dump(contract, sort_keys=False))
+
+        report = validate(project, strict=False)
+
+        self.assertTrue(
+            any("review.text_free=true" in error for error in report.errors),
+            report.errors,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

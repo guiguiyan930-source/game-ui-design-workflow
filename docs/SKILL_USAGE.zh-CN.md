@@ -299,13 +299,14 @@ specs/moon-palace-rpg/
 输入雪碧图是 @specs/moon-palace-rpg/assets/sprites/home-components.png。
 
 调用 game-ui-sprite-sheet-splitter：
-1. 自动判断透明背景或纯色背景；
-2. 检测互不接触的独立元素；
-3. 导出单元素透明 PNG 到 assets/sprites/home-components/items；
-4. 生成 sprite-manifest.yaml，记录坐标、尺寸和文件名；
-5. 打包为 packages/home-components-png.zip；
-6. 更新 sprite-contract.yaml 和 asset-manifest.yaml；
-7. 检查裁断、粘连、阴影、透明边缘和 ZIP 完整性。
+1. 去掉标题、按钮文案、数字标签、水印和文字残影；
+2. 自动判断透明背景或纯色背景；
+3. 检测互不接触的独立元素；
+4. 导出单元素透明 PNG 到 assets/sprites/home-components/items；
+5. 生成 sprite-manifest.yaml，记录坐标、尺寸和文件名；
+6. 打包为 packages/home-components-png.zip；
+7. 更新 sprite-contract.yaml 和 asset-manifest.yaml；
+8. 检查文字、裁断、粘连、阴影、透明边缘和 ZIP 完整性。
 
 完成后列出成功切片、疑似误切、需人工检查和下载包路径。
 ```
@@ -332,6 +333,7 @@ python3 scripts/split_sprite_sheet.py \
 本步检查：
 
 - 每张 PNG 只包含一个完整元素
+- 每张 PNG 不含标题、按钮文案、数字标签、水印或文字残影
 - PNG 具有真实透明通道
 - 原图坐标、实际尺寸和 manifest 一致
 - 阴影与发光没有被裁断
@@ -495,7 +497,7 @@ python3 scripts/split_sprite_sheet.py \
 
 自动识别背景并把每个元素导出为透明 PNG，
 保存坐标和尺寸 manifest，打包为 home-components-png.zip。
-检查裁断、粘连、阴影、透明边缘和 ZIP 完整性，
+先去掉所有文字，再检查裁断、粘连、阴影、透明边缘和 ZIP 完整性，
 更新 sprite-contract.yaml 和 asset-manifest.yaml。
 ```
 

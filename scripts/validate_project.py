@@ -359,6 +359,8 @@ def validate_sprite_contract(
     if sprite.get("status") not in {"draft", "generated", "approved", "stale"}:
         report.error(f"{source_name}: invalid status {sprite.get('status')!r}")
     validate_id(sprite.get("pack_id"), f"{source_name}: pack_id", report)
+    if sprite.get("text_policy") != "remove-all":
+        report.error(f"{source_name}: text_policy must be remove-all")
     source = require_mapping(sprite, "source", source_name, report)
     detection = require_mapping(sprite, "detection", source_name, report)
     output = require_mapping(sprite, "output", source_name, report)
@@ -460,6 +462,8 @@ def validate_sprite_contract(
                     )
     if status == "approved" and review.get("complete") is not True:
         report.error(f"{source_name}: approved packs require review.complete=true")
+    if status == "approved" and review.get("text_free") is not True:
+        report.error(f"{source_name}: approved packs require review.text_free=true")
 
 
 def validate(project: Path, strict: bool) -> Report:

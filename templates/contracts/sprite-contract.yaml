@@ -2,6 +2,7 @@ schema_version: 1
 project_id: "{{PROJECT_ID}}"
 status: draft
 pack_id: ui-components
+text_policy: remove-all
 source:
   screen_id: home
   sheet_asset_id: null
@@ -20,4 +21,5 @@ output:
 items: []
 review:
   complete: false
+  text_free: false
   notes: []

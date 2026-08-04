@@ -19,6 +19,8 @@ description: Splits a generated game UI sprite sheet or component board into ind
 
 输入雪碧图必须是实际存在的图片文件。若只有提示词或组件列表，先完成组件图生成。
 
+最终单元素 PNG 必须去掉全部文字，包括标题、按钮文案、数字标签、占位文字、水印和说明编号。文字不是组件图形的一部分。
+
 ## 适用输入
 
 - 透明背景雪碧图：优先按 Alpha 通道识别。
@@ -66,6 +68,14 @@ python3 scripts/split_sprite_sheet.py <source.png> \
 6. 导出独立透明 PNG。
 7. 生成 `sprite-manifest.yaml`。
 8. 生成包含 manifest 和全部 PNG 的 ZIP。
+
+自动切割不会自动识别或修复文字。源雪碧图仍有文字时，先执行以下任一操作，再开始切割：
+
+1. 优先重新生成无文字雪碧图。
+2. 无法重生时，对文字区域做蒙版修复或内容填充，补回底板纹理。
+3. 修复后重新检查，不能只把文字裁掉而留下透明洞、色块或残影。
+
+不得把含文字的切片标记为批准。
 
 ## 参数调整
 
@@ -133,6 +143,7 @@ python3 scripts/split_sprite_sheet.py <source.png> \
 - 相邻元素没有粘连。
 - 阴影、发光和半透明边缘完整。
 - 背景已透明，无白边、色边和脏点。
+- 不含标题、按钮文案、数字标签、水印或文字残影。
 - 文件名、坐标和尺寸与 manifest 一致。
 - ZIP 可以解压，包含全部 PNG 和 manifest。
 
@@ -165,6 +176,7 @@ effect-crescent-glow.png
 - 每个元素是独立透明 PNG
 - 自动坐标和实际尺寸已记录
 - 人工验收通过
+- `review.text_free: true`
 - ZIP 包存在且可解压
 - 项目严格校验通过
 - `quickstart.md` 记录解压和使用方式

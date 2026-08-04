@@ -129,11 +129,12 @@ description: Orchestrates an end-to-end game UI workflow from requirements and r
 组件拆解输出为整张雪碧图时，调用 `game-ui-sprite-sheet-splitter`：
 
 1. 读取实际雪碧图和组件契约。
-2. 使用 Alpha 或纯色背景检测独立元素。
-3. 导出单元素透明 PNG。
-4. 生成坐标、尺寸和路径 manifest。
-5. 将 PNG 与 manifest 打包成 ZIP。
-6. 人工检查裁断、粘连、阴影和透明边缘。
+2. 检查并去掉标题、按钮文案、数字标签、水印和文字残影。
+3. 使用 Alpha 或纯色背景检测独立元素。
+4. 导出单元素透明 PNG。
+5. 生成坐标、尺寸和路径 manifest。
+6. 将 PNG 与 manifest 打包成 ZIP。
+7. 人工检查文字、裁断、粘连、阴影和透明边缘。
 
 自动检测不可靠时调整阈值或重新生成留有间距的雪碧图，不得把错误切片标记为批准。
 

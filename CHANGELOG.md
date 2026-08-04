@@ -2,6 +2,10 @@
 
 本项目遵循 [Semantic Versioning](https://semver.org/)。
 
+## [0.2.1] - 2026-08-04
+
+- 强制雪碧图元素去掉标题、按钮文案、数字标签、水印和文字残影；批准包必须通过 `review.text_free` 人工验收。
+
 ## [0.2.0] - 2026-08-04
 
 ### Added
@@ -33,5 +37,6 @@
 - “月宫列传”完整项目，以及风格切换、页面延展和组件包拆解操作示例。
 - 中文技能调用指南、贡献指南、Issue 模板和 PR 模板。
 
+[0.2.1]: https://github.com/guiguiyan930-source/game-ui-design-workflow/releases/tag/v0.2.1
 [0.2.0]: https://github.com/guiguiyan930-source/game-ui-design-workflow/releases/tag/v0.2.0
 [0.1.0]: https://github.com/guiguiyan930-source/game-ui-design-workflow/releases/tag/v0.1.0
