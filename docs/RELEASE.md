@@ -4,14 +4,25 @@
 
 1. 打开 [Releases](https://github.com/guiguiyan930-source/game-ui-design-workflow/releases)。
 2. 下载 `game-ui-design-workflow-vX.Y.Z.zip`。
-3. 解压后，将 `skills/` 下的技能复制到目标项目：
+3. 解压后，使用安装脚本安装到目标项目：
 
    ```bash
-   mkdir -p .cursor/skills
-   cp -R skills/* /path/to/project/.cursor/skills/
+   ./install.sh --project /path/to/project
    ```
 
-4. 安装校验脚本依赖：
+   或安装为个人技能：
+
+   ```bash
+   ./install.sh --personal
+   ```
+
+4. 同名技能默认跳过；升级时确认差异后执行：
+
+   ```bash
+   ./install.sh --project /path/to/project --force
+   ```
+
+5. 安装校验脚本依赖：
 
    ```bash
    python3 -m pip install -r requirements.txt

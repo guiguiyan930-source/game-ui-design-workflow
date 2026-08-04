@@ -15,6 +15,41 @@
 
 `game-ui-workflow` 是总控技能；四个阶段技能也可独立调用。项目事实保存在 `specs/<project>/`，避免只依赖对话上下文。
 
+## 使用场景
+
+- 只有游戏概念或参考图，需要先生成一张可讨论的 UI 原型视觉。
+- 已有页面结构，需要切换国风、科幻、卡通等视觉方向并保留版本对比。
+- 已有首页，需要延展编队、关卡、战斗、商城、活动等完整页面系统。
+- 页面已批准，需要拆成透明背景按钮、图标、卡片、角色和装饰素材。
+- 团队需要把 UI 决策沉淀为可复用契约，避免连续页面风格漂移。
+- 设计成果需要交付开发，希望页面、组件、状态、尺寸和资源来源可追踪。
+
+不适合直接用来替代游戏客户端实现、服务端接口设计或未经确认的大批量最终生图。
+
+## 30 秒使用方法
+
+安装到当前项目：
+
+```bash
+./install.sh --project /path/to/your-game
+```
+
+初始化 UI 工作区：
+
+```bash
+python3 scripts/init_project.py your-game-id
+```
+
+在 Cursor 中调用：
+
+```text
+使用 game-ui-workflow，读取 @specs/your-game-id 和我的参考图。
+依次执行原型生成视觉、UI 风格切换、UI 延展和 UI 组件拆解。
+每一步完成后停止，列出检查项，并给出可直接复制的下一步调用文本。
+```
+
+详细方法见 [中文调用指南](docs/SKILL_USAGE.zh-CN.md)。
+
 ## 四步视觉工作流
 
 ```text
@@ -50,20 +85,28 @@ templates/
 scripts/
   init_project.py
   validate_project.py
+  validate_skills.py
+tests/
+install.sh
 specs/
 examples/
 ```
 
 ## 安装
 
-将仓库中的技能目录复制或链接到项目技能目录：
+使用一键安装脚本安装到指定项目：
 
 ```bash
-mkdir -p .cursor/skills
-cp -R skills/* .cursor/skills/
+./install.sh --project /path/to/your-game
 ```
 
-如果希望跨项目使用，可复制到 `~/.cursor/skills/`。不要安装到 Cursor 内置的 `~/.cursor/skills-cursor/`。
+安装为个人技能：
+
+```bash
+./install.sh --personal
+```
+
+默认不会覆盖同名技能；确认升级时增加 `--force`。不要安装到 Cursor 内置的 `~/.cursor/skills-cursor/`。
 
 完整的安装、显式调用、分阶段确认、页面批准和组件拆解示例见
 [游戏 UI 技能调用指南](docs/SKILL_USAGE.zh-CN.md)。
@@ -75,6 +118,8 @@ cp -R skills/* .cursor/skills/
 - [UI 风格切换](examples/style-switch/README.md)
 - [UI 页面延展](examples/screen-extension/README.md)
 - [UI 组件包拆解](examples/component-pack/README.md)
+
+视觉对比和完整操作链路见 [效果演示](docs/DEMO.zh-CN.md)。
 
 ## 快速开始
 
@@ -135,6 +180,9 @@ GitHub Actions 会在 push 和 pull request 时自动运行这些检查。
 - 贡献方式：[CONTRIBUTING.md](CONTRIBUTING.md)
 - 版本记录：[CHANGELOG.md](CHANGELOG.md)
 - 发布与安装：[docs/RELEASE.md](docs/RELEASE.md)
+- 兼容性说明：[docs/COMPATIBILITY.md](docs/COMPATIBILITY.md)
+- 隐私与版权：[docs/SECURITY.md](docs/SECURITY.md)
+- 契约迁移：[docs/MIGRATION.md](docs/MIGRATION.md)
 - 问题与建议：[GitHub Issues](https://github.com/guiguiyan930-source/game-ui-design-workflow/issues)
 
 ## 来源
