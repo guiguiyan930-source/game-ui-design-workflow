@@ -1,0 +1,65 @@
+schema_version: 1
+project_id: "guofeng-card-rpg"
+source_screen_id: home
+source_screen_status: approved
+components:
+  - id: home-background
+    name: 主城背景
+    category: background
+    reusable: false
+    transparent_background: false
+    text_policy: none
+    target_size: [1080, 1920]
+    states: [default]
+    material: moonlit-courtyard
+    atlas_group: background
+    slice: {type: full, margins: [0, 0, 0, 0]}
+    export_targets: [godot, unity]
+    style_dependencies: [visual.materials, visual.lighting, colors.background]
+    prompt: prompts/pages/home.md
+    output: assets/pages/home-v1.png
+  - id: primary-button
+    name: 主按钮
+    category: button
+    reusable: true
+    transparent_background: true
+    text_policy: no-text
+    target_size: [460, 234]
+    states: [normal, pressed, disabled]
+    material: jade-gold
+    atlas_group: button
+    slice: {type: 9-slice, margins: [48, 48, 36, 36]}
+    export_targets: [godot, unity]
+    style_dependencies: [colors.primary, geometry.radius, effects.highlight]
+    prompt: prompts/components/home-ui-sheet.md
+    output: assets/sprites/home-ui/items/primary-button-normal.png
+  - id: nav-icon
+    name: 底部导航图标
+    category: icon
+    reusable: true
+    transparent_background: true
+    text_policy: no-text
+    target_size: [322, 319]
+    states: [home, formation, gacha]
+    material: jade-metal
+    atlas_group: icon
+    slice: {type: "1:1", margins: [0, 0, 0, 0]}
+    export_targets: [godot, unity]
+    style_dependencies: [colors.primary, geometry.stroke]
+    prompt: prompts/components/home-ui-sheet.md
+    output: assets/sprites/home-ui/items/nav-home-default.png
+  - id: currency-icon
+    name: 货币图标
+    category: currency
+    reusable: true
+    transparent_background: true
+    text_policy: no-text
+    target_size: [256, 270]
+    states: [coin, jade, stamina]
+    material: enamel-jade
+    atlas_group: icon
+    slice: {type: "1:1", margins: [0, 0, 0, 0]}
+    export_targets: [godot, unity]
+    style_dependencies: [colors.reward, colors.accent]
+    prompt: prompts/components/home-ui-sheet.md
+    output: assets/sprites/home-ui/items/currency-coin-default.png

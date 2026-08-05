@@ -1,0 +1,66 @@
+schema_version: 1
+project_id: "guofeng-card-rpg"
+status: approved
+platform:
+  target: mobile
+  orientation: portrait
+  aspect_ratio: "9:16"
+  reference_size: [1080, 1920]
+  safe_area:
+    top: 48
+    right: 32
+    bottom: 120
+    left: 32
+visual:
+  theme: deep-blue-gilded-guofeng
+  keywords: [midnight-blue, gilded-gold, white-jade, cloud-pattern, scroll-frame, lattice]
+  mood: elegant-calm-noble
+  complexity: medium
+  materials: [frosted-jade, brushed-gold, silk, translucent-blue-panel]
+  lighting:
+    direction: top-left
+    softness: medium
+colors:
+  primary: "#D9A441"
+  secondary: "#1A3A5C"
+  accent: "#E8D7B0"
+  background: "#071526"
+  warning: "#C75A54"
+  reward: "#F0C45A"
+  disabled: "#5A6573"
+typography:
+  language: zh-CN
+  title: {size: 44, weight: 700}
+  section: {size: 32, weight: 700}
+  body: {size: 26, weight: 500}
+  number: {size: 34, weight: 700}
+  button: {size: 30, weight: 700}
+geometry:
+  radius: {small: 10, card: 20, modal: 28}
+  stroke: {thin: 2, regular: 4, strong: 6}
+  button_height: {small: 52, primary: 72}
+  icon_size: {utility: 56, navigation: 46, currency: 32}
+effects:
+  shadow: "0 10px 24px rgba(0, 8, 24, 0.45)"
+  highlight: "top-left white-jade rim light at 35% opacity"
+  selected: "gold crescent glow with soft cyan inner rim"
+  disabled: "45% saturation and no outer glow"
+tokens:
+  color:
+    action-primary: "#D9A441"
+    action-danger: "#C75A54"
+    surface-panel: "#1A3A5C"
+    text-primary: "#F5EFE0"
+  spacing:
+    xs: 4
+    sm: 8
+    md: 16
+    lg: 24
+  motion:
+    fast-ms: 120
+    normal-ms: 220
+consistency_rules:
+  - All pages use the same light direction and material vocabulary.
+  - Navigation icons share perspective, stroke weight, and selected state.
+  - Generated text must be short, readable Chinese or composited later.
+  - Cloud and lattice motifs are decorative accents, never the main subject.

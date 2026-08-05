@@ -1,5 +1,11 @@
 # UI 任务清单
 
+## 策划与需求（生图前）
+
+- [ ] [product] 完成并批准 `gdd.md`（游戏策划方案）
+- [ ] [product] 完成并批准 `prd.md`（产品需求）
+- [ ] [product] 完成并批准 `interaction.md`（UI 交互逻辑）
+
 ## 规范
 
 - [ ] [spec] 补全项目定位与验收标准

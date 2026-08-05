@@ -2,6 +2,15 @@
 
 本项目遵循 [Semantic Versioning](https://semver.org/)。
 
+## [Unreleased]
+
+### Added
+
+- 独立技能 `game-ui-product-design`：生图前撰写并门禁游戏策划方案、PRD、UI 交互逻辑。
+- 生图前门禁文档：`gdd.md`、`prd.md`、`interaction.md`。
+- 总控工作流新增 Product Design 阶段，路由到 `game-ui-product-design`。
+- 校验脚本要求策划文档存在；已有视觉资产但策划仍为 `draft` 时在 `--strict` 下失败。
+
 ## [0.3.1] - 2026-08-05
 
 - 在 Factory v2 商店案例中加入用户提供的组件拆解板、商店页面和完整 UI 系统三张参考图片，并补充来源与版权边界。

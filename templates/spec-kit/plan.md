@@ -8,6 +8,7 @@
 
 ## 阶段
 
+0. 策划：批准 `gdd.md` / `prd.md` / `interaction.md`
 1. 规范：完成 `style-contract.yaml`
 2. 延展：完成屏幕地图和 `screen-contract.yaml`
 3. 页面：逐页生成、审核并登记视觉稿
@@ -36,6 +37,7 @@
 
 ## 质量门禁
 
+- [ ] `gdd.md` / `prd.md` / `interaction.md` 已批准（或已记录跳过）
 - [ ] `spec.md` 无阻断性未决事项
 - [ ] 样式契约字段完整
 - [ ] 页面 ID 与屏幕契约一致

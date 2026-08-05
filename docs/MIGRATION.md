@@ -1,6 +1,6 @@
 # 契约迁移指南
 
-本指南用于升级 `style-contract.yaml`、`screen-contract.yaml`、`component-contract.yaml`、`asset-manifest.yaml`，以及可选的 `sprite-contract.yaml`、`atlas-contract.yaml` 和 `export-contract.yaml`。
+本指南用于升级 `style-contract.yaml`、`screen-contract.yaml`、`component-contract.yaml`、`asset-manifest.yaml`，以及可选的 `sprite-contract.yaml`、`atlas-contract.yaml` 和 `export-contract.yaml`。也覆盖 Spec-Kit 文档增补（如 `gdd.md` / `prd.md` / `interaction.md`）。
 
 ## 迁移前
 
@@ -9,6 +9,15 @@
 3. 检查四个核心契约和可选 sprite、atlas、export 契约的 `schema_version`。
 4. 阅读 `CHANGELOG.md` 中对应版本说明。
 5. 不要直接覆盖已批准页面和组件。
+
+## 增补策划文档（生图前门禁）
+
+若旧项目缺少 `gdd.md` / `prd.md` / `interaction.md`：
+
+1. 从 `templates/spec-kit/` 复制三份模板到项目根目录。
+2. 按现有 `spec.md`、`research.md` 与屏幕契约回填内容。
+3. 将 `文档状态.status` 设为 `approved`（或记录明确跳过原因到 `quickstart.md`）。
+4. 再运行 `validate_project.py`；已有视觉资产且策划仍为 `draft` 时，`--strict` 会失败。
 
 ## 向后兼容字段
 

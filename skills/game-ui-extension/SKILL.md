@@ -9,7 +9,7 @@ description: Extends a game concept or partial interface into a coherent screen 
 
 ## 输入
 
-读取 `spec.md`、`research.md`、`contracts/style-contract.yaml`、`plan.md` 和 `contracts/screen-contract.yaml`。若用户只给一张图，先判断它在核心循环中的位置。
+读取 `gdd.md`、`prd.md`、`interaction.md`、`spec.md`、`research.md`、`contracts/style-contract.yaml`、`plan.md` 和 `contracts/screen-contract.yaml`。若用户只给一张图，先判断它在核心循环中的位置。策划三文档缺失时，先调用 `game-ui-product-design` 再延展屏幕。
 
 需要完整分类审计时读取 [references/screen-taxonomy.md](references/screen-taxonomy.md)；普通延展不必把分类全量载入。
 

@@ -1,0 +1,210 @@
+{
+  "schema_version": 1,
+  "engine": "cocos",
+  "atlas_id": "home-ui",
+  "atlas_size": [
+    2048,
+    1024
+  ],
+  "texture": "assets/atlases/home-ui.png",
+  "frames": {
+    "nav-home-default": {
+      "rect": {
+        "x": 2,
+        "y": 2,
+        "width": 322,
+        "height": 319
+      },
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "originalSize": {
+        "width": 322,
+        "height": 319
+      },
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "nav-formation-default": {
+      "rect": {
+        "x": 326,
+        "y": 2,
+        "width": 316,
+        "height": 318
+      },
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "originalSize": {
+        "width": 316,
+        "height": 318
+      },
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "nav-gacha-default": {
+      "rect": {
+        "x": 644,
+        "y": 2,
+        "width": 316,
+        "height": 318
+      },
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "originalSize": {
+        "width": 316,
+        "height": 318
+      },
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "currency-coin-default": {
+      "rect": {
+        "x": 962,
+        "y": 2,
+        "width": 256,
+        "height": 270
+      },
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "originalSize": {
+        "width": 256,
+        "height": 270
+      },
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "currency-jade-default": {
+      "rect": {
+        "x": 1220,
+        "y": 2,
+        "width": 240,
+        "height": 250
+      },
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "originalSize": {
+        "width": 240,
+        "height": 250
+      },
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "primary-button-normal": {
+      "rect": {
+        "x": 1462,
+        "y": 2,
+        "width": 460,
+        "height": 234
+      },
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "originalSize": {
+        "width": 460,
+        "height": 234
+      },
+      "capInsets": [
+        48,
+        48,
+        36,
+        36
+      ]
+    },
+    "primary-button-pressed": {
+      "rect": {
+        "x": 2,
+        "y": 323,
+        "width": 445,
+        "height": 232
+      },
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "originalSize": {
+        "width": 445,
+        "height": 232
+      },
+      "capInsets": [
+        48,
+        48,
+        36,
+        36
+      ]
+    },
+    "currency-stamina-default": {
+      "rect": {
+        "x": 449,
+        "y": 323,
+        "width": 315,
+        "height": 231
+      },
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "originalSize": {
+        "width": 315,
+        "height": 231
+      },
+      "capInsets": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    "primary-button-disabled": {
+      "rect": {
+        "x": 766,
+        "y": 323,
+        "width": 438,
+        "height": 230
+      },
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "originalSize": {
+        "width": 438,
+        "height": 230
+      },
+      "capInsets": [
+        48,
+        48,
+        36,
+        36
+      ]
+    }
+  }
+}

@@ -1,0 +1,254 @@
+{
+  "schema_version": 1,
+  "atlas_id": "home-ui",
+  "image": "assets/atlases/home-ui.png",
+  "size": [
+    2048,
+    1024
+  ],
+  "sprites": {
+    "nav-home-default": {
+      "id": "nav-home-default",
+      "semantic_name": "nav-home-default",
+      "component_id": "nav-icon",
+      "state": "home",
+      "source_path": "assets/sprites/home-ui/items/nav-home-default.png",
+      "region": [
+        2,
+        2,
+        322,
+        319
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotated": false,
+      "slice": {
+        "type": "1:1",
+        "margins": [
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "nav-formation-default": {
+      "id": "nav-formation-default",
+      "semantic_name": "nav-formation-default",
+      "component_id": "nav-icon",
+      "state": "formation",
+      "source_path": "assets/sprites/home-ui/items/nav-formation-default.png",
+      "region": [
+        326,
+        2,
+        316,
+        318
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotated": false,
+      "slice": {
+        "type": "1:1",
+        "margins": [
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "nav-gacha-default": {
+      "id": "nav-gacha-default",
+      "semantic_name": "nav-gacha-default",
+      "component_id": "nav-icon",
+      "state": "gacha",
+      "source_path": "assets/sprites/home-ui/items/nav-gacha-default.png",
+      "region": [
+        644,
+        2,
+        316,
+        318
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotated": false,
+      "slice": {
+        "type": "1:1",
+        "margins": [
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "currency-coin-default": {
+      "id": "currency-coin-default",
+      "semantic_name": "currency-coin-default",
+      "component_id": "currency-icon",
+      "state": "coin",
+      "source_path": "assets/sprites/home-ui/items/currency-coin-default.png",
+      "region": [
+        962,
+        2,
+        256,
+        270
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotated": false,
+      "slice": {
+        "type": "1:1",
+        "margins": [
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "currency-jade-default": {
+      "id": "currency-jade-default",
+      "semantic_name": "currency-jade-default",
+      "component_id": "currency-icon",
+      "state": "jade",
+      "source_path": "assets/sprites/home-ui/items/currency-jade-default.png",
+      "region": [
+        1220,
+        2,
+        240,
+        250
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotated": false,
+      "slice": {
+        "type": "1:1",
+        "margins": [
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "primary-button-normal": {
+      "id": "primary-button-normal",
+      "semantic_name": "primary-button-normal",
+      "component_id": "primary-button",
+      "state": "normal",
+      "source_path": "assets/sprites/home-ui/items/primary-button-normal.png",
+      "region": [
+        1462,
+        2,
+        460,
+        234
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotated": false,
+      "slice": {
+        "type": "9-slice",
+        "margins": [
+          48,
+          48,
+          36,
+          36
+        ]
+      }
+    },
+    "primary-button-pressed": {
+      "id": "primary-button-pressed",
+      "semantic_name": "primary-button-pressed",
+      "component_id": "primary-button",
+      "state": "pressed",
+      "source_path": "assets/sprites/home-ui/items/primary-button-pressed.png",
+      "region": [
+        2,
+        323,
+        445,
+        232
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotated": false,
+      "slice": {
+        "type": "9-slice",
+        "margins": [
+          48,
+          48,
+          36,
+          36
+        ]
+      }
+    },
+    "currency-stamina-default": {
+      "id": "currency-stamina-default",
+      "semantic_name": "currency-stamina-default",
+      "component_id": "currency-icon",
+      "state": "stamina",
+      "source_path": "assets/sprites/home-ui/items/currency-stamina-default.png",
+      "region": [
+        449,
+        323,
+        315,
+        231
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotated": false,
+      "slice": {
+        "type": "1:1",
+        "margins": [
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "primary-button-disabled": {
+      "id": "primary-button-disabled",
+      "semantic_name": "primary-button-disabled",
+      "component_id": "primary-button",
+      "state": "disabled",
+      "source_path": "assets/sprites/home-ui/items/primary-button-disabled.png",
+      "region": [
+        766,
+        323,
+        438,
+        230
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "rotated": false,
+      "slice": {
+        "type": "9-slice",
+        "margins": [
+          48,
+          48,
+          36,
+          36
+        ]
+      }
+    }
+  }
+}

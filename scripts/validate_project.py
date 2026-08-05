@@ -20,7 +20,20 @@ except ImportError:
 
 
 ID_PATTERN = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
-MARKDOWN_FILES = ("spec.md", "research.md", "plan.md", "tasks.md", "quickstart.md")
+MARKDOWN_FILES = (
+    "spec.md",
+    "research.md",
+    "plan.md",
+    "tasks.md",
+    "quickstart.md",
+    "gdd.md",
+    "prd.md",
+    "interaction.md",
+)
+PLANNING_FILES = ("gdd.md", "prd.md", "interaction.md")
+PLANNING_STATUS_PATTERN = re.compile(
+    r"^-\s*status:\s*(draft|approved)\s*$", re.MULTILINE
+)
 CONTRACT_FILES = (
     "style-contract.yaml",
     "screen-contract.yaml",
@@ -168,6 +181,55 @@ def validate_markdown(project: Path, report: Report) -> None:
             report.error(f"{path}: unresolved PROJECT_ID placeholder")
         if not text.strip():
             report.error(f"{path}: document is empty")
+
+
+def planning_doc_status(text: str) -> str | None:
+    match = PLANNING_STATUS_PATTERN.search(text)
+    return match.group(1) if match else None
+
+
+def validate_planning_docs(
+    project: Path, assets: dict[str, Any], report: Report
+) -> None:
+    """Ensure GDD/PRD/interaction exist and gate page generation readiness."""
+    statuses: dict[str, str | None] = {}
+    for name in PLANNING_FILES:
+        path = project / name
+        if not path.is_file():
+            continue
+        text = path.read_text(encoding="utf-8")
+        status = planning_doc_status(text)
+        statuses[name] = status
+        if status is None:
+            report.error(
+                f"{path}: missing status field under 文档状态 "
+                "(expected `- status: draft` or `- status: approved`)"
+            )
+
+    visual_assets = [
+        asset
+        for asset in assets.get("assets", []) or []
+        if isinstance(asset, dict)
+        and asset.get("type") in {"page", "component", "sprite"}
+        and asset.get("status") in {"generated", "approved", "packed"}
+    ]
+    if not visual_assets:
+        return
+
+    unapproved = [
+        name for name, status in statuses.items() if status == "draft"
+    ]
+    if unapproved:
+        report.warn(
+            "planning docs not approved before visual generation: "
+            + ", ".join(unapproved)
+            + " (approve gdd.md / prd.md / interaction.md or document an explicit skip)"
+        )
+    if len(statuses) < len(PLANNING_FILES):
+        report.warn(
+            "visual assets exist but one or more planning docs are missing; "
+            "page generation should follow approved GDD/PRD/interaction"
+        )
 
 
 def validate_contract_headers(
@@ -698,6 +760,7 @@ def validate(project: Path, strict: bool) -> Report:
         if path.is_file():
             contracts[name] = load_yaml(path, report)
 
+    validate_planning_docs(project, contracts.get("asset-manifest.yaml") or {}, report)
     validate_contract_headers(contracts, project_id, report)
     validate_style(contracts["style-contract.yaml"], report)
     screen_ids, _ = validate_screens(contracts["screen-contract.yaml"], report)

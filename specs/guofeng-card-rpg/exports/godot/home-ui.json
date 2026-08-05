@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "engine": "godot",
+  "atlas_id": "home-ui",
+  "atlas_size": [
+    2048,
+    1024
+  ],
+  "texture": "assets/atlases/home-ui.png",
+  "resources": {
+    "nav-home-default": {
+      "texture": "assets/atlases/home-ui.png",
+      "region": [
+        2,
+        2,
+        322,
+        319
+      ],
+      "patch_margins": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "component_id": "nav-icon",
+      "state": "home"
+    },
+    "nav-formation-default": {
+      "texture": "assets/atlases/home-ui.png",
+      "region": [
+        326,
+        2,
+        316,
+        318
+      ],
+      "patch_margins": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "component_id": "nav-icon",
+      "state": "formation"
+    },
+    "nav-gacha-default": {
+      "texture": "assets/atlases/home-ui.png",
+      "region": [
+        644,
+        2,
+        316,
+        318
+      ],
+      "patch_margins": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "component_id": "nav-icon",
+      "state": "gacha"
+    },
+    "currency-coin-default": {
+      "texture": "assets/atlases/home-ui.png",
+      "region": [
+        962,
+        2,
+        256,
+        270
+      ],
+      "patch_margins": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "component_id": "currency-icon",
+      "state": "coin"
+    },
+    "currency-jade-default": {
+      "texture": "assets/atlases/home-ui.png",
+      "region": [
+        1220,
+        2,
+        240,
+        250
+      ],
+      "patch_margins": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "component_id": "currency-icon",
+      "state": "jade"
+    },
+    "primary-button-normal": {
+      "texture": "assets/atlases/home-ui.png",
+      "region": [
+        1462,
+        2,
+        460,
+        234
+      ],
+      "patch_margins": [
+        48,
+        48,
+        36,
+        36
+      ],
+      "component_id": "primary-button",
+      "state": "normal"
+    },
+    "primary-button-pressed": {
+      "texture": "assets/atlases/home-ui.png",
+      "region": [
+        2,
+        323,
+        445,
+        232
+      ],
+      "patch_margins": [
+        48,
+        48,
+        36,
+        36
+      ],
+      "component_id": "primary-button",
+      "state": "pressed"
+    },
+    "currency-stamina-default": {
+      "texture": "assets/atlases/home-ui.png",
+      "region": [
+        449,
+        323,
+        315,
+        231
+      ],
+      "patch_margins": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "component_id": "currency-icon",
+      "state": "stamina"
+    },
+    "primary-button-disabled": {
+      "texture": "assets/atlases/home-ui.png",
+      "region": [
+        766,
+        323,
+        438,
+        230
+      ],
+      "patch_margins": [
+        48,
+        48,
+        36,
+        36
+      ],
+      "component_id": "primary-button",
+      "state": "disabled"
+    }
+  }
+}

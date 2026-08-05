@@ -1,18 +1,25 @@
 # 游戏 UI 技能调用指南
 
-本文说明如何在 Cursor 中安装、调用和串联本仓库的七个技能。
+本文说明如何在 Cursor 中安装、调用和串联本仓库的技能。
 
 ## 1. 技能清单
 
-- `game-ui-workflow`：总控技能。适合从需求、规范、页面延展一直做到视觉稿和组件交付。
+- `game-ui-workflow`：总控技能。适合从策划/PRD/交互、规范、页面延展一直做到视觉稿和组件交付。
+- `game-ui-product-design`：生图前撰写并门禁 `gdd.md`、`prd.md`、`interaction.md`。
 - `game-ui-specification`：生成或维护 UI 规范与 `style-contract.yaml`。
 - `game-ui-extension`：扩展玩家旅程、页面地图与 `screen-contract.yaml`。
-- `game-ui-page-generator`：一次生成一个完整页面的方案、提示词和视觉稿。
+- `game-ui-page-generator`：一次生成一个完整页面的方案、提示词和视觉稿（要求策划三文档已批准）。
 - `game-ui-component-breakdown`：从已批准页面拆解独立组件素材。
 - `game-ui-sprite-sheet-splitter`：将组件雪碧图切成单元素透明 PNG 并打包 ZIP。
 - `game-ui-asset-pipeline`：语义命名、9-slice、Atlas 和引擎 JSON 交付。
 
 一般项目优先调用 `game-ui-workflow`；只修改某一阶段时调用对应子技能。
+
+生图前门禁由 `game-ui-product-design` 负责：
+
+- `gdd.md`：游戏策划方案
+- `prd.md`：产品需求文档
+- `interaction.md`：UI 交互逻辑
 
 ## 2. 安装技能
 
@@ -56,6 +63,9 @@ python3 scripts/init_project.py moon-palace-rpg
 
 ```text
 specs/moon-palace-rpg/
+├── gdd.md
+├── prd.md
+├── interaction.md
 ├── spec.md
 ├── research.md
 ├── plan.md
@@ -95,9 +105,19 @@ specs/moon-palace-rpg/
 
 信息不足时，技能会使用可调整的默认值；题材、平台、比例或交付范围不明确时会先询问。
 
-## 5. 六步操作指引
+## 5. 操作指引（含策划门禁）
 
-推荐按“原型生成视觉 → UI 风格切换 → UI 延展 → UI 组件拆解 → 雪碧图拆分打包 → Atlas 与引擎交付”推进。每一步都包含开始条件、调用文本、检查点和下一步。
+推荐按“策划与 PRD → 原型生成视觉 → UI 风格切换 → UI 延展 → UI 组件拆解 → 雪碧图拆分打包 → Atlas 与引擎交付”推进。每一步都包含开始条件、调用文本、检查点和下一步。
+
+### 5.0 策划与 PRD（生图前必做）
+
+```text
+使用 game-ui-product-design，读取 @specs/<project-id>。
+完成 gdd.md、prd.md、interaction.md，完成后停止等我批准。
+未批准前不要生成页面视觉。
+```
+
+检查：三文档 `status: approved`；核心循环、P0 需求与分页面状态机齐全。
 
 ### 第一步：原型生成视觉
 

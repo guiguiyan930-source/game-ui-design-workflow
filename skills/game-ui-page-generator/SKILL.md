@@ -11,16 +11,18 @@ description: Designs and generates one complete game UI page at a time using an 
 
 读取：
 
+- 策划三文档须已由 `game-ui-product-design` 完成：`gdd.md`、`prd.md`、`interaction.md`（`status: approved`，或 `quickstart.md` 已记录跳过策划门禁）
 - `spec.md` 与 `research.md`
 - `contracts/style-contract.yaml`
 - 目标页面在 `contracts/screen-contract.yaml` 中的条目
 - 已批准的基准页面及 `asset-manifest.yaml`
 
+若策划三文档缺失或仍为 `draft` 且用户未明确跳过，停止生图，改调 `game-ui-product-design`。
 若样式契约仍为 `draft`，可以生成探索稿，但资源不得标记为已批准。
 
 ## 页面步骤
 
-1. 确认页面 ID、目的、主操作、状态和比例。
+1. 确认页面 ID、目的、主操作、状态和比例；核对 `interaction.md` 中该页主流程。
 2. 建立信息层级：主视觉、主操作、资源状态、导航、次级入口。
 3. 具体说明顶部、中部、底部和悬浮区域，不只写通用布局名称。
 4. 列出按钮、卡片、图标、角色、状态栏、导航、气泡和装饰。

@@ -26,14 +26,18 @@ class InitProjectTests(unittest.TestCase):
         project, written = initialize(self.root, "specs", "test-game", False)
 
         self.assertEqual(project, self.root / "specs" / "test-game")
-        self.assertGreaterEqual(len(written), 13)
+        self.assertGreaterEqual(len(written), 16)
         self.assertTrue((project / "spec.md").is_file())
+        self.assertTrue((project / "gdd.md").is_file())
+        self.assertTrue((project / "prd.md").is_file())
+        self.assertTrue((project / "interaction.md").is_file())
         self.assertTrue((project / "contracts" / "style-contract.yaml").is_file())
         self.assertIn(
             "test-game",
             (project / "contracts" / "style-contract.yaml").read_text(),
         )
         self.assertNotIn("{{PROJECT_ID}}", (project / "spec.md").read_text())
+        self.assertNotIn("{{PROJECT_ID}}", (project / "gdd.md").read_text())
 
     def test_rejects_invalid_project_id(self) -> None:
         with self.assertRaisesRegex(ValueError, "project_id"):

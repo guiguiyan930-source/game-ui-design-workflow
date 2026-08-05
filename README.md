@@ -6,8 +6,9 @@
 
 ![Game UI Design Workflow](docs/assets/social-preview.png)
 
-一个面向 Cursor Agent 的游戏 UI 设计技能仓库。它用 Spec-Kit 风格的项目文档串联六项能力：
+一个面向 Cursor Agent 的游戏 UI 设计技能仓库。它用 Spec-Kit 风格的项目文档串联能力：
 
+0. 策划与需求：游戏策划方案（GDD）、PRD、UI 交互逻辑（生图前门禁）→ `game-ui-product-design`
 1. UI 规范：建立视觉语言、设计令牌、布局和交互规则。
 2. UI 延展：从玩法与玩家旅程扩展完整屏幕地图。
 3. 页面生成：逐页生成方案、提示词与视觉稿。
@@ -15,10 +16,11 @@
 5. 雪碧图拆分：去掉元素文字，将组件合图切成单元素透明 PNG，并打包 ZIP。
 6. 资产交付：语义命名、9-slice、Atlas 与 Godot / Unity / Cocos JSON。
 
-`game-ui-workflow` 是总控技能；六个阶段技能也可独立调用。项目事实保存在 `specs/<project>/`，避免只依赖对话上下文。
+`game-ui-workflow` 是总控技能；阶段技能也可独立调用。项目事实保存在 `specs/<project>/`，避免只依赖对话上下文。
 
 ## 使用场景
 
+- 只有游戏概念，需要先写策划方案、PRD 和 UI 交互逻辑再生图。
 - 只有游戏概念或参考图，需要先生成一张可讨论的 UI 原型视觉。
 - 已有页面结构，需要切换国风、科幻、卡通等视觉方向并保留版本对比。
 - 已有首页，需要延展编队、关卡、战斗、商城、活动等完整页面系统。
@@ -48,16 +50,17 @@ python3 scripts/init_project.py your-game-id
 
 ```text
 使用 game-ui-workflow，读取 @specs/your-game-id 和我的参考图。
-依次执行原型生成视觉、UI 风格切换、UI 延展、UI 组件拆解、雪碧图拆分打包和 Atlas 引擎交付。
+依次执行策划与 PRD（game-ui-product-design）、原型生成视觉、UI 风格切换、UI 延展、UI 组件拆解、雪碧图拆分打包和 Atlas 引擎交付。
 每一步完成后停止，列出检查项，并给出可直接复制的下一步调用文本。
 ```
 
 详细方法见 [中文调用指南](docs/SKILL_USAGE.zh-CN.md)。
 
-## 六步视觉工作流
+## 工作流（含生图前门禁）
 
 ```text
-原型生成视觉
+策划方案 + PRD + UI 交互逻辑（批准）
+  → 原型生成视觉
   → UI 风格切换与批准
   → UI 页面延展与逐页生成
   → UI 组件拆解与雪碧图生成
@@ -65,11 +68,11 @@ python3 scripts/init_project.py your-game-id
   → 语义命名、9-slice、Atlas 与引擎 JSON
 ```
 
-每一步都会说明输入、输出、检查项、人工门禁和可直接复制的下一步调用文本。页面未批准时不会提前拆解组件，风格未冻结时不会批量扩展页面视觉。
+每一步都会说明输入、输出、检查项、人工门禁和可直接复制的下一步调用文本。`gdd.md` / `prd.md` / `interaction.md` 未批准时不会批量生图；页面未批准时不会提前拆解组件。
 
 ## 特性
 
-- 7 个可自动触发或显式调用的 Cursor Agent Skills
+- 8 个可自动触发或显式调用的 Cursor Agent Skills
 - 需求、研究、计划、任务、契约和复现文档持久化
 - 页面和组件提示词、图片、状态、版本及来源可追踪
 - PNG 真实尺寸、透明通道和 SVG 尺寸校验
@@ -81,6 +84,7 @@ python3 scripts/init_project.py your-game-id
 ```text
 skills/
   game-ui-workflow/
+  game-ui-product-design/
   game-ui-specification/
   game-ui-extension/
   game-ui-page-generator/
