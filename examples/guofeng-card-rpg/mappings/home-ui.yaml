@@ -1,0 +1,47 @@
+schema_version: 1
+items:
+  - semantic_name: primary-button-normal
+    component_id: primary-button
+    category: button
+    state: normal
+    slice: {type: 9-slice, margins: [48, 48, 36, 36]}
+  - semantic_name: primary-button-pressed
+    component_id: primary-button
+    category: button
+    state: pressed
+    slice: {type: 9-slice, margins: [48, 48, 36, 36]}
+  - semantic_name: primary-button-disabled
+    component_id: primary-button
+    category: button
+    state: disabled
+    slice: {type: 9-slice, margins: [48, 48, 36, 36]}
+  - semantic_name: nav-home-default
+    component_id: nav-icon
+    category: icon
+    state: home
+    slice: {type: "1:1", margins: [0, 0, 0, 0]}
+  - semantic_name: nav-formation-default
+    component_id: nav-icon
+    category: icon
+    state: formation
+    slice: {type: "1:1", margins: [0, 0, 0, 0]}
+  - semantic_name: nav-gacha-default
+    component_id: nav-icon
+    category: icon
+    state: gacha
+    slice: {type: "1:1", margins: [0, 0, 0, 0]}
+  - semantic_name: currency-coin-default
+    component_id: currency-icon
+    category: currency
+    state: coin
+    slice: {type: "1:1", margins: [0, 0, 0, 0]}
+  - semantic_name: currency-jade-default
+    component_id: currency-icon
+    category: currency
+    state: jade
+    slice: {type: "1:1", margins: [0, 0, 0, 0]}
+  - semantic_name: currency-stamina-default
+    component_id: currency-icon
+    category: currency
+    state: stamina
+    slice: {type: "1:1", margins: [0, 0, 0, 0]}

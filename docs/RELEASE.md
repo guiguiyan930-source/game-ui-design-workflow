@@ -45,7 +45,7 @@
 ```bash
 python3 -m unittest discover -s tests -v
 python3 scripts/validate_skills.py
-python3 scripts/validate_project.py examples/moon-palace-rpg --strict
+python3 scripts/validate_project.py examples/guofeng-card-rpg --strict
 ```
 
 确认：

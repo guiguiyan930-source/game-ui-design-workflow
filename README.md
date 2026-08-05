@@ -128,12 +128,14 @@ examples/
 完整的安装、显式调用、分阶段确认、页面批准和组件拆解示例见
 [游戏 UI 技能调用指南](docs/SKILL_USAGE.zh-CN.md)。
 
-完整交付示例见 [月宫列传：从首页原型到组件拆解](examples/moon-palace-rpg/README.md)。
+完整交付示例见 [云阙列传：国风卡牌 RPG 完整交付](examples/guofeng-card-rpg/README.md)。
 
 Factory v2 资产生产示例见 [欧美卡通生存商店：Token、语义切图、Atlas 与引擎 JSON](examples/factory-v2-shop/README.md)。
 
 更多分阶段示例见 [示例索引](examples/README.md)：
 
+- [云阙列传（主案例）](examples/guofeng-card-rpg/README.md)
+- [月宫列传](examples/moon-palace-rpg/README.md)
 - [UI 风格切换](examples/style-switch/README.md)
 - [UI 页面延展](examples/screen-extension/README.md)
 - [UI 组件包拆解](examples/component-pack/README.md)
@@ -145,8 +147,8 @@ Factory v2 资产生产示例见 [欧美卡通生存商店：Token、语义切�
 ## 快速开始
 
 ```bash
-python3 scripts/init_project.py moon-palace-rpg
-python3 scripts/validate_project.py specs/moon-palace-rpg
+python3 scripts/init_project.py guofeng-card-rpg
+python3 scripts/validate_project.py examples/guofeng-card-rpg
 ```
 
 然后在 Cursor 中提出：
@@ -193,6 +195,7 @@ spec.md
 ```bash
 python3 -m unittest discover -s tests -v
 python3 scripts/validate_skills.py
+python3 scripts/validate_project.py examples/guofeng-card-rpg --strict
 python3 scripts/validate_project.py examples/moon-palace-rpg --strict
 python3 scripts/validate_project.py examples/factory-v2-shop --strict
 ```

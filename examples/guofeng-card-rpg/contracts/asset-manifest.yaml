@@ -1,0 +1,116 @@
+schema_version: 1
+project_id: guofeng-card-rpg
+assets:
+- id: page-home-v1
+  kind: page
+  screen_id: home
+  component_id: null
+  status: approved
+  path: assets/pages/home-v1.png
+  prompt_path: prompts/pages/home.md
+  dimensions:
+  - 1024
+  - 1536
+  transparent_background: false
+  approved: true
+  source_asset: null
+  notes: Approved baseline. Generator returned 2:3; production pass should regenerate
+    or crop to 9:16.
+- id: page-gacha-v1
+  kind: page
+  screen_id: gacha
+  component_id: null
+  status: generated
+  path: assets/pages/gacha-v1.png
+  prompt_path: prompts/pages/gacha.md
+  dimensions:
+  - 1024
+  - 1536
+  transparent_background: false
+  approved: false
+  source_asset: page-home-v1
+  notes: Batch-1 exploration visual inheriting home style.
+- id: page-shop-v1
+  kind: page
+  screen_id: shop
+  component_id: null
+  status: generated
+  path: assets/pages/shop-v1.png
+  prompt_path: prompts/pages/shop.md
+  dimensions:
+  - 1024
+  - 1536
+  transparent_background: false
+  approved: false
+  source_asset: page-home-v1
+  notes: Batch-1 exploration visual inheriting home style.
+- id: sprite-sheet-home-ui-v1
+  kind: sprite-sheet
+  screen_id: home
+  component_id: null
+  status: approved
+  path: assets/sprites/home-ui-sheet.png
+  prompt_path: prompts/components/home-ui-sheet.md
+  dimensions:
+  - 1536
+  - 1024
+  transparent_background: true
+  approved: true
+  source_asset: page-home-v1
+  notes: Text-free intermediate sheet for semantic extraction.
+- id: package-home-ui-v1
+  kind: package
+  screen_id: home
+  component_id: null
+  status: approved
+  path: packages/home-ui-png.zip
+  prompt_path: null
+  dimensions: null
+  transparent_background: null
+  approved: true
+  source_asset: sprite-sheet-home-ui-v1
+  notes: Nine transparent semantic PNG files plus sprite-manifest.yaml.
+- id: page-formation-v1
+  kind: page
+  screen_id: formation
+  component_id: null
+  status: approved
+  path: assets/pages/formation-v1.png
+  prompt_path: prompts/pages/formation.md
+  dimensions:
+  - 1024
+  - 1536
+  transparent_background: false
+  approved: true
+  source_asset: page-home-v1
+  notes: Approved. Style matches home baseline; bottom nav has six entries vs home
+    five — non-blocking, align in next polish pass.
+- id: page-bag-v1
+  kind: page
+  screen_id: bag
+  component_id: null
+  status: approved
+  path: assets/pages/bag-v1.png
+  prompt_path: prompts/pages/bag.md
+  dimensions:
+  - 1024
+  - 1536
+  transparent_background: false
+  approved: true
+  source_asset: page-home-v1
+  notes: Approved. Scroll detail panel and item grid inherit deep-blue gilded language.
+- id: page-battle-v1
+  kind: page
+  screen_id: battle
+  component_id: null
+  status: approved
+  path: assets/pages/battle-v1.png
+  prompt_path: prompts/pages/battle.md
+  dimensions:
+  - 1024
+  - 1536
+  transparent_background: false
+  approved: true
+  source_asset: page-home-v1
+  notes: Approved. Enemy red accents used as combat warning contrast; HUD remains
+    readable.

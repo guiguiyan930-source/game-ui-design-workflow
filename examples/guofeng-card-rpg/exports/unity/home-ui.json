@@ -1,0 +1,193 @@
+{
+  "schema_version": 1,
+  "engine": "unity",
+  "atlas_id": "home-ui",
+  "atlas_size": [
+    2048,
+    1024
+  ],
+  "texture": "assets/atlases/home-ui.png",
+  "spriteMode": "Multiple",
+  "sprites": [
+    {
+      "name": "nav-home-default",
+      "rect": [
+        2,
+        2,
+        322,
+        319
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "pixelsPerUnit": 100
+    },
+    {
+      "name": "nav-formation-default",
+      "rect": [
+        326,
+        2,
+        316,
+        318
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "pixelsPerUnit": 100
+    },
+    {
+      "name": "nav-gacha-default",
+      "rect": [
+        644,
+        2,
+        316,
+        318
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "pixelsPerUnit": 100
+    },
+    {
+      "name": "currency-coin-default",
+      "rect": [
+        962,
+        2,
+        256,
+        270
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "pixelsPerUnit": 100
+    },
+    {
+      "name": "currency-jade-default",
+      "rect": [
+        1220,
+        2,
+        240,
+        250
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "pixelsPerUnit": 100
+    },
+    {
+      "name": "primary-button-normal",
+      "rect": [
+        1462,
+        2,
+        460,
+        234
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border": [
+        48,
+        48,
+        36,
+        36
+      ],
+      "pixelsPerUnit": 100
+    },
+    {
+      "name": "primary-button-pressed",
+      "rect": [
+        2,
+        323,
+        445,
+        232
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border": [
+        48,
+        48,
+        36,
+        36
+      ],
+      "pixelsPerUnit": 100
+    },
+    {
+      "name": "currency-stamina-default",
+      "rect": [
+        449,
+        323,
+        315,
+        231
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "pixelsPerUnit": 100
+    },
+    {
+      "name": "primary-button-disabled",
+      "rect": [
+        766,
+        323,
+        438,
+        230
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "border": [
+        48,
+        48,
+        36,
+        36
+      ],
+      "pixelsPerUnit": 100
+    }
+  ]
+}

@@ -31,7 +31,10 @@ jobs:
       - name: Validate skills
         run: python scripts/validate_skills.py
 
-      - name: Validate complete example
+      - name: Validate guofeng complete example
+        run: python scripts/validate_project.py examples/guofeng-card-rpg --strict
+
+      - name: Validate moon-palace example
         run: python scripts/validate_project.py examples/moon-palace-rpg --strict
 
       - name: Validate Factory v2 example

@@ -1,0 +1,210 @@
+schema_version: 1
+source_sheet: home-ui-sheet.png
+detected_mode: alpha
+sampled_background: null
+settings:
+  alpha_threshold: 8
+  background_tolerance: 24
+  connect_gap: 2
+  min_area: 400
+  padding: 6
+item_count: 9
+items:
+- id: primary-button-normal
+  path: primary-button-normal.png
+  bbox:
+  - 71
+  - 52
+  - 460
+  - 234
+  dimensions:
+  - 460
+  - 234
+  transparent_background: true
+  semantic_name: primary-button-normal
+  component_id: primary-button
+  category: button
+  state: normal
+  slice:
+    type: 9-slice
+    margins:
+    - 48
+    - 48
+    - 36
+    - 36
+- id: primary-button-pressed
+  path: primary-button-pressed.png
+  bbox:
+  - 562
+  - 56
+  - 445
+  - 232
+  dimensions:
+  - 445
+  - 232
+  transparent_background: true
+  semantic_name: primary-button-pressed
+  component_id: primary-button
+  category: button
+  state: pressed
+  slice:
+    type: 9-slice
+    margins:
+    - 48
+    - 48
+    - 36
+    - 36
+- id: primary-button-disabled
+  path: primary-button-disabled.png
+  bbox:
+  - 1035
+  - 56
+  - 438
+  - 230
+  dimensions:
+  - 438
+  - 230
+  transparent_background: true
+  semantic_name: primary-button-disabled
+  component_id: primary-button
+  category: button
+  state: disabled
+  slice:
+    type: 9-slice
+    margins:
+    - 48
+    - 48
+    - 36
+    - 36
+- id: nav-home-default
+  path: nav-home-default.png
+  bbox:
+  - 149
+  - 324
+  - 322
+  - 319
+  dimensions:
+  - 322
+  - 319
+  transparent_background: true
+  semantic_name: nav-home-default
+  component_id: nav-icon
+  category: icon
+  state: home
+  slice:
+    type: '1:1'
+    margins:
+    - 0
+    - 0
+    - 0
+    - 0
+- id: nav-formation-default
+  path: nav-formation-default.png
+  bbox:
+  - 613
+  - 325
+  - 316
+  - 318
+  dimensions:
+  - 316
+  - 318
+  transparent_background: true
+  semantic_name: nav-formation-default
+  component_id: nav-icon
+  category: icon
+  state: formation
+  slice:
+    type: '1:1'
+    margins:
+    - 0
+    - 0
+    - 0
+    - 0
+- id: nav-gacha-default
+  path: nav-gacha-default.png
+  bbox:
+  - 1061
+  - 325
+  - 316
+  - 318
+  dimensions:
+  - 316
+  - 318
+  transparent_background: true
+  semantic_name: nav-gacha-default
+  component_id: nav-icon
+  category: icon
+  state: gacha
+  slice:
+    type: '1:1'
+    margins:
+    - 0
+    - 0
+    - 0
+    - 0
+- id: currency-coin-default
+  path: currency-coin-default.png
+  bbox:
+  - 185
+  - 676
+  - 256
+  - 270
+  dimensions:
+  - 256
+  - 270
+  transparent_background: true
+  semantic_name: currency-coin-default
+  component_id: currency-icon
+  category: currency
+  state: coin
+  slice:
+    type: '1:1'
+    margins:
+    - 0
+    - 0
+    - 0
+    - 0
+- id: currency-jade-default
+  path: currency-jade-default.png
+  bbox:
+  - 1096
+  - 686
+  - 240
+  - 250
+  dimensions:
+  - 240
+  - 250
+  transparent_background: true
+  semantic_name: currency-jade-default
+  component_id: currency-icon
+  category: currency
+  state: jade
+  slice:
+    type: '1:1'
+    margins:
+    - 0
+    - 0
+    - 0
+    - 0
+- id: currency-stamina-default
+  path: currency-stamina-default.png
+  bbox:
+  - 614
+  - 705
+  - 315
+  - 231
+  dimensions:
+  - 315
+  - 231
+  transparent_background: true
+  semantic_name: currency-stamina-default
+  component_id: currency-icon
+  category: currency
+  state: stamina
+  slice:
+    type: '1:1'
+    margins:
+    - 0
+    - 0
+    - 0
+    - 0

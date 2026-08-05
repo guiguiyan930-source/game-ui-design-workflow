@@ -14,6 +14,7 @@
 
 - [ ] `python -m unittest discover -s tests -v`
 - [ ] `python scripts/validate_skills.py`
+- [ ] `python scripts/validate_project.py examples/guofeng-card-rpg --strict`
 - [ ] `python scripts/validate_project.py examples/moon-palace-rpg --strict`
 
 ## 视觉与来源

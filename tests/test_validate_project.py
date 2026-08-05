@@ -29,6 +29,12 @@ class ValidateProjectTests(unittest.TestCase):
         self.assertEqual(report.errors, [])
         self.assertEqual(report.warnings, [])
 
+    def test_guofeng_example_passes_strict_validation(self) -> None:
+        report = validate(ROOT / "examples" / "guofeng-card-rpg", strict=True)
+
+        self.assertEqual(report.errors, [])
+        self.assertEqual(report.warnings, [])
+
     def test_factory_v2_example_passes_strict_validation(self) -> None:
         report = validate(ROOT / "examples" / "factory-v2-shop", strict=True)
 

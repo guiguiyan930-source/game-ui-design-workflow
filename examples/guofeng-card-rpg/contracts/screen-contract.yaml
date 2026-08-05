@@ -1,0 +1,270 @@
+schema_version: 1
+project_id: guofeng-card-rpg
+screens:
+- id: home
+  name: 主城
+  category: core
+  priority: must-have
+  status: approved
+  purpose: 玩家进入游戏后的枢纽，展示角色、资源和下一步去向。
+  entry_points:
+  - login
+  - settlement-return
+  primary_actions:
+  - enter-gacha
+  - enter-formation
+  - enter-shop
+  - enter-bag
+  dependencies:
+  - wallet
+  - player-profile
+  layout:
+    top:
+    - avatar
+    - level
+    - currency-bar
+    - mail
+    - settings
+    center:
+    - hero-stage
+    - featured-event-banner
+    - quick-entries
+    bottom:
+    - nav-home
+    - nav-formation
+    - nav-gacha
+    - nav-bag
+    - nav-shop
+    floating:
+    - mail-reddot
+  components:
+  - home-background
+  - primary-button
+  - nav-icon
+  - currency-icon
+  states:
+  - default
+  - loading
+  - offline
+  edge_cases:
+  - empty-mail
+  - low-currency
+  data_needs:
+  - wallet
+  - player-level
+  - featured-event
+  output:
+    brief: prompts/pages/home.md
+    prompt: prompts/pages/home.md
+    image: assets/pages/home-v1.png
+- id: formation
+  name: 编队
+  category: core
+  priority: must-have
+  status: approved
+  purpose: 配置前排后排阵位并确认出战战力。
+  entry_points:
+  - home-nav
+  - battle-entry
+  primary_actions:
+  - assign-slot
+  - save-formation
+  - recommend
+  dependencies:
+  - owned-cards
+  - battle-power
+  layout:
+    top:
+    - title
+    - total-power
+    center:
+    - front-row
+    - back-row
+    - candidate-list
+    bottom:
+    - save
+    - recommend
+    floating: []
+  components:
+  - card-frame
+  - primary-button
+  states:
+  - default
+  - incomplete
+  edge_cases:
+  - missing-frontline
+  data_needs:
+  - roster
+  - slots
+  - synergies
+  output:
+    brief: prompts/pages/formation.md
+    prompt: prompts/pages/formation.md
+    image: assets/pages/formation-v1.png
+- id: gacha
+  name: 抽卡
+  category: economy
+  priority: must-have
+  status: generated
+  purpose: 展示卡池与单抽/十连入口。
+  entry_points:
+  - home-nav
+  primary_actions:
+  - single-pull
+  - ten-pull
+  - preview
+  dependencies:
+  - wallet
+  - pool-config
+  layout:
+    top:
+    - pool-title
+    - currency-bar
+    center:
+    - pool-stage
+    - rate-info
+    bottom:
+    - single
+    - ten
+    floating: []
+  components:
+  - primary-button
+  - currency-icon
+  states:
+  - default
+  - insufficient-currency
+  edge_cases:
+  - pity-near
+  data_needs:
+  - pool
+  - pity
+  - wallet
+  output:
+    brief: prompts/pages/gacha.md
+    prompt: prompts/pages/gacha.md
+    image: assets/pages/gacha-v1.png
+- id: shop
+  name: 商店
+  category: economy
+  priority: must-have
+  status: generated
+  purpose: 浏览分类商品并购买养成材料。
+  entry_points:
+  - home-nav
+  primary_actions:
+  - switch-category
+  - purchase
+  dependencies:
+  - wallet
+  - stock
+  layout:
+    top:
+    - title
+    - currency-bar
+    center:
+    - category-tabs
+    - product-grid
+    bottom:
+    - refresh
+    floating:
+    - sale-badge
+  components:
+  - product-card
+  - primary-button
+  - currency-icon
+  states:
+  - default
+  - sold-out
+  edge_cases:
+  - empty-category
+  data_needs:
+  - categories
+  - products
+  - wallet
+  output:
+    brief: prompts/pages/shop.md
+    prompt: prompts/pages/shop.md
+    image: assets/pages/shop-v1.png
+- id: bag
+  name: 背包
+  category: core
+  priority: must-have
+  status: approved
+  purpose: 管理道具材料并查看详情。
+  entry_points:
+  - home-nav
+  primary_actions:
+  - filter-tab
+  - use-item
+  - sell-item
+  dependencies:
+  - inventory
+  layout:
+    top:
+    - title
+    - tabs
+    center:
+    - item-grid
+    - detail-panel
+    bottom:
+    - use
+    - sell
+    floating: []
+  components:
+  - item-slot
+  - primary-button
+  states:
+  - default
+  - empty
+  edge_cases:
+  - full-inventory
+  data_needs:
+  - items
+  - filters
+  output:
+    brief: prompts/pages/bag.md
+    prompt: prompts/pages/bag.md
+    image: assets/pages/bag-v1.png
+- id: battle
+  name: 战斗 HUD
+  category: core
+  priority: must-have
+  status: approved
+  purpose: 展示回合对战中的站位、血条与技能栏。
+  entry_points:
+  - formation
+  primary_actions:
+  - cast-skill
+  - auto
+  - speed
+  dependencies:
+  - formation
+  - skills
+  layout:
+    top:
+    - wave
+    - power
+    center:
+    - battlefield
+    bottom:
+    - skill-bar
+    - auto
+    - speed
+    floating:
+    - damage-numbers
+  components:
+  - skill-button
+  - hp-bar
+  states:
+  - default
+  - auto
+  edge_cases:
+  - all-skills-cd
+  data_needs:
+  - units
+  - skills
+  - turn
+  output:
+    brief: prompts/pages/battle.md
+    prompt: prompts/pages/battle.md
+    image: assets/pages/battle-v1.png

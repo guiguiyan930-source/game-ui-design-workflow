@@ -1,0 +1,22 @@
+schema_version: 1
+project_id: guofeng-card-rpg
+status: approved
+source_atlas_id: home-ui
+targets:
+- engine: godot
+  format: json-manifest
+  manifest_path: exports/godot/home-ui.json
+  native_project_files: false
+- engine: unity
+  format: json-manifest
+  manifest_path: exports/unity/home-ui.json
+  native_project_files: false
+- engine: cocos
+  format: json-manifest
+  manifest_path: exports/cocos/home-ui.json
+  native_project_files: false
+review:
+  complete: true
+  notes:
+  - JSON manifests are deterministic handoff files, not native engine imports.
+  - Godot, Unity, and Cocos manifests reference the same reviewed atlas regions.

@@ -6,6 +6,7 @@
 
 ### Added
 
+- 主案例「云阙列传」：`examples/guofeng-card-rpg`，含生成第 1 步、六页国风 UI、Atlas 与三引擎 JSON；文档主推入口由月宫列传切换至此。
 - 独立技能 `game-ui-product-design`：作为**生成第 1 步**撰写并门禁游戏策划方案、PRD、UI 交互逻辑。
 - 生图前门禁文档：`gdd.md`、`prd.md`、`interaction.md`。
 - 总控工作流生成链路以 Product Design 为第 1 步，路由到 `game-ui-product-design`。
