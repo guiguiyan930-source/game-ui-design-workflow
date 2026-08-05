@@ -21,18 +21,19 @@ description: Orchestrates an end-to-end game UI workflow from game design (GDD),
 - 完整项目或多阶段交付 → 按本工作流依次编排
 
 用户明确要求单阶段时，不强迫执行完整流程；但要读取已有契约。
-生图前若 `gdd.md` / `prd.md` / `interaction.md` 缺失或仍为 draft，先调用 `game-ui-product-design`。
+生图前若 `gdd.md` / `prd.md` / `interaction.md` 缺失或仍为 draft，必须先执行生成第一步：`game-ui-product-design`。
+
 ## 分步操作指引
 
-当用户按“策划与 PRD → 原型生成视觉 → UI 风格切换 → UI 延展 → UI 组件拆解 → 雪碧图拆分打包 → Atlas 与引擎交付”工作时，使用以下检查点：
+当用户按完整生成链路工作时，**第一步必须是策划与 PRD**，使用以下检查点：
 
-0. 策划与 PRD：调用 `game-ui-product-design`，完成并批准 `gdd.md`、`prd.md`、`interaction.md`；未批准前不批量生图。
-1. 原型生成视觉：用一个基准页面验证构图和信息层级，保存为未批准版本。
-2. UI 风格切换：保持页面结构不变生成风格候选；用户选定后再批准样式契约和基准页。
-3. UI 延展：先输出屏幕地图并等待范围确认，再按批次逐页生成。
-4. UI 组件拆解：只拆已批准页面，每个组件和状态单独交付。
-5. 雪碧图拆分打包：把组件合图切成单元素透明 PNG，生成 manifest 和 ZIP。
-6. Atlas 与引擎交付：语义命名、确认 9-slice、打包 Atlas 并生成引擎 JSON。
+1. **策划与 PRD（生成第一步）**：调用 `game-ui-product-design`，完成并批准 `gdd.md`、`prd.md`、`interaction.md`；未批准前不得进入后续生图步骤。
+2. 原型生成视觉：用一个基准页面验证构图和信息层级，保存为未批准版本。
+3. UI 风格切换：保持页面结构不变生成风格候选；用户选定后再批准样式契约和基准页。
+4. UI 延展：先输出屏幕地图并等待范围确认，再按批次逐页生成。
+5. UI 组件拆解：只拆已批准页面，每个组件和状态单独交付。
+6. 雪碧图拆分打包：把组件合图切成单元素透明 PNG，生成 manifest 和 ZIP。
+7. Atlas 与引擎交付：语义命名、确认 9-slice、打包 Atlas 并生成引擎 JSON。
 
 每一步开始时简要说明：
 
@@ -78,9 +79,24 @@ description: Orchestrates an end-to-end game UI workflow from game design (GDD),
 
 ## 阶段顺序
 
-### 1. Specify
+完整项目启动时，**生成链路从 Product Design 开始**（第一步）。`spec.md` / `research.md` 可在同一步由产品设计回填最小集，或紧随其后补全。
 
-补全 `spec.md`：
+### 1. Product Design（生成第一步）
+
+调用 `game-ui-product-design`：
+
+1. 写入 `gdd.md`：游戏定位、核心循环、系统清单、经济与养成（策划层，不含服务端公式）
+2. 写入 `prd.md`：P0/P1 需求、信息架构、页面交付范围、验收标准
+3. 写入 `interaction.md`：全局导航、分页面主流程、控件行为、状态机、跨页链路
+4. 若 `spec.md` 仍空，同步写入项目定位、平台、比例与范围摘要
+
+三份文档的 `文档状态.status` 均为 `approved` 后，才允许进入原型生图与后续步骤。用户明确跳过时，在 `quickstart.md` 记录跳过原因。
+
+门禁：不得用空模板或仅改标题冒充已批准策划文档；本阶段结束后必须停止等待批准。
+
+### 2. Specify
+
+补全 `spec.md`（若第一步未写全）：
 
 - 项目定位、核心玩法、目标平台、画面比例和语言
 - 用户故事、范围、首个页面和交付物
@@ -88,7 +104,7 @@ description: Orchestrates an end-to-end game UI workflow from game design (GDD),
 
 门禁：存在阻断性未决事项时不得冻结契约。
 
-### 2. Research
+### 3. Research
 
 把参考图抽象成可复用语言，不复制受保护角色、商标或完整构图：
 
@@ -96,17 +112,6 @@ description: Orchestrates an end-to-end game UI workflow from game design (GDD),
 - 导航、卡片、按钮、图标和反馈模式
 - 玩家旅程、核心循环、平台限制与风险
 
-### 3. Product Design（生图前门禁）
-
-调用 `game-ui-product-design`：
-
-1. 写入 `gdd.md`：游戏定位、核心循环、系统清单、经济与养成（策划层，不含服务端公式）
-2. 写入 `prd.md`：P0/P1 需求、信息架构、页面交付范围、验收标准
-3. 写入 `interaction.md`：全局导航、分页面主流程、控件行为、状态机、跨页链路
-
-三份文档的 `文档状态.status` 均为 `approved` 后，才允许调用页面生图。用户明确跳过时，在 `quickstart.md` 记录跳过原因。
-
-门禁：不得用空模板或仅改标题冒充已批准策划文档；本阶段结束后必须停止等待批准。
 ### 4. Specification
 
 调用 `game-ui-specification`，写入 `contracts/style-contract.yaml`。将状态从 `draft` 改为 `approved` 前，确认色彩、文字、几何、效果和一致性规则均可执行。
@@ -126,7 +131,7 @@ description: Orchestrates an end-to-end game UI workflow from game design (GDD),
 
 调用 `game-ui-page-generator`，一次处理一个页面：
 
-1. 确认策划三文档已批准（或已记录跳过）。
+1. 确认生成第一步（策划三文档）已批准（或已记录跳过）。
 2. 读取样式、页面契约与 `interaction.md` 中该页主流程/状态。
 3. 保存页面说明与最终提示词到 `prompts/pages/<screen-id>.md`。
 4. 图片工具可用时实际生成图片，保存到 `assets/pages/<screen-id>.<ext>`。

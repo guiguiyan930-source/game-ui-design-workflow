@@ -17,7 +17,7 @@ description: Designs and generates one complete game UI page at a time using an 
 - 目标页面在 `contracts/screen-contract.yaml` 中的条目
 - 已批准的基准页面及 `asset-manifest.yaml`
 
-若策划三文档缺失或仍为 `draft` 且用户未明确跳过，停止生图，改调 `game-ui-product-design`。
+若策划三文档缺失或仍为 `draft` 且用户未明确跳过，停止生图，改调生成第一步 `game-ui-product-design`。
 若样式契约仍为 `draft`，可以生成探索稿，但资源不得标记为已批准。
 
 ## 页面步骤

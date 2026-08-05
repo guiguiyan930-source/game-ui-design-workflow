@@ -7,9 +7,9 @@ description: >-
   planning before generating UI visuals / 生图前先做策划.
 ---
 
-# 游戏策划 · PRD · UI 交互（生图前门禁）
+# 游戏策划 · PRD · UI 交互（生成第一步）
 
-在调用页面生图之前，先产出并请用户批准三份文档。没有批准（且用户未明确跳过）时，不得开始批量页面视觉生成。
+**本技能是完整 UI 生成流程的第一步。** 在调用页面生图、风格切换或批量延展之前，必须先完成本步并请用户批准三份文档。没有批准（且用户未明确跳过）时，不得开始后续视觉生成。
 
 ## 输出文件
 
@@ -25,6 +25,7 @@ description: >-
 
 ## 何时使用
 
+- 任何完整生成流程的**第一步**（默认入口）
 - 新建 UI 项目、只有概念尚无视觉
 - 用户要求「生成之前加策划 / PRD / 交互」
 - 延展或生图前发现三文档缺失、`draft` 或内容空洞
@@ -109,7 +110,7 @@ python3 scripts/init_project.py <project-id>
 完成后输出：
 
 ```text
-当前步骤：策划与 PRD / 交互逻辑
+当前步骤：第 1 步 · 策划与 PRD / 交互逻辑（生成第一步）
 完成状态：draft，等待批准
 本步产物：gdd.md、prd.md、interaction.md
 需要你检查：定位与循环、P0 范围、分页面主流程与状态
@@ -117,7 +118,7 @@ python3 scripts/init_project.py <project-id>
 进入下一步的条件：三文档 status 均为 approved，或 quickstart.md 记录跳过原因
 可直接复制的下一步调用文本：
 批准 @specs/<project-id>/gdd.md、prd.md、interaction.md。
-批准后使用 game-ui-specification 冻结样式契约，再延展屏幕。
+批准后进入第 2 步：使用 game-ui-workflow 生成基准页原型视觉。
 ```
 
 **禁止**在用户批准前调用 `game-ui-page-generator` 做正式生图。  
@@ -135,14 +136,12 @@ python3 scripts/init_project.py <project-id>
 ## 与其他技能的关系
 
 ```text
-game-ui-product-design
-  → game-ui-specification
-  → game-ui-extension
-  → game-ui-page-generator   # 要求策划三文档 approved
-  → …
+第 1 步  game-ui-product-design     ← 生成第一步（必须先做）
+第 2 步+ game-ui-specification / 原型生图 / extension / …
+         game-ui-page-generator     # 要求第 1 步三文档 approved
 ```
 
-总控 `game-ui-workflow` 的 Product Design 阶段必须调用本技能，而不是只在对话里口头描述需求。
+总控 `game-ui-workflow` 启动完整生成时，**必须先调用本技能作为第 1 步**，不得跳过直接生图。
 
 ## 完成定义
 

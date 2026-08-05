@@ -6,9 +6,9 @@
 
 ### Added
 
-- 独立技能 `game-ui-product-design`：生图前撰写并门禁游戏策划方案、PRD、UI 交互逻辑。
+- 独立技能 `game-ui-product-design`：作为**生成第 1 步**撰写并门禁游戏策划方案、PRD、UI 交互逻辑。
 - 生图前门禁文档：`gdd.md`、`prd.md`、`interaction.md`。
-- 总控工作流新增 Product Design 阶段，路由到 `game-ui-product-design`。
+- 总控工作流生成链路以 Product Design 为第 1 步，路由到 `game-ui-product-design`。
 - 校验脚本要求策划文档存在；已有视觉资产但策划仍为 `draft` 时在 `--strict` 下失败。
 
 ## [0.3.1] - 2026-08-05

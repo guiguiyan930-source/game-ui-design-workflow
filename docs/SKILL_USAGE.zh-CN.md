@@ -5,7 +5,7 @@
 ## 1. 技能清单
 
 - `game-ui-workflow`：总控技能。适合从策划/PRD/交互、规范、页面延展一直做到视觉稿和组件交付。
-- `game-ui-product-design`：生图前撰写并门禁 `gdd.md`、`prd.md`、`interaction.md`。
+- `game-ui-product-design`：**生成第 1 步**，撰写并门禁 `gdd.md`、`prd.md`、`interaction.md`。
 - `game-ui-specification`：生成或维护 UI 规范与 `style-contract.yaml`。
 - `game-ui-extension`：扩展玩家旅程、页面地图与 `screen-contract.yaml`。
 - `game-ui-page-generator`：一次生成一个完整页面的方案、提示词和视觉稿（要求策划三文档已批准）。
@@ -105,26 +105,30 @@ specs/moon-palace-rpg/
 
 信息不足时，技能会使用可调整的默认值；题材、平台、比例或交付范围不明确时会先询问。
 
-## 5. 操作指引（含策划门禁）
+## 5. 操作指引（第 1 步起）
 
-推荐按“策划与 PRD → 原型生成视觉 → UI 风格切换 → UI 延展 → UI 组件拆解 → 雪碧图拆分打包 → Atlas 与引擎交付”推进。每一步都包含开始条件、调用文本、检查点和下一步。
+推荐按「第 1 步策划与 PRD → 原型 → 风格 → 延展 → 拆解 → 雪碧图 → Atlas」推进。完整生成时**必须从第 1 步开始**。
 
-### 5.0 策划与 PRD（生图前必做）
+### 第一步：策划与 PRD（生成第一步，必做）
 
 ```text
-使用 game-ui-product-design，读取 @specs/<project-id>。
+使用 game-ui-workflow，当前执行第 1 步“策划与 PRD”。
+或：使用 game-ui-product-design，读取 @specs/<project-id>。
 完成 gdd.md、prd.md、interaction.md，完成后停止等我批准。
 未批准前不要生成页面视觉。
 ```
 
 检查：三文档 `status: approved`；核心循环、P0 需求与分页面状态机齐全。
 
-### 第一步：原型生成视觉
+进入下一步的条件：三文档已批准，或 `quickstart.md` 已记录跳过原因。
+
+### 第二步：原型生成视觉
 
 目标：先用一个基准页面验证题材、构图和信息层级，不急于生成整套页面。
 
 开始前确认：
 
+- 第 1 步策划三文档已批准（或已记录跳过）
 - 已创建 `specs/<project-id>/`
 - 已明确游戏类型、平台、比例和首个页面
 - 有参考图时使用 `@图片路径` 引用
@@ -133,10 +137,11 @@ specs/moon-palace-rpg/
 调用：
 
 ```text
-使用 game-ui-workflow，当前执行第 1 步“原型生成视觉”。
+使用 game-ui-workflow，当前执行第 2 步“原型生成视觉”。
 项目目录是 @specs/moon-palace-rpg。
 
-先读取 spec.md、research.md 和 contracts。
+先确认 gdd.md / prd.md / interaction.md 已批准。
+再读取 spec.md、research.md 和 contracts。
 为 screen-id=home 生成一张基准原型视觉：
 1. 补全最小可用的视觉约束；
 2. 输出页面定位、布局、组件清单、正向提示词和反向限制；
@@ -174,7 +179,7 @@ specs/moon-palace-rpg/
 
 进入下一步的条件：原型构图和功能层级基本成立；页面仍可保持未批准状态。
 
-### 第二步：UI 风格切换
+### 第三步：UI 风格切换
 
 目标：在相同页面结构下比较不同视觉方向，选定后冻结为全项目风格。
 
@@ -183,7 +188,7 @@ specs/moon-palace-rpg/
 调用：
 
 ```text
-使用 game-ui-workflow，当前执行第 2 步“UI 风格切换”。
+使用 game-ui-workflow，当前执行第 3 步“UI 风格切换”。
 读取 @specs/moon-palace-rpg 和现有 home-v1。
 
 保持首页的信息结构、主操作和组件位置不变，
@@ -205,7 +210,7 @@ specs/moon-palace-rpg/
 将对应 style-contract.yaml 设为 approved，
 将 home-v2 标记为 approved，home-v1 保留为历史方案；
 同步更新 research.md、screen-contract.yaml 和 asset-manifest.yaml。
-完成后给出第 3 步“UI 延展”的建议页面列表和调用文本。
+完成后给出第 4 步“UI 延展”的建议页面列表和调用文本。
 ```
 
 本步检查：
@@ -217,14 +222,14 @@ specs/moon-palace-rpg/
 
 进入下一步的条件：`style-contract.yaml` 已批准，至少一个基准页面已批准。
 
-### 第三步：UI 延展
+### 第四步：UI 延展
 
 目标：以批准的风格和基准页扩展页面系统，再逐页生成视觉。
 
 先做屏幕地图，不要立即批量生图：
 
 ```text
-使用 game-ui-workflow，当前执行第 3 步“UI 延展”。
+使用 game-ui-workflow，当前执行第 4 步“UI 延展”。
 读取 @specs/moon-palace-rpg、已批准的 style-contract 和 home 基准页。
 
 先调用 game-ui-extension：
@@ -263,7 +268,7 @@ specs/moon-palace-rpg/
 
 进入下一步的条件：需要拆解的源页面已标记 `approved: true`。
 
-### 第四步：UI 组件拆解
+### 第五步：UI 组件拆解
 
 目标：把批准页面拆成可复用、可合成、可开发交付的独立素材。
 
@@ -276,7 +281,7 @@ specs/moon-palace-rpg/
 调用：
 
 ```text
-使用 game-ui-workflow，当前执行第 4 步“UI 组件拆解”。
+使用 game-ui-workflow，当前执行第 5 步“UI 组件拆解”。
 源页面为已批准的 screen-id=home。
 
 调用 game-ui-component-breakdown，拆解：
@@ -309,14 +314,14 @@ specs/moon-palace-rpg/
 
 进入下一步的条件：组件雪碧图已经生成并登记，背景透明或颜色基本统一。
 
-### 第五步：雪碧图拆分与 PNG 打包
+### 第六步：雪碧图拆分与 PNG 打包
 
 目标：把组件合图自动切成单元素透明 PNG，生成坐标清单并打包 ZIP。
 
 调用：
 
 ```text
-使用 game-ui-workflow，当前执行第 5 步“雪碧图拆分与 PNG 打包”。
+使用 game-ui-workflow，当前执行第 6 步“雪碧图拆分与 PNG 打包”。
 输入雪碧图是 @specs/moon-palace-rpg/assets/sprites/home-components.png。
 
 调用 game-ui-sprite-sheet-splitter：
@@ -361,7 +366,7 @@ python3 scripts/split_sprite_sheet.py \
 - ZIP 可解压并包含所有 PNG 和 manifest
 - 原始雪碧图、拆分目录和压缩包均可追踪
 
-### 第六步：9-slice、Atlas 与引擎交付
+### 第七步：9-slice、Atlas 与引擎交付
 
 目标：把语义 PNG 转成开发可读取的 Atlas 和引擎 JSON。
 
@@ -648,7 +653,8 @@ python3 scripts/validate_project.py specs/moon-palace-rpg --strict
 新项目：
 
 ```text
-game-ui-workflow
+game-ui-workflow（从第 1 步开始）
+→ game-ui-product-design          # 第 1 步：GDD / PRD / 交互（批准后再继续）
 → game-ui-specification
 → game-ui-extension
 → game-ui-page-generator
@@ -662,7 +668,8 @@ game-ui-workflow
 已有规范、只做单页：
 
 ```text
-game-ui-page-generator
+确认第 1 步策划三文档已批准
+→ game-ui-page-generator
 → 页面批准
 → game-ui-component-breakdown（可选）
 → game-ui-sprite-sheet-splitter（组件合图时可选）
@@ -673,6 +680,7 @@ game-ui-page-generator
 
 ```text
 game-ui-workflow
+→ game-ui-product-design          # 仍为第 1 步
 → 参考图研究
 → game-ui-specification
 → game-ui-extension

@@ -8,14 +8,14 @@
 
 ## 阶段
 
-0. 策划：批准 `gdd.md` / `prd.md` / `interaction.md`（已完成）
-1. 规范：完成 `style-contract.yaml`
-2. 延展：完成屏幕地图和 `screen-contract.yaml`
-3. 页面：逐页生成、审核并登记视觉稿
-4. 拆解：从已批准页面生成独立组件
-5. 雪碧图：将组件合图切成单元素 PNG 并打包
-6. 资产交付：确认语义命名和 9-slice，生成 Atlas 与引擎 JSON
-7. 验收：运行校验并补齐复现说明
+1. 策划（生成第一步）：批准 `gdd.md` / `prd.md` / `interaction.md`（已完成）
+2. 规范：完成 `style-contract.yaml`
+3. 延展：完成屏幕地图和 `screen-contract.yaml`
+4. 页面：逐页生成、审核并登记视觉稿
+5. 拆解：从已批准页面生成独立组件
+6. 雪碧图：将组件合图切成单元素 PNG 并打包
+7. 资产交付：确认语义命名和 9-slice，生成 Atlas 与引擎 JSON
+8. 验收：运行校验并补齐复现说明
 
 ## 屏幕路线
 
